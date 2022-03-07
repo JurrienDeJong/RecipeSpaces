@@ -19,10 +19,11 @@ public class RecipeService {
     }
 
     public List<Recipe> getAllIds() {
-        return repository.findAll();
+        return this.repository.findAll();
     }
 
-    public Optional<Recipe> getId(Long id) {
-        return repository.findById(id);
+    public Optional<Recipe> getId(String id) {
+        return this.repository.findById(id);
     }
+
 }

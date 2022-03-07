@@ -27,9 +27,9 @@ public class RecipeController {
 
     @GetMapping("{id}")
     @ResponseBody
-    public Recipe getRecipeByID(@PathVariable("id") Long id) throws ResponseStatusException {
-        System.out.println(id);
+    public Recipe getRecipeByID(@PathVariable("id") String id) throws ResponseStatusException {
         Optional<Recipe> rv = this.recipeService.getId(id);
+        System.out.println(rv);
         return rv.orElseThrow ( () -> new ResponseStatusException(HttpStatus.NOT_FOUND));
     }
 }
