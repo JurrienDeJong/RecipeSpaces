@@ -1,9 +1,181 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org">
+<title th:text="#{tab.title}">_offline_</title>
+
 <head>
-  <title>Welcome</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+  <style>
+
+    .navigation{
+      padding-top:30px;
+      padding-bottom:30px;
+      position:absolute;
+      top:0;
+      width:100%;
+      z-index:1;
+    }
+
+    .navbar-right{
+      float:right;
+      padding-right:10%;
+    }
+
+    .navbar-right a{
+      text-decoration:none;
+      padding:10px;
+      color: #FFFFFF;
+      font-family:Calibri;
+      font-weight:900;
+      font-size: 25px;
+    }
+
+    .navbar-right a:hover{
+      text-decoration:underline;
+    }
+    .navbar-logo{
+      padding-left:10%;
+      font-family:Calibri;
+      font-size:30px;
+      font-weight:bold;
+      text-decoration:none;
+      color:#FFFFFF;
+
+    }
+
+    .portfolio-section{
+      margin-top:50%;
+      margin-left: 10px;
+      padding-right: 10px;
+    }
+
+    .background-wrap {
+      position: absolute;
+      z-index: -1000;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      top: 0;
+      left: 0;
+    }
+
+
+    #video-bg-elem {
+      position: absolute;
+      top: 0;
+      left: 0;
+      min-height: 100%;
+      min-width: 100%;
+    }
+
+
+    .content {
+      position: absolute;
+      width: 100%;
+      min-height: 100%;
+      z-index: 1000;
+      background-color: rgba(0,0,0,0.4);
+    }
+    .content h1 {
+      text-align: center;
+      font-size: 100px;
+      text-transform: uppercase;
+      font-weight: 300;
+      color: #fff;
+      padding-top: 15%;
+      margin-bottom: 10px;
+    }
+    .content p {
+      text-align: center;
+      font-size: 50px;
+      letter-spacing: 3px;
+      color: #aaa;
+    }
+
+    body{
+      background: #f2f2f2;
+      font-family: 'Open Sans', sans-serif;
+      overflow-x: hidden;
+    }
+
+    .search {
+      width: 100%;
+      position: absolute;
+      display: flex;
+    }
+
+    .searchTerm {
+      width: 100%;
+      border: 3px solid DarkSeaGreen;
+      border-right: none;
+      padding: 5px;
+      height: 35px;
+      border-radius: 5px 0 0 5px;
+      outline: none;
+      color: black;
+    }
+
+    /*.searchTerm:focus{*/
+    /*  color: black;*/
+    /*}*/
+
+    .searchButton {
+      width: 40px;
+      height: 35px;
+      border: 1px solid DarkSeaGreen;
+      background: DarkSeaGreen;
+      text-align: center;
+      color: #fff;
+      border-radius: 0 5px 5px 0;
+      cursor: pointer;
+      font-size: 20px;
+    }
+
+    /*Resize the wrap to see the search bar change!*/
+    .wrap{
+      width: 30%;
+      position: absolute;
+      top: 51%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+  </style>
 </head>
-<body>
-<p>Welcome to our home page</p>
+<header class="header">
+  <nav class="navigation">
+    <a href="#" class="navbar-logo">Sweeties</a>
+    <div class="navbar-right">
+      <a href="#">Home</a>
+      <a href="#">Discover</a>
+      <a href="#">Recipes</a>
+      <a href="#">About Us</a>
+      <a th:href="@{/contact}">Contact</a>
+    </div>
+  </nav>
+  <div class="background-wrap">
+    <img id="video-bg-elem" th:src="@{french-food.jpg}"/>
+    <div class="content">
+      <h1>Find a Recipe</h1>
+<!--      <p>Welcome to Fiji's #1 Tourist Guide Website</p>-->
+      <div class="wrap">
+        <div class="search">
+          <input type="text" class="searchTerm" placeholder="Find here your recipe">
+          <button type="submit" class="searchButton">
+            <i class="glyphicon glyphicon-search"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+<body class="portfolio-section">
+<p>Hook 'em Horns!
+
+  Here we are, heading straight into the heart of holiday and special occasion dinner party season. And while the main courses and side dishes might vary, one thing these types of gatherings usually have in common is a basket of rich, buttery dinner rolls on the table. And with that scene in mind, there are few dinner rolls as rich and buttery as the aptly named butterhorns.
+
+  You might have grown up calling these crescent rolls, since that's what was printed on the side of the cardboard tube from the store, but I think butterhorns is way cooler of a name. The only real difference, besides the fact that these are so much better, is that crescent rolls are shaped into a crescent versus the usually straighter design of your average butterhorn. Basically, all crescent rolls are butterhorns, but not all butterhorns are crescent rolls.
+
+  This is a very simple recipe, although I did alter the kneading procedure here to make things maybe a bit easier for the novice baker. Doughs that have rested and risen are always way easier to work with, so we let this one rise first before kneading. It seemed to work out just fine, as long as you allow the dough to rise again before portioning and shaping. Give it a try, and see for yourself. Otherwise just use the classic knead-first method. Either way, I really do hope you give these a try soon. Enjoy!</p>
 </body>
 </html>
