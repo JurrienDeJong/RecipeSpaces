@@ -8,18 +8,16 @@ import java.util.List;
 
 @Data
 @Entity
-public class Recipe {
+public class Ingredient {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+
     private String id;
     private String tag_value;
 
-    public Recipe(String tag_value) {
+    public Ingredient(String tag_value) {
         this.tag_value = tag_value;
     }
-
-    @ManyToMany
-    private List<Recipe> recipes;
 
     public String getId() {
         return id;
@@ -37,7 +35,17 @@ public class Recipe {
         this.tag_value = tag_value;
     }
 
-    public Recipe() {
+    public Ingredient() {
 
     }
+
+    public List<Ingredient> getIngredients() {
+        return ingredients;
+    }
+
+    @ManyToMany
+    @JoinTable(name="recipe_ner",
+            joinColumns=@JoinColumn(name="ner_id"),
+            inverseJoinColumns=@JoinColumn(name="recipe_id"))
+    private List<Ingredient> ingredients;
 }

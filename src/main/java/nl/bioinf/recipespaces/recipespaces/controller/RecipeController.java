@@ -1,5 +1,6 @@
 package nl.bioinf.recipespaces.recipespaces.controller;
 
+import nl.bioinf.recipespaces.recipespaces.model.Ingredient;
 import nl.bioinf.recipespaces.recipespaces.model.Recipe;
 import nl.bioinf.recipespaces.recipespaces.service.RecipeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @RestController()
 @RequestMapping(path="api/v1/recipe")
@@ -32,4 +34,17 @@ public class RecipeController {
         System.out.println(rv);
         return rv.orElseThrow ( () -> new ResponseStatusException(HttpStatus.NOT_FOUND));
     }
+
+    @GetMapping("search/{recipeID}")
+    @ResponseBody
+    public List<Ingredient> getIngredients(@PathVariable("recipeID") String id) throws ResponseStatusException {
+        try{
+            return this.recipeService.getIngredientsFromRecipe(id);
+        } catch(Exception ex){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        }
+
+    }
+
+
 }
