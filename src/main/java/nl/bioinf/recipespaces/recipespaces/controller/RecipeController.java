@@ -35,11 +35,11 @@ public class RecipeController {
         return rv.orElseThrow ( () -> new ResponseStatusException(HttpStatus.NOT_FOUND));
     }
 
-    @GetMapping("search/{recipeID}")
+    @GetMapping("search/{ingTagValue}")
     @ResponseBody
-    public List<Ingredient> getIngredients(@PathVariable("recipeID") String id) throws ResponseStatusException {
+    public Set<Recipe> getRecipesFromIngredient(@PathVariable("ingTagValue") String tagValue) throws ResponseStatusException {
         try{
-            return this.recipeService.getIngredientsFromRecipe(id);
+            return this.recipeService.getRecipesFromIngredient(tagValue);
         } catch(Exception ex){
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
