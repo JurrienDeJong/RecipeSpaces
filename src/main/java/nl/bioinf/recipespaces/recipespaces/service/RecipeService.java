@@ -15,10 +15,12 @@ import java.util.Set;
 public class RecipeService {
 
     private final RecipeRepository recipeRepository;
+    private final IngredientRepository ingredientRepository;
 
     @Autowired
-    public RecipeService(RecipeRepository recipeRepository) {
+    public RecipeService(RecipeRepository recipeRepository, IngredientRepository ingredientRepository) {
         this.recipeRepository = recipeRepository;
+        this.ingredientRepository = ingredientRepository;
     }
 
     public List<Recipe> getAllIds() {
@@ -29,5 +31,10 @@ public class RecipeService {
         return this.recipeRepository.findById(id);
     }
 
-    public Set<Recipe> getRecipesFromIngredient(String tagValue) { return this.recipeRepository.recipesFromIngredient(tagValue);}
+
+    public List<Ingredient> getIngredientsFromRecipe(String id) throws Exception {
+        Optional<Ingredient> result = this.ingredientRepository.findById(id);
+        Ingredient ingredient = result.orElseThrow( () -> new Exception() );
+        return ingredient.getIngredients();
+    }
 }

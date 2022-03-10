@@ -1,7 +1,12 @@
 package nl.bioinf.recipespaces.recipespaces.model;
 
-import javax.persistence.*;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
+import javax.persistence.*;
+import java.util.List;
+
+@Data
 @Entity
 public class Recipe {
     @Id
@@ -25,8 +30,8 @@ public class Recipe {
         return tag_value;
     }
 
-    public void setTag_value(String tagValue) {
-        this.tag_value = tagValue;
+    public void setTag_value(String tag_value) {
+        this.tag_value = tag_value;
     }
 
     public Recipe() {
