@@ -1,6 +1,5 @@
 package nl.bioinf.recipespaces.recipespaces.controller;
 
-import nl.bioinf.recipespaces.recipespaces.model.Ingredient;
 import nl.bioinf.recipespaces.recipespaces.model.Recipe;
 import nl.bioinf.recipespaces.recipespaces.service.RecipeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,9 +12,9 @@ import java.util.Optional;
 import java.util.Set;
 
 @RestController()
-@RequestMapping(path="api/v1/recipe")
+@RequestMapping(path="recipe")
 public class RecipeController {
-    private RecipeService recipeService;
+    private final RecipeService recipeService;
 
     @Autowired
     public RecipeController(RecipeService recipeService) {
@@ -43,8 +42,5 @@ public class RecipeController {
         } catch(Exception ex){
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
-
     }
-
-
 }

@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 import java.util.Set;
 
 @Repository
-public interface IngredientRepository extends JpaRepository<Ingredient, String> {
-    @Query(value = "SELECT DISTINCT i.id, i.tag_value from ingredient i join recipe_ner rn on i.ID = rn.ner_id where rn.recipe_id = :id", nativeQuery = true)
-    Set<Ingredient> ingredientsFromRecipe(@Param("id") String id);
+public interface StepRepository extends JpaRepository<Step, String> {
+    @Query(value = "SELECT DISTINCT s.id, s.tag_value from step s join recipe_step rs on s.ID = rs.step_id where rs.recipe_id = :id", nativeQuery = true)
+    Set<Step> stepsFromRecipe(@Param("id") String recipeID);
 }
