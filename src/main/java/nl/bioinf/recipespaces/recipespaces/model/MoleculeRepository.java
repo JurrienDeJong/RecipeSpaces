@@ -9,6 +9,6 @@ import java.util.Set;
 
 @Repository
 public interface MoleculeRepository extends JpaRepository<Molecule, String> {
-    @Query(value = "SELECT DISTINCT m.ID, m.common_name, m.flavor_profile from mol m join ner_mol nm on m.ID = nm.mol_id where nm.ner_id = :ingID", nativeQuery = true)
+    @Query(value = "SELECT DISTINCT m.pubchem_id, m.common_name, m.flavor_profile from mol m join ner_mol nm on m.pubchem_id = nm.pubchem_id where nm.ner_id = :ingID", nativeQuery = true)
     Set<Molecule> moleculesFromIngredient(@Param("ingID") String ingID);
 }
