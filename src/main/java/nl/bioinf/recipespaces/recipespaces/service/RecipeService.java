@@ -32,9 +32,7 @@ public class RecipeService {
     }
 
 
-    public List<Ingredient> getIngredientsFromRecipe(String id) throws Exception {
-        Optional<Ingredient> result = this.ingredientRepository.findById(id);
-        Ingredient ingredient = result.orElseThrow( () -> new Exception() );
-        return ingredient.getIngredients();
+    public Set<Ingredient> getIngredientsFromRecipe(String id) {
+        return this.ingredientRepository.ingredientsFromRecipe(id);
     }
 }

@@ -13,9 +13,9 @@ import java.util.Optional;
 import java.util.Set;
 
 @RestController()
-@RequestMapping(path="api/v1/recipe")
+@RequestMapping(path="recipe")
 public class RecipeController {
-    private RecipeService recipeService;
+    private final RecipeService recipeService;
 
     @Autowired
     public RecipeController(RecipeService recipeService) {
@@ -37,7 +37,7 @@ public class RecipeController {
 
     @GetMapping("search/{recipeID}")
     @ResponseBody
-    public List<Ingredient> getIngredients(@PathVariable("recipeID") String id) throws ResponseStatusException {
+    public Set<Ingredient> getIngredients(@PathVariable("recipeID") String id) throws ResponseStatusException {
         try{
             return this.recipeService.getIngredientsFromRecipe(id);
         } catch(Exception ex){
