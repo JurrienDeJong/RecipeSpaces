@@ -7,44 +7,50 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
   <style>
 
+    body{
+      background: #f2f2f2;
+      font-family: 'Open Sans', sans-serif;
+      overflow-x: hidden;
+    }
+
     .navigation{
-      padding-top:30px;
-      padding-bottom:30px;
-      position:absolute;
-      top:0;
-      width:100%;
-      z-index:1;
+      padding-top: 30px;
+      padding-bottom: 30px;
+      position: absolute;
+      top: 0;
+      width: 100%;
+      z-index: 1;
     }
 
     .navbar-right{
-      float:right;
-      padding-right:10%;
+      float: right;
+      padding-right: 10%;
     }
 
     .navbar-right a{
-      text-decoration:none;
-      padding:10px;
+      text-decoration: none;
+      padding: 10px;
       color: #FFFFFF;
-      font-family:Calibri;
-      font-weight:900;
+      font-family: Calibri;
+      font-weight: 900;
       font-size: 25px;
     }
 
     .navbar-right a:hover{
-      text-decoration:underline;
+      text-decoration: underline;
     }
     .navbar-logo{
-      padding-left:10%;
-      font-family:Calibri;
-      font-size:30px;
-      font-weight:bold;
-      text-decoration:none;
-      color:#FFFFFF;
+      padding-left: 10%;
+      font-family: Calibri;
+      font-size: 30px;
+      font-weight: bold;
+      text-decoration: none;
+      color: #FFFFFF;
 
     }
 
     .portfolio-section{
-      margin-top:50%;
+      margin-top: 50%;
       margin-left: 10px;
       padding-right: 10px;
     }
@@ -92,12 +98,6 @@
       color: #aaa;
     }
 
-    body{
-      background: #f2f2f2;
-      font-family: 'Open Sans', sans-serif;
-      overflow-x: hidden;
-    }
-
     .search {
       width: 100%;
       position: absolute;
@@ -114,10 +114,6 @@
       outline: none;
       color: black;
     }
-
-    /*.searchTerm:focus{*/
-    /*  color: black;*/
-    /*}*/
 
     .searchButton {
       width: 40px;
@@ -146,19 +142,23 @@
   <nav class="navigation">
     <a href="#" class="navbar-logo">Recipe Spaces</a>
     <div class="navbar-right">
+      <a href="#">Home</a>
+      <a href="#">Discover</a>
       <a href="#">Recipes</a>
       <a href="#">About Us</a>
       <a th:href="@{/contact}">Contact</a>
     </div>
   </nav>
   <div class="background-wrap">
-    <img id="video-bg-elem" th:src="@{french-food.jpg}"/>
+    <img id="video-bg-elem" th:src="@{french-food.jpg}" alt="French Food"/>
     <div class="content">
       <h1>Find a Recipe</h1>
-<!--      <p>Welcome to Fiji's #1 Tourist Guide Website</p>-->
+<!--      <p>Welcome the Recipe Spaces Website</p>-->
       <div class="wrap">
         <div class="search">
-          <input type="text" class="searchTerm" placeholder="Type in a keyword here">
+          <label>
+            <input id="recipe" type="text" class="searchTerm" placeholder="Find here your recipe"/>
+          </label>
           <button type="submit" class="searchButton">
             <i class="glyphicon glyphicon-search"></i>
           </button>
@@ -168,6 +168,12 @@
   </div>
 </header>
 <body class="portfolio-section">
+<p>Hook 'em Horns!
 
+  Here we are, heading straight into the heart of holiday and special occasion dinner party season. And while the main courses and side dishes might vary, one thing these types of gatherings usually have in common is a basket of rich, buttery dinner rolls on the table. And with that scene in mind, there are few dinner rolls as rich and buttery as the aptly named butterhorns.
+
+  You might have grown up calling these crescent rolls, since that's what was printed on the side of the cardboard tube from the store, but I think butterhorns is way cooler of a name. The only real difference, besides the fact that these are so much better, is that crescent rolls are shaped into a crescent versus the usually straighter design of your average butterhorn. Basically, all crescent rolls are butterhorns, but not all butterhorns are crescent rolls.
+
+  This is a very simple recipe, although I did alter the kneading procedure here to make things maybe a bit easier for the novice baker. Doughs that have rested and risen are always way easier to work with, so we let this one rise first before kneading. It seemed to work out just fine, as long as you allow the dough to rise again before portioning and shaping. Give it a try, and see for yourself. Otherwise just use the classic knead-first method. Either way, I really do hope you give these a try soon. Enjoy!</p>
 </body>
 </html>
