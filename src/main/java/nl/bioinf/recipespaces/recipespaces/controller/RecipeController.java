@@ -1,5 +1,6 @@
 package nl.bioinf.recipespaces.recipespaces.controller;
 
+import nl.bioinf.recipespaces.recipespaces.model.Ingredient;
 import nl.bioinf.recipespaces.recipespaces.model.Recipe;
 import nl.bioinf.recipespaces.recipespaces.service.RecipeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,9 +13,9 @@ import java.util.Optional;
 import java.util.Set;
 
 @RestController()
-@RequestMapping(path="recipe")
+@RequestMapping(path="api/v1/recipe")
 public class RecipeController {
-    private final RecipeService recipeService;
+    private RecipeService recipeService;
 
     @Autowired
     public RecipeController(RecipeService recipeService) {
@@ -34,13 +35,16 @@ public class RecipeController {
         return rv.orElseThrow ( () -> new ResponseStatusException(HttpStatus.NOT_FOUND));
     }
 
-    @GetMapping("search/{ingTagValue}")
+    @GetMapping("search/{recipeID}")
     @ResponseBody
-    public Set<Recipe> getRecipesFromIngredient(@PathVariable("ingTagValue") String tagValue) throws ResponseStatusException {
+    public List<Ingredient> getIngredients(@PathVariable("recipeID") String id) throws ResponseStatusException {
         try{
-            return this.recipeService.getRecipesFromIngredient(tagValue);
+            return this.recipeService.getIngredientsFromRecipe(id);
         } catch(Exception ex){
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
+
     }
+
+
 }
