@@ -5,6 +5,23 @@
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+
+  <title>jQuery UI Autocomplete - Default functionality</title>
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
+  <script type="text/javascript">
+    $(function() {
+      $("#RecipeName").autocomplete({
+        source: "home/recipeSearchFromKeyword",
+        minLength: 3
+      });
+
+    });
+  </script>
+
   <style>
 
     body{
@@ -12,6 +29,7 @@
       font-family: 'Open Sans', sans-serif;
       overflow-x: hidden;
     }
+
 
     .navigation{
       padding-top: 30px;
@@ -150,30 +168,29 @@
     </div>
   </nav>
   <div class="background-wrap">
-    <img id="video-bg-elem" th:src="@{french-food.jpg}" alt="French Food"/>
-    <div class="content">
-      <h1>Find a Recipe</h1>
+    <img id="video-bg-elem" alt="French Food" th:src="@{static/french-food.jpg}"/>
+      <div class="content">
+        <h1>Find a Recipe</h1>
 <!--      <p>Welcome the Recipe Spaces Website</p>-->
-      <div class="wrap">
-        <div class="search">
-          <label>
-            <input id="recipe" type="text" class="searchTerm" placeholder="Find here your recipe"/>
-          </label>
-          <button type="submit" class="searchButton">
-            <i class="glyphicon glyphicon-search"></i>
-          </button>
+
+      <form action="#" th:action="@{/home}" th:object="${recipe}" method="post">
+        <div class="wrap">
+          <div class="search">
+            <label>
+              <input id="RecipeName" type="text" class="searchTerm" placeholder="Find here your recipe" th:field="*{tag_value}"/>
+            </label>
+            <button type="submit" class="searchButton">
+              <i class="glyphicon glyphicon-search"></i>
+            </button>
+          </div>
         </div>
-      </div>
+      </form>
+
+
     </div>
   </div>
 </header>
 <body class="portfolio-section">
-<p>Hook 'em Horns!
 
-  Here we are, heading straight into the heart of holiday and special occasion dinner party season. And while the main courses and side dishes might vary, one thing these types of gatherings usually have in common is a basket of rich, buttery dinner rolls on the table. And with that scene in mind, there are few dinner rolls as rich and buttery as the aptly named butterhorns.
-
-  You might have grown up calling these crescent rolls, since that's what was printed on the side of the cardboard tube from the store, but I think butterhorns is way cooler of a name. The only real difference, besides the fact that these are so much better, is that crescent rolls are shaped into a crescent versus the usually straighter design of your average butterhorn. Basically, all crescent rolls are butterhorns, but not all butterhorns are crescent rolls.
-
-  This is a very simple recipe, although I did alter the kneading procedure here to make things maybe a bit easier for the novice baker. Doughs that have rested and risen are always way easier to work with, so we let this one rise first before kneading. It seemed to work out just fine, as long as you allow the dough to rise again before portioning and shaping. Give it a try, and see for yourself. Otherwise just use the classic knead-first method. Either way, I really do hope you give these a try soon. Enjoy!</p>
 </body>
 </html>

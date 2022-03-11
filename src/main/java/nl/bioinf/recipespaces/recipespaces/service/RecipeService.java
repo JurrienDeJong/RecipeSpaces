@@ -31,6 +31,7 @@ public class RecipeService {
         return this.recipeRepository.findById(id);
     }
 
+    public List<Recipe> findByKeyword(String keyword) { return this.recipeRepository.recipesFromKeyword(keyword);}
 
     public Set<Ingredient> getIngredientsFromRecipe(String id) {
         return this.ingredientRepository.ingredientsFromRecipe(id);

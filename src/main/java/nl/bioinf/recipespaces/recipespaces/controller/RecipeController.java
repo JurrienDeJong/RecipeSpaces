@@ -5,21 +5,30 @@ import nl.bioinf.recipespaces.recipespaces.model.Recipe;
 import nl.bioinf.recipespaces.recipespaces.service.RecipeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
-@RestController()
-@RequestMapping(path="recipe")
+@Controller()
 public class RecipeController {
     private final RecipeService recipeService;
 
-    @Autowired
     public RecipeController(RecipeService recipeService) {
         this.recipeService = recipeService;
+    }
+
+    @GetMapping("/recipe")
+    public String displayRecipes(Model model){
+        List<Recipe> recipes = getAllRecipes();
+        model.addAttribute("recipes", recipes);
+        return "recipe";
     }
 
     @GetMapping
@@ -27,7 +36,7 @@ public class RecipeController {
         return this.recipeService.getAllIds();
     }
 
-    @GetMapping("{id}")
+    @GetMapping("/recipe/{id}")
     @ResponseBody
     public Recipe getRecipeByID(@PathVariable("id") String id) throws ResponseStatusException {
         Optional<Recipe> rv = this.recipeService.getId(id);

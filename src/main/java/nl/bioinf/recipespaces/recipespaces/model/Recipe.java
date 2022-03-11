@@ -2,6 +2,7 @@ package nl.bioinf.recipespaces.recipespaces.model;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import nl.bioinf.recipespaces.recipespaces.service.RecipeService;
 
 import javax.persistence.*;
 import java.util.List;
@@ -9,6 +10,7 @@ import java.util.List;
 @Data
 @Entity
 public class Recipe {
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private String id;
