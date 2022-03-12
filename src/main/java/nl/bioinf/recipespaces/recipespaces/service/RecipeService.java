@@ -23,12 +23,18 @@ public class RecipeService {
         this.ingredientRepository = ingredientRepository;
     }
 
+    public List<Recipe> getXAmountOfRecipes(int amount) {
+        return this.recipeRepository.selectXAmount(amount);
+    }
+
     public List<Recipe> getAllIds() {
         return this.recipeRepository.findAll();
     }
 
-    public Optional<Recipe> getId(String id) {
-        return this.recipeRepository.findById(id);
+    public String missingId(String keyword) { return this.recipeRepository.missingId(keyword);}
+
+    public Recipe getId(String id) {
+        return this.recipeRepository.findRecipeById(id);
     }
 
     public List<Recipe> findByKeyword(String keyword) { return this.recipeRepository.recipesFromKeyword(keyword);}

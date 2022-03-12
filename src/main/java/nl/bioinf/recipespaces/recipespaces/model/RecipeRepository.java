@@ -6,6 +6,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 @Repository
@@ -15,5 +16,14 @@ public interface RecipeRepository extends JpaRepository<Recipe, String> {
 
     @Query(value = "select * from recipe r where r.tag_value like %:keyword%", nativeQuery = true)
     List<Recipe> recipesFromKeyword(@Param("keyword") String keyword);
+
+    @Query(value = "select * from recipe r where r.id = :id", nativeQuery = true)
+    Recipe findRecipeById(@Param("id") String id);
+
+    @Query(value = "select * from recipe limit :amount", nativeQuery = true)
+    List<Recipe> selectXAmount(@Param("amount") int amount);
+
+    @Query(value = "select distinct r.id from recipe r where r.tag_value = :tag_value", nativeQuery = true)
+    String missingId(@Param("tag_value") String tag_value);
 }
 

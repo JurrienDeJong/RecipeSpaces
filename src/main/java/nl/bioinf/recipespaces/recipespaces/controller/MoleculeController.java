@@ -1,5 +1,6 @@
 package nl.bioinf.recipespaces.recipespaces.controller;
 
+import nl.bioinf.recipespaces.recipespaces.model.Ingredient;
 import nl.bioinf.recipespaces.recipespaces.model.Molecule;
 import nl.bioinf.recipespaces.recipespaces.service.MoleculeService;
 import nl.bioinf.recipespaces.recipespaces.service.MoleculeService;
@@ -37,13 +38,5 @@ public class MoleculeController {
         return rv.orElseThrow ( () -> new ResponseStatusException(HttpStatus.NOT_FOUND));
     }
 
-    @GetMapping("search/{ingID}")
-    @ResponseBody
-    public Set<Molecule> getMoleculesFromIngredient(@PathVariable("ingID") String ingID) throws ResponseStatusException {
-        try{
-            return this.moleculeService.getMoleculesFromIngredient(ingID);
-        } catch(Exception ex){
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
-        }
-    }
+
 }

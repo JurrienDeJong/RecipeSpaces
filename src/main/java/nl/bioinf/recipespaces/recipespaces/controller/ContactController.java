@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Controller
-@RequestMapping("contact")
+@RequestMapping("test")
 public class ContactController {
 
     @Autowired
@@ -20,6 +20,6 @@ public class ContactController {
 
     @RequestMapping(method = RequestMethod.GET)
     public String getContact() {
-        return "contact";
+        return "test";
     }
 }

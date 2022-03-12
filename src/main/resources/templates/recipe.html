@@ -1,20 +1,70 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Home page</title>
-    <meta charset="UTF-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <!-- jQuery -->
+    <script type="text/javascript"
+            src="https://code.jquery.com/jquery-3.5.1.js">
+    </script>
+
+    <!-- DataTables CSS -->
+    <link rel="stylesheet"
+          href=
+                  "https://cdn.datatables.net/1.10.23/css/jquery.dataTables.min.css">
+
+    <!-- DataTables JS -->
+    <script src=
+                    "https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js">
+    </script>
 </head>
 <body>
-    <table>
+    <h1>Recipe Data</h1>
+    <table id="recipe" class="display nowrap">
+        <thead>
         <tr>
             <th>ID</th>
             <th>Description</th>
         </tr>
-        <tr th:each="recipe : ${recipes}">
-            <td th:text="${recipe.getId()}"></td>
-            <td th:text="${recipe.tag_value}"></td>
+        </thead>
+        <tbody>
+            <tr th:each="recipe : ${recipes}">
+                <td th:text="${recipe.getId()}"></td>
+                <td th:text="${recipe.tag_value}"></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <br>
+    <h1>Ingredients needed:</h1>
+    <table id="ingredients" class="display nowrap">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Description</th>
         </tr>
-    <table>
+        </thead>
+        <tbody>
+        <tr th:each="ingredient : ${ingredients}">
+            <td><a th:href="@{'/ingredient/' + ${ingredient.id}}" th:text="${ingredient.getId()}"></a></td>
+            <td th:text="${ingredient.tag_value}"></td>
+        </tr>
+        </tbody>
+    </table>
+
+    <script>
+        $(document).ready(function() {
+            $('#recipe').DataTable({
+                bFilter : false,
+                "bLengthChange": false
+            })
+
+        });
+        $(document).ready(function() {
+            $('#ingredients').DataTable({
+                bFilter : false,
+                "bLengthChange": false
+            })
+
+        });
+    </script>
 </body>
 </html>

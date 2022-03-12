@@ -2,6 +2,7 @@ package nl.bioinf.recipespaces.recipespaces.model;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import nl.bioinf.recipespaces.recipespaces.controller.RecipeController;
 import nl.bioinf.recipespaces.recipespaces.service.RecipeService;
 
 import javax.persistence.*;

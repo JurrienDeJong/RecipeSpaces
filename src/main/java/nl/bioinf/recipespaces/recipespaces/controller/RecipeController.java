@@ -24,24 +24,33 @@ public class RecipeController {
         this.recipeService = recipeService;
     }
 
+    // Get all recipes
     @GetMapping("/recipe")
     public String displayRecipes(Model model){
-        List<Recipe> recipes = getAllRecipes();
+        List<Recipe> recipes = getXAmountOfRecipes(100000);
         model.addAttribute("recipes", recipes);
         return "recipe";
     }
 
     @GetMapping
-    public List<Recipe> getAllRecipes() {
-        return this.recipeService.getAllIds();
+    public List<Recipe> getXAmountOfRecipes(int amount) {
+        return this.recipeService.getXAmountOfRecipes(amount);
     }
 
+
+    // Get Recipe from ID
     @GetMapping("/recipe/{id}")
-    @ResponseBody
-    public Recipe getRecipeByID(@PathVariable("id") String id) throws ResponseStatusException {
-        Optional<Recipe> rv = this.recipeService.getId(id);
-        System.out.println(rv);
-        return rv.orElseThrow ( () -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+    public String displayRecipeByID(Model model, @PathVariable("id") String id){
+        Recipe recipe = recipeService.getId(id);
+        Set<Ingredient> ingredients = recipeService.getIngredientsFromRecipe(recipe.getId());
+        try{
+            model.addAttribute("recipes", recipe);
+            model.addAttribute("ingredients", ingredients);
+            System.out.println(ingredients);
+        } catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+        return "recipe";
     }
 
     @GetMapping("search/{recipeID}")

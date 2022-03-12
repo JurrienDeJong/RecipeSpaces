@@ -25,8 +25,8 @@ public class IngredientService {
         return repository.findAll();
     }
 
-    public Optional<Ingredient> getId(String id) {
-        return repository.findById(id);
+    public Ingredient getId(String id) {
+        return repository.findIngredientById(id);
     }
 
     public Set<Ingredient> getIngredientsFromRecipe(String recipeID) {
