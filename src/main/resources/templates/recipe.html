@@ -50,6 +50,24 @@
         </tbody>
     </table>
 
+    <br>
+
+    <h1>Steps:</h1>
+    <table id="steps" class="display nowrap">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Description</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="step : ${steps}">
+            <td th:text="${step.getId()}"></td>
+            <td th:text="${step.tag_value}"></td>
+        </tr>
+        </tbody>
+    </table>
+
     <script>
         $(document).ready(function() {
             $('#recipe').DataTable({
@@ -60,6 +78,13 @@
         });
         $(document).ready(function() {
             $('#ingredients').DataTable({
+                bFilter : false,
+                "bLengthChange": false
+            })
+
+        });
+        $(document).ready(function() {
+            $('#steps').DataTable({
                 bFilter : false,
                 "bLengthChange": false
             })

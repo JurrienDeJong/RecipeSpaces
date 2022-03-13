@@ -2,26 +2,26 @@ package nl.bioinf.recipespaces.recipespaces.controller;
 
 import nl.bioinf.recipespaces.recipespaces.model.Ingredient;
 import nl.bioinf.recipespaces.recipespaces.model.Recipe;
+import nl.bioinf.recipespaces.recipespaces.model.Step;
 import nl.bioinf.recipespaces.recipespaces.service.RecipeService;
-import org.springframework.beans.factory.annotation.Autowired;
+import nl.bioinf.recipespaces.recipespaces.service.StepService;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.Set;
 
 @Controller()
 public class RecipeController {
     private final RecipeService recipeService;
+    private final StepService stepService;
 
-    public RecipeController(RecipeService recipeService) {
+    public RecipeController(RecipeService recipeService, StepService stepService) {
         this.recipeService = recipeService;
+        this.stepService = stepService;
     }
 
     // Get all recipes
@@ -43,10 +43,11 @@ public class RecipeController {
     public String displayRecipeByID(Model model, @PathVariable("id") String id){
         Recipe recipe = recipeService.getId(id);
         Set<Ingredient> ingredients = recipeService.getIngredientsFromRecipe(recipe.getId());
+        Set<Step> steps = stepService.getStepsFromRecipe(recipe.getId());
         try{
             model.addAttribute("recipes", recipe);
             model.addAttribute("ingredients", ingredients);
-            System.out.println(ingredients);
+            model.addAttribute("steps", steps);
         } catch (Exception e){
             System.out.println(e.getMessage());
         }
