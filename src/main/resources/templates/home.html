@@ -22,6 +22,14 @@
       });
 
     });
+    $(function() {
+      $("#IngredientName").autocomplete({
+        source: "home/ingredientSearchFromKeyword",
+        minLength: 3,
+        delay: 0
+      });
+
+    });
   </script>
 
   <style>
@@ -110,7 +118,7 @@
       text-transform: uppercase;
       font-weight: 300;
       color: #fff;
-      padding-top: 15%;
+      padding-top: 0;
       margin-bottom: 10px;
     }
     .content p {
@@ -121,7 +129,8 @@
     }
 
     .search {
-      width: 100%;
+      width: 30%;
+      left: 35%;
       position: absolute;
       display: flex;
     }
@@ -151,9 +160,16 @@
 
     /*Resize the wrap to see the search bar change!*/
     .wrap{
-      width: 30%;
+      width: 100%;
       position: absolute;
-      top: 51%;
+      top: 30%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+    .wrap2{
+      width: 100%;
+      position: absolute;
+      top: 55%;
       left: 50%;
       transform: translate(-50%, -50%);
     }
@@ -174,13 +190,25 @@
   <div class="background-wrap">
     <img id="video-bg-elem" alt="French Food" th:src="@{french-food.jpg}"/>
       <div class="content">
-        <h1>Find a Recipe</h1>
+
 <!--      <p>Welcome the Recipe Spaces Website</p>-->
 
-      <form action="#" th:action="@{/home}" th:object="${recipe}" method="post">
+      <form action="#" th:action="@{/home/recipe}" th:object="${recipe}" method="post">
         <div class="wrap">
+          <h1>Find a Recipe</h1>
           <div class="search">
               <input id="RecipeName" type="text" class="searchTerm" placeholder="Find here your recipe" th:field="*{tag_value}"/>
+            <button type="submit" class="searchButton">
+              <i class="glyphicon glyphicon-search"></i>
+            </button>
+          </div>
+        </div>
+      </form>
+        <form action="#" th:action="@{/home/ingredient}" th:object="${ingredient}" method="post">
+        <div class="wrap2">
+          <h1>Find an ingredient</h1>
+          <div class="search">
+              <input id="IngredientName" type="text" class="searchTerm" placeholder="Find here your recipe" th:field="*{tag_value}"/>
             <button type="submit" class="searchButton">
               <i class="glyphicon glyphicon-search"></i>
             </button>

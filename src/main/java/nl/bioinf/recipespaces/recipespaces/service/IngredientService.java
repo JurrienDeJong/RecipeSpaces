@@ -32,4 +32,8 @@ public class IngredientService {
     public Set<Ingredient> getIngredientsFromRecipe(String recipeID) {
         return repository.ingredientsFromRecipe(recipeID);
     }
+
+    public String missingId(String keyword) { return this.repository.missingId(keyword);}
+
+    public List<Ingredient> findByKeyword(String keyword) { return this.repository.ingredientFromKeyword(keyword);}
 }

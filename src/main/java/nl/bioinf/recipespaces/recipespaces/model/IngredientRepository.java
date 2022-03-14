@@ -16,4 +16,10 @@ public interface IngredientRepository extends JpaRepository<Ingredient, String> 
 
     @Query(value = "SELECT DISTINCT * from ner n where n.id = :id", nativeQuery = true)
     Ingredient findIngredientById(@Param("id") String id);
+
+    @Query(value = "select distinct ner.id from ner where ner.tag_value = :tag_value", nativeQuery = true)
+    String missingId(@Param("tag_value") String tag_value);
+
+    @Query(value = "select * from ner where ner.tag_value like %:keyword%", nativeQuery = true)
+    List<Ingredient> ingredientFromKeyword(@Param("keyword") String keyword);
 }
