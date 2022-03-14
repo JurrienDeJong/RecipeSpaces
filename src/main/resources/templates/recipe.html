@@ -17,35 +17,15 @@
     </script>
 </head>
 <body>
-    <h1>Recipe Data</h1>
-    <table id="recipe" class="display nowrap">
-        <thead>
-        <tr>
-            <th>ID</th>
-            <th>Description</th>
-        </tr>
-        </thead>
-        <tbody>
-            <tr th:each="recipe : ${recipes}">
-                <td th:text="${recipe.getId()}"></td>
-                <td th:text="${recipe.tag_value}"></td>
-            </tr>
-        </tbody>
-    </table>
+    <h1 th:text="${recipes.tag_value}"></h1>
 
     <br>
+
     <h1>Ingredients needed:</h1>
     <table id="ingredients" class="display nowrap">
-        <thead>
-        <tr>
-            <th>ID</th>
-            <th>Description</th>
-        </tr>
-        </thead>
         <tbody>
         <tr th:each="ingredient : ${ingredients}">
-            <td><a th:href="@{'/ingredient/' + ${ingredient.id}}" th:text="${ingredient.getId()}"></a></td>
-            <td th:text="${ingredient.tag_value}"></td>
+            <td><a th:href="@{'/ingredient/' + ${ingredient.id}}" th:text="${ingredient.tag_value}"></a></td>
         </tr>
         </tbody>
     </table>
@@ -53,20 +33,10 @@
     <br>
 
     <h1>Steps:</h1>
-    <table id="steps" class="display nowrap">
-        <thead>
-        <tr>
-            <th>ID</th>
-            <th>Description</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="step : ${steps}">
-            <td th:text="${step.getId()}"></td>
-            <td th:text="${step.tag_value}"></td>
-        </tr>
-        </tbody>
-    </table>
+    <ul>
+        <li th:each="step:${steps}"
+            th:text="${step.tag_value}"></li>
+    </ul>
 
     <script>
         $(document).ready(function() {
