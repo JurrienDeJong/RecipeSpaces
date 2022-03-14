@@ -25,5 +25,7 @@ public interface RecipeRepository extends JpaRepository<Recipe, String> {
 
     @Query(value = "select distinct r.id from recipe r where r.tag_value = :tag_value", nativeQuery = true)
     String missingId(@Param("tag_value") String tag_value);
+
+
 }
 
