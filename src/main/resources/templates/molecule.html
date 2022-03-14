@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <!-- jQuery -->
+    <script type="text/javascript"
+            src="https://code.jquery.com/jquery-3.5.1.js">
+    </script>
+
+    <!-- DataTables CSS -->
+    <link rel="stylesheet"
+          href=
+                  "https://cdn.datatables.net/1.10.23/css/jquery.dataTables.min.css">
+
+    <!-- DataTables JS -->
+    <script src=
+                    "https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js">
+    </script>
+</head>
+<body>
+
+<br>
+<h1>Molecular Profile:</h1>
+<table id="molecule" class="display nowrap">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Common Name</th>
+        <th>Flavors</th>
+    </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td th:text="${molecule.pubchem_id}"></td>
+            <td th:text="${molecule.common_name}"></td>
+            <td th:text="${molecule.flavor_profile}"></td>
+        </tr>
+
+    </tbody>
+</table>
+
+<script>
+    $(document).ready(function() {
+        $('#molecule').DataTable({
+            bFilter : false,
+            "bLengthChange": false
+        })
+
+    });
+</script>
+</body>
+</html>

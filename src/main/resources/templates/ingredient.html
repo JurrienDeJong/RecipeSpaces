@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <!-- jQuery -->
+    <script type="text/javascript"
+            src="https://code.jquery.com/jquery-3.5.1.js">
+    </script>
+
+    <!-- DataTables CSS -->
+    <link rel="stylesheet"
+          href=
+                  "https://cdn.datatables.net/1.10.23/css/jquery.dataTables.min.css">
+
+    <!-- DataTables JS -->
+    <script src=
+                    "https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js">
+    </script>
+</head>
+<body>
+<h1>Ingredient Data</h1>
+<table id="ingredient" class="display nowrap">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Description</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td th:text="${ingredient.id}"></td>
+        <td th:text="${ingredient.tag_value}"></td>
+    </tr>
+    </tbody>
+</table>
+
+<br>
+<h1>Molecules in ingredient:</h1>
+<table id="molecules" class="display nowrap">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Common Name</th>
+        <th>Flavors</th>
+    </tr>
+    </thead>
+    <tbody>
+
+        <tr th:each="molecule : ${molecules}">
+            <td><a th:href="@{'/molecule/' + ${molecule.pubchem_id}}" th:text="${molecule.getPubchem_id()}"></a></td>
+            <td th:text="${molecule.common_name}"></td>
+            <td th:text="${molecule.flavor_profile}"></td>
+        </tr>
+
+    </tbody>
+</table>
+
+<script>
+    $(document).ready(function() {
+        $('#ingredient').DataTable({
+            bFilter : false,
+            "bLengthChange": false
+        })
+
+    });
+    $(document).ready(function() {
+        $('#molecules').DataTable({
+            bFilter : false,
+            "bLengthChange": false
+        })
+
+    });
+</script>
+</body>
+</html>

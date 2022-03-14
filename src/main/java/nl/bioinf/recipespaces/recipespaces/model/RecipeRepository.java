@@ -14,7 +14,7 @@ public interface RecipeRepository extends JpaRepository<Recipe, String> {
     @Query(value = "SELECT DISTINCT * from recipe r join recipe_ner rn on r.ID = rn.recipe_id where r.tag_value like %:tag_value%", nativeQuery = true)
     Set<Recipe> recipesFromIngredient(@Param("tag_value") String tag_value);
 
-    @Query(value = "select * from recipe r where r.tag_value like %:keyword% limit 100", nativeQuery = true)
+    @Query(value = "select * from recipe r where r.tag_value like %:keyword% limit 250", nativeQuery = true)
     List<Recipe> recipesFromKeyword(@Param("keyword") String keyword);
 
     @Query(value = "select * from recipe r where r.id = :id", nativeQuery = true)

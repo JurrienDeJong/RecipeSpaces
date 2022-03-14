@@ -34,6 +34,7 @@ public class HomeController {
         return "redirect:/recipe/" + recipe.getId();
     }
 
+
     @RequestMapping(value = "home/recipeSearchFromKeyword", method = RequestMethod.GET)
     @ResponseBody
     public List<String> getRecipesAutocompleted(@RequestParam(value = "term", defaultValue = "") String term){
