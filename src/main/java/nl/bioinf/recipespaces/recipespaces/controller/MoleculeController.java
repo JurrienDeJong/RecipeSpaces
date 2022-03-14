@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
-@RestController()
+@Controller()
 @RequestMapping(path="molecule")
 public class MoleculeController {
     private final MoleculeService moleculeService;
@@ -31,11 +31,16 @@ public class MoleculeController {
         return this.moleculeService.getAllIds();
     }
 
-    @GetMapping("{id}")
-    @ResponseBody
-    public Molecule getMoleculeByID(@PathVariable("id") String id) throws ResponseStatusException {
-        Optional<Molecule> rv = this.moleculeService.getId(id);
-        return rv.orElseThrow ( () -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+    // Get Molecule from ID
+    @GetMapping("/{id}")
+    public String displayMoleculeByID(Model model, @PathVariable("id") String id){
+        Molecule molecule = moleculeService.getMolById(id);
+        try{
+            model.addAttribute("molecule", molecule);
+        } catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+        return "molecule";
     }
 
 
