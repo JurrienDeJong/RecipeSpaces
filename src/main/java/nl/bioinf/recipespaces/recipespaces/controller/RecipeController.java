@@ -27,15 +27,15 @@ public class RecipeController {
     // Get all recipes
     @GetMapping("/recipe")
     public String displayRecipes(Model model){
-        List<Recipe> recipes = getXAmountOfRecipes(100000);
+        Set<Recipe> recipes = recipeService.getAllRecipes();
         model.addAttribute("recipes", recipes);
-        return "recipe";
+        return "allrecipes";
     }
 
-    @GetMapping
+/*    @GetMapping
     public List<Recipe> getXAmountOfRecipes(int amount) {
         return this.recipeService.getXAmountOfRecipes(amount);
-    }
+    }*/
 
 
     // Get Recipe from ID

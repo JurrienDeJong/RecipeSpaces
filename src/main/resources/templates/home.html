@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
 
+
   <title>jQuery UI Autocomplete - Default functionality</title>
   <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
@@ -16,13 +17,16 @@
     $(function() {
       $("#RecipeName").autocomplete({
         source: "home/recipeSearchFromKeyword",
-        minLength: 3
+        minLength: 3,
+        delay: 0
       });
 
     });
   </script>
 
   <style>
+
+    .ui-autocomplete { height: 200px; overflow-y: scroll; overflow-x: hidden;}
 
     body{
       background: #f2f2f2;
@@ -176,9 +180,7 @@
       <form action="#" th:action="@{/home}" th:object="${recipe}" method="post">
         <div class="wrap">
           <div class="search">
-            <label>
               <input id="RecipeName" type="text" class="searchTerm" placeholder="Find here your recipe" th:field="*{tag_value}"/>
-            </label>
             <button type="submit" class="searchButton">
               <i class="glyphicon glyphicon-search"></i>
             </button>

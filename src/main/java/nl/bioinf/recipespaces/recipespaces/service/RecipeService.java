@@ -23,8 +23,8 @@ public class RecipeService {
         this.ingredientRepository = ingredientRepository;
     }
 
-    public List<Recipe> getXAmountOfRecipes(int amount) {
-        return this.recipeRepository.selectXAmount(amount);
+    public Set<Recipe> getAllRecipes() {
+        return this.recipeRepository.selectAllRecipes();
     }
 
     public List<Recipe> getAllIds() {
