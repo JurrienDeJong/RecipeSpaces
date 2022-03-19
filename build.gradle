@@ -21,6 +21,10 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web-services'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     implementation 'org.webjars:bootstrap:5.1.1'
+    // https://mvnrepository.com/artifact/com.sun.mail/javax.mail
+    implementation 'com.sun.mail:javax.mail:1.6.2'
+    // https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-mail
+    implementation 'org.springframework.boot:spring-boot-starter-mail:2.6.4'
 }
 
 tasks.named('test') {
