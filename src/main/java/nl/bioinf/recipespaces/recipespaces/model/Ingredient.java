@@ -20,7 +20,7 @@ public class Ingredient {
     }
 
     public String getId() {
-        return id;
+        return id.substring(4);
     }
 
     public void setId(String id) {

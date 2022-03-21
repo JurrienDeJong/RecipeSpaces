@@ -42,4 +42,9 @@ public class RecipeService {
     public Set<Ingredient> getIngredientsFromRecipe(String id) {
         return this.ingredientRepository.ingredientsFromRecipe(id);
     }
+
+    public Set<Recipe> getRecipesFromIngredient(String id) {
+        return this.recipeRepository.recipesFromIngredient(id);
+    }
+
 }

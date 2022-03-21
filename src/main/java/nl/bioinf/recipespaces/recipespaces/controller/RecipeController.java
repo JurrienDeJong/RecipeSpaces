@@ -41,9 +41,10 @@ public class RecipeController {
     // Get Recipe from ID
     @GetMapping("/recipe/{id}")
     public String displayRecipeByID(Model model, @PathVariable("id") String id){
+        id = "REC_" + id;
         Recipe recipe = recipeService.getId(id);
-        Set<Ingredient> ingredients = recipeService.getIngredientsFromRecipe(recipe.getId());
-        Set<Step> steps = stepService.getStepsFromRecipe(recipe.getId());
+        Set<Ingredient> ingredients = recipeService.getIngredientsFromRecipe(id);
+        Set<Step> steps = stepService.getStepsFromRecipe(id);
         try{
             model.addAttribute("recipes", recipe);
             model.addAttribute("ingredients", ingredients);

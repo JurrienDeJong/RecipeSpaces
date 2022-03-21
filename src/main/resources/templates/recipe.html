@@ -26,7 +26,7 @@
     <table id="ingredients" class="display nowrap">
         <tbody>
         <tr th:each="ingredient : ${ingredients}">
-            <td><a th:href="@{'/ingredient/' + ${ingredient.id}}" th:text="${ingredient.tag_value}"></a></td>
+            <td><a th:href="@{'/ingredient/' + ${ingredient.getId()}}" th:text="${ingredient.getTag_value()}"></a></td>
         </tr>
         </tbody>
     </table>
