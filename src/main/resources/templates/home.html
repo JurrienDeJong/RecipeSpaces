@@ -11,24 +11,7 @@
   <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
   <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 
-  <script type="text/javascript">
-    $(function() {
-      $("#RecipeName").autocomplete({
-        source: "home/recipeSearchFromKeyword",
-        minLength: 3,
-        delay: 0
-      });
 
-    });
-    $(function() {
-      $("#IngredientName").autocomplete({
-        source: "home/ingredientSearchFromKeyword",
-        minLength: 3,
-        delay: 0
-      });
-
-    });
-  </script>
 
   <style>
 
@@ -141,8 +124,8 @@
     }
 
     .search {
-      width: 30%;
-      left: 35%;
+      width: 40%;
+      left: 30%;
       position: absolute;
       display: flex;
     }
@@ -185,6 +168,15 @@
       left: 50%;
       transform: translate(-50%, -50%);
     }
+    .radio{
+      position: absolute;
+      color: darkseagreen;
+      top: 120%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 18px;
+      max-lines: 1;
+    }
 
   </style>
 </head>
@@ -205,29 +197,51 @@
 
 <!--      <p>Welcome the Recipe Spaces Website</p>-->
 
-      <form action="#" th:action="@{/home/recipe}" th:object="${recipe}" method="post">
+      <form action="#" th:action="@{/home/search}" th:object="${ingredient}" method="post" id="searchbar">
         <div class="wrap">
-          <h1>Find a Recipe</h1>
+          <h1>Find a </h1> <h1 class="currentValue"></h1>
           <div class="search">
               <input id="RecipeName" type="text" class="searchTerm" placeholder="Find here your recipe" th:field="*{tag_value}"/>
             <button type="submit" class="searchButton">
               <i class="glyphicon glyphicon-search"></i>
             </button>
-          </div>
-        </div>
-      </form>
-        <form action="#" th:action="@{/home/ingredient}" th:object="${ingredient}" method="post">
-        <div class="wrap2">
-          <h1>Find an ingredient</h1>
-          <div class="search">
-              <input id="IngredientName" type="text" class="searchTerm" placeholder="Find here your ingredient" th:field="*{tag_value}"/>
-            <button type="submit" class="searchButton">
-              <i class="glyphicon glyphicon-search"></i>
-            </button>
+            <div class="radio" id="radioInput">
+              <form id="query">
+                <label><input type="radio" name="options" value="recipe" id="recipe" checked>recipe</label>
+                <label><input type="radio" name="options" value="ingredient" id="ingredient">ingredient</label>
+              </form>
+            </div>
           </div>
         </div>
       </form>
     </div>
   </div>
+  <script>
+    const currentValue = document.querySelector('.currentValue');
+    console.log(document.forms['searchbar']);
+    const form = document.forms['searchbar'];
+    console.log(form);
+    const radios = Array.from(form.elements.options);
+
+
+    currentValue.innerText = form.querySelector('input[name=options]:checked').value;
+
+    function autocomplete() {
+      $("#RecipeName").autocomplete({
+        source: `home/${currentValue.innerText.toLowerCase()}SearchFromKeyword`,
+        minLength: 3,
+        delay: 0
+      });
+      console.log(document.querySelector('input[name=options]:checked').value)
+    }
+
+    radios.forEach(radio => {
+      radio.addEventListener('change', () => {
+        currentValue.innerText = form.querySelector('input[name=options]:checked').value;
+        autocomplete();
+      });
+    });
+
+  </script>
 </header>
 </html>

@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Controller
 public class HomeController {
@@ -29,20 +30,22 @@ public class HomeController {
         return "home";
     }
 
-    @PostMapping("/home/recipe")
-    public String recipeSubmit(@ModelAttribute Recipe recipe, Model model) {
-        String missingId = recipeService.missingId(recipe.getTag_value());
-        recipe.setId(missingId);
-
-        return "redirect:/recipe/" + recipe.getId();
+    @RequestMapping(value="/home/search", method = RequestMethod.POST)
+    public String submit(@RequestParam("options") String option, Recipe recipe, Ingredient ingredient) {
+        if (Objects.equals(option, "recipe")){
+            String missingId = recipeService.missingId(recipe.getTag_value());
+            recipe.setId(missingId);
+            return "redirect:/recipe/" + recipe.getId();
+        }else if (Objects.equals(option, "ingredient")){
+            String missingId = ingredientService.missingId(ingredient.getTag_value());
+            ingredient.setId(missingId);
+            return "redirect:/ingredient/" + ingredient.getId();
+        }
+        else {
+            return "redirect:/error-500";
+        }
     }
-    @PostMapping("/home/ingredient")
-    public String ingredientSubmit(@ModelAttribute Ingredient ingredient, Model model) {
-        String missingId = ingredientService.missingId(ingredient.getTag_value());
-        ingredient.setId(missingId);
 
-        return "redirect:/ingredient/" + ingredient.getId();
-    }
 
 
     @RequestMapping(value = "home/recipeSearchFromKeyword", method = RequestMethod.GET)
