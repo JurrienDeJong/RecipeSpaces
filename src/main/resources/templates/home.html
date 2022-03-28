@@ -180,6 +180,7 @@
 
   </style>
 </head>
+<body onload="autocomplete()">
 <header class="header">
   <nav class="navigation">
     <a href="#" class="navbar-logo">Recipe Spaces</a>
@@ -191,6 +192,7 @@
       <a th:href="@{/contact}">Contact</a>
     </div>
   </nav>
+
   <div class="background-wrap">
     <img id="video-bg-elem" alt="French Food" th:src="@{french-food.jpg}"/>
       <div class="content">
@@ -218,9 +220,7 @@
   </div>
   <script>
     const currentValue = document.querySelector('.currentValue');
-    console.log(document.forms['searchbar']);
     const form = document.forms['searchbar'];
-    console.log(form);
     const radios = Array.from(form.elements.options);
 
 
@@ -232,7 +232,6 @@
         minLength: 3,
         delay: 0
       });
-      console.log(document.querySelector('input[name=options]:checked').value)
     }
 
     radios.forEach(radio => {
@@ -243,5 +242,6 @@
     });
 
   </script>
+  </body>
 </header>
 </html>
