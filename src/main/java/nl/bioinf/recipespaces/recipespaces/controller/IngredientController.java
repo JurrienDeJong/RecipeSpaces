@@ -35,8 +35,7 @@ public class IngredientController {
 
     // Get Recipe from ID
     @GetMapping("/{id}")
-    public String displayRecipeByID(Model model, @PathVariable("id") String id){
-        id = "NER_" + id;
+    public String displayRecipeByID(Model model, @PathVariable("id") Integer id){
         Ingredient ingredient = ingredientService.getId(id);
         Set<Molecule> molecules = moleculeService.getMoleculesFromIngredient(id);
         Set<Recipe> recipes = recipeService.getRecipesFromIngredient(id);

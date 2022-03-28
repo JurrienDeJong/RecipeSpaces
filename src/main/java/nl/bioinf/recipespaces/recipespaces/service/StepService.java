@@ -25,9 +25,9 @@ public class StepService {
         return this.stepRepository.findAll();
     }
 
-    public Optional<Step> getId(String id) {
+    public Optional<Step> getId(Integer id) {
         return this.stepRepository.findById(id);
     }
 
-    public Set<Step> getStepsFromRecipe(String recipeID) { return this.stepRepository.stepsFromRecipe(recipeID);}
+    public Set<Step> getStepsFromRecipe(Integer recipeID) { return this.stepRepository.stepsFromRecipe(recipeID);}
 }

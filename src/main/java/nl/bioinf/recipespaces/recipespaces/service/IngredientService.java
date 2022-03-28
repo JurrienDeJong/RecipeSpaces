@@ -25,15 +25,15 @@ public class IngredientService {
         return repository.findAll();
     }
 
-    public Ingredient getId(String id) {
+    public Ingredient getId(Integer id) {
         return repository.findIngredientById(id);
     }
 
-    public Set<Ingredient> getIngredientsFromRecipe(String recipeID) {
+    public Set<Ingredient> getIngredientsFromRecipe(Integer recipeID) {
         return repository.ingredientsFromRecipe(recipeID);
     }
 
-    public String missingId(String keyword) { return this.repository.missingId(keyword);}
+    public Integer missingId(String keyword) { return this.repository.missingId(keyword);}
 
     public List<Ingredient> findByKeyword(String keyword) { return this.repository.ingredientFromKeyword(keyword);}
 

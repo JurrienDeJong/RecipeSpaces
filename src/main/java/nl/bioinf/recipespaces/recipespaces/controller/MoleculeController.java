@@ -33,7 +33,7 @@ public class MoleculeController {
 
     // Get Molecule from ID
     @GetMapping("/{id}")
-    public String displayMoleculeByID(Model model, @PathVariable("id") String id){
+    public String displayMoleculeByID(Model model, @PathVariable("id") Integer id){
         Molecule molecule = moleculeService.getMolById(id);
         try{
             model.addAttribute("molecule", molecule);

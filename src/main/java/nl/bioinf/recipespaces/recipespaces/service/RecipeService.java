@@ -31,19 +31,19 @@ public class RecipeService {
         return this.recipeRepository.findAll();
     }
 
-    public String missingId(String keyword) { return this.recipeRepository.missingId(keyword);}
+    public Integer missingId(String keyword) { return this.recipeRepository.missingId(keyword);}
 
-    public Recipe getId(String id) {
+    public Recipe getId(Integer id) {
         return this.recipeRepository.findRecipeById(id);
     }
 
     public List<Recipe> findByKeyword(String keyword) { return this.recipeRepository.recipesFromKeyword(keyword);}
 
-    public Set<Ingredient> getIngredientsFromRecipe(String id) {
+    public Set<Ingredient> getIngredientsFromRecipe(Integer id) {
         return this.ingredientRepository.ingredientsFromRecipe(id);
     }
 
-    public Set<Recipe> getRecipesFromIngredient(String id) {
+    public Set<Recipe> getRecipesFromIngredient(Integer id) {
         return this.recipeRepository.recipesFromIngredient(id);
     }
 

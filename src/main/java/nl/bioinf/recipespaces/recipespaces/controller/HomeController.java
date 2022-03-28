@@ -33,11 +33,11 @@ public class HomeController {
     @RequestMapping(value="/home/search", method = RequestMethod.POST)
     public String submit(@RequestParam("options") String option, Recipe recipe, Ingredient ingredient) {
         if (Objects.equals(option, "recipe")){
-            String missingId = recipeService.missingId(recipe.getTag_value());
+            Integer missingId = recipeService.missingId(recipe.getTag_value());
             recipe.setId(missingId);
             return "redirect:/recipe/" + recipe.getId();
         }else if (Objects.equals(option, "ingredient")){
-            String missingId = ingredientService.missingId(ingredient.getTag_value());
+            Integer missingId = ingredientService.missingId(ingredient.getTag_value());
             ingredient.setId(missingId);
             return "redirect:/ingredient/" + ingredient.getId();
         }

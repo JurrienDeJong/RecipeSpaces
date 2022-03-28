@@ -25,11 +25,11 @@ public class MoleculeService {
         return this.moleculeRepository.findAll();
     }
 
-    public Molecule getMolById(String id) {
+    public Molecule getMolById(Integer id) {
         return this.moleculeRepository.getMoleculeById(id);
     }
 
-    public Set<Molecule> getMoleculesFromIngredient(String ingID) { return this.moleculeRepository.moleculesFromIngredient(ingID);}
+    public Set<Molecule> getMoleculesFromIngredient(Integer ingID) { return this.moleculeRepository.moleculesFromIngredient(ingID);}
 
 
 }

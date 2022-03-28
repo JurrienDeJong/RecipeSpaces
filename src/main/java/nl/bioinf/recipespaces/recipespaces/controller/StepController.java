@@ -30,14 +30,14 @@ public class StepController {
 
     @GetMapping("{id}")
     @ResponseBody
-    public Step getStepByID(Model model, @PathVariable("id") String id) throws ResponseStatusException {
+    public Step getStepByID(Model model, @PathVariable("id") Integer id) throws ResponseStatusException {
         Optional<Step> rv = this.stepService.getId(id);
         return rv.orElseThrow ( () -> new ResponseStatusException(HttpStatus.NOT_FOUND));
     }
 
     @GetMapping("search/{recipeID}")
     @ResponseBody
-    public Set<Step> getStepsFromRecipe(@PathVariable("recipeID") String recipeID) throws ResponseStatusException {
+    public Set<Step> getStepsFromRecipe(@PathVariable("recipeID") Integer recipeID) throws ResponseStatusException {
         try{
             return this.stepService.getStepsFromRecipe(recipeID);
         } catch(Exception ex){

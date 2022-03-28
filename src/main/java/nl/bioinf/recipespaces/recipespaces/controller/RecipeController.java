@@ -40,8 +40,7 @@ public class RecipeController {
 
     // Get Recipe from ID
     @GetMapping("/recipe/{id}")
-    public String displayRecipeByID(Model model, @PathVariable("id") String id){
-        id = "REC_" + id;
+    public String displayRecipeByID(Model model, @PathVariable("id") Integer id){
         Recipe recipe = recipeService.getId(id);
         Set<Ingredient> ingredients = recipeService.getIngredientsFromRecipe(id);
         Set<Step> steps = stepService.getStepsFromRecipe(id);
@@ -57,7 +56,7 @@ public class RecipeController {
 
     @GetMapping("search/{recipeID}")
     @ResponseBody
-    public Set<Ingredient> getIngredients(@PathVariable("recipeID") String id) throws ResponseStatusException {
+    public Set<Ingredient> getIngredients(@PathVariable("recipeID") Integer id) throws ResponseStatusException {
         try{
             return this.recipeService.getIngredientsFromRecipe(id);
         } catch(Exception ex){
