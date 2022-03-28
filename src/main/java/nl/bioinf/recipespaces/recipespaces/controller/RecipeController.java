@@ -1,8 +1,10 @@
 package nl.bioinf.recipespaces.recipespaces.controller;
 
 import nl.bioinf.recipespaces.recipespaces.model.Ingredient;
+import nl.bioinf.recipespaces.recipespaces.model.IngredientAmount;
 import nl.bioinf.recipespaces.recipespaces.model.Recipe;
 import nl.bioinf.recipespaces.recipespaces.model.Step;
+import nl.bioinf.recipespaces.recipespaces.service.IngredientAmountService;
 import nl.bioinf.recipespaces.recipespaces.service.RecipeService;
 import nl.bioinf.recipespaces.recipespaces.service.StepService;
 import org.springframework.http.HttpStatus;
@@ -18,10 +20,12 @@ import java.util.Set;
 public class RecipeController {
     private final RecipeService recipeService;
     private final StepService stepService;
+    private final IngredientAmountService ingredientAmountService;
 
-    public RecipeController(RecipeService recipeService, StepService stepService) {
+    public RecipeController(RecipeService recipeService, StepService stepService, IngredientAmountService ingredientAmountService) {
         this.recipeService = recipeService;
         this.stepService = stepService;
+        this.ingredientAmountService = ingredientAmountService;
     }
 
     // Get all recipes
@@ -44,10 +48,12 @@ public class RecipeController {
         Recipe recipe = recipeService.getId(id);
         Set<Ingredient> ingredients = recipeService.getIngredientsFromRecipe(id);
         Set<Step> steps = stepService.getStepsFromRecipe(id);
+        Set<IngredientAmount> ingredientAmounts = ingredientAmountService.getIngredientAmountFromRecipe(id);
         try{
             model.addAttribute("recipes", recipe);
             model.addAttribute("ingredients", ingredients);
             model.addAttribute("steps", steps);
+            model.addAttribute("ingredient_amount", ingredientAmounts);
         } catch (Exception e){
             System.out.println(e.getMessage());
         }

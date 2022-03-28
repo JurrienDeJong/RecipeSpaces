@@ -33,6 +33,12 @@
 
     <br>
 
+    <h1>Ingredients:</h1>
+    <ul>
+        <li th:each="amount:${ingredient_amount}"
+            th:text="${amount.tagValue}"></li>
+    </ul>
+
     <h1>Steps:</h1>
     <ul>
         <li th:each="step:${steps}"
@@ -49,6 +55,13 @@
         });
         $(document).ready(function() {
             $('#ingredients').DataTable({
+                bFilter : false,
+                "bLengthChange": false
+            })
+
+        });
+        $(document).ready(function() {
+            $('#ingredient_amount').DataTable({
                 bFilter : false,
                 "bLengthChange": false
             })
