@@ -1,7 +1,5 @@
 package nl.bioinf.recipespaces.recipespaces.service;
 
-import nl.bioinf.recipespaces.recipespaces.model.Recipe;
-import nl.bioinf.recipespaces.recipespaces.model.RecipeRepository;
 import nl.bioinf.recipespaces.recipespaces.model.Step;
 import nl.bioinf.recipespaces.recipespaces.model.StepRepository;
 import org.springframework.beans.factory.annotation.Autowired;

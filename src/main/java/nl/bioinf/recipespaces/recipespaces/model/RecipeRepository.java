@@ -6,7 +6,6 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.Set;
 
 @Repository
@@ -24,7 +23,7 @@ public interface RecipeRepository extends JpaRepository<Recipe, String> {
     Set<Recipe> selectAllRecipes();
 
     @Query(value = "select distinct r.id from recipe r where r.tag_value = :tag_value", nativeQuery = true)
-    Integer missingId(@Param("tag_value") String tag_value);
+    Integer missingId(@Param("tag_value") String tagValue);
 
 
 }

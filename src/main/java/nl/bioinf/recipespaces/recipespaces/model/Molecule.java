@@ -8,37 +8,42 @@ public class Molecule {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
 
-    private Integer pubchem_id;
-    private String common_name;
-    private String flavor_profile;
+    @Column(name = "pubchem_id")
+    private Integer pubChemId;
 
-    public Molecule(String common_name, String flavor_profile) {
-        this.common_name = common_name;
-        this.flavor_profile = flavor_profile;
+    @Column(name = "common_name")
+    private String commonName;
+
+    @Column(name = "flavor_profile")
+    private String flavorProfile;
+
+    public Molecule(String commonName, String flavorProfile) {
+        this.commonName = commonName;
+        this.flavorProfile = flavorProfile;
     }
 
-    public Integer getPubchem_id() {
-        return pubchem_id;
+    public Integer getPubChemId() {
+        return pubChemId;
     }
 
-    public void setPubchem_id(Integer pubchem_id) {
-        this.pubchem_id = pubchem_id;
+    public void setPubChemId(Integer pubChemId) {
+        this.pubChemId = pubChemId;
     }
 
-    public String getCommon_name() {
-        return common_name;
+    public String getCommonName() {
+        return commonName;
     }
 
-    public void setCommon_name(String common_name) {
-        this.common_name = common_name;
+    public void setCommonName(String commonName) {
+        this.commonName = commonName;
     }
 
-    public String getFlavor_profile() {
-        return flavor_profile;
+    public String getFlavorProfile() {
+        return flavorProfile;
     }
 
-    public void setFlavor_profile(String flavor_profile) {
-        this.flavor_profile = flavor_profile;
+    public void setFlavorProfile(String flavorProfile) {
+        this.flavorProfile = flavorProfile;
     }
 
     public Molecule() {

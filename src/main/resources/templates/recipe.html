@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<title th:text="#{tab.title.recipe(${recipes.tag_value})}">_offline_</title>
+<title th:text="#{tab.title.recipe(${recipes.tagValue})}">_offline_</title>
 <head>
     <!-- jQuery -->
     <script type="text/javascript"
@@ -18,7 +18,7 @@
     </script>
 </head>
 <body>
-    <h1 th:text="${recipes.tag_value}"></h1>
+    <h1 th:text="${recipes.tagValue}"></h1>
 
     <br>
 
@@ -26,7 +26,7 @@
     <table id="ingredients" class="display nowrap">
         <tbody>
         <tr th:each="ingredient : ${ingredients}">
-            <td><a th:href="@{'/ingredient/' + ${ingredient.getId()}}" th:text="${ingredient.getTag_value()}"></a></td>
+            <td><a th:href="@{'/ingredient/' + ${ingredient.getId()}}" th:text="${ingredient.getTagValue()}"></a></td>
         </tr>
         </tbody>
     </table>
@@ -42,7 +42,7 @@
     <h1>Steps:</h1>
     <ul>
         <li th:each="step:${steps}"
-            th:text="${step.tag_value}"></li>
+            th:text="${step.tagValue}"></li>
     </ul>
 
     <script>

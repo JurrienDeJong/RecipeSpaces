@@ -6,7 +6,6 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.Set;
 
 @Repository
@@ -18,7 +17,7 @@ public interface IngredientRepository extends JpaRepository<Ingredient, String> 
     Ingredient findIngredientById(@Param("id") Integer id);
 
     @Query(value = "select distinct ner.id from ner where ner.tag_value = :tag_value", nativeQuery = true)
-    Integer missingId(@Param("tag_value") String tag_value);
+    Integer missingId(@Param("tag_value") String tagValue);
 
     @Query(value = "select * from ner where ner.tag_value like %:keyword% limit 250", nativeQuery = true)
     List<Ingredient> ingredientFromKeyword(@Param("keyword") String keyword);

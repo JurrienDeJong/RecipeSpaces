@@ -3,7 +3,6 @@ package nl.bioinf.recipespaces.recipespaces.model;
 import lombok.Data;
 import javax.persistence.*;
 
-@Data
 @Entity
 @Table(name = "ingredient_amount")
 public class IngredientAmount {
@@ -15,10 +14,6 @@ public class IngredientAmount {
 
     @Column(name = "tag_value")
     private String tagValue;
-
-    public IngredientAmount(String tagValue) {
-        this.tagValue = tagValue;
-    }
 
     public int getId() {
         return id;

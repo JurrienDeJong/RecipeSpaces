@@ -1,22 +1,22 @@
 package nl.bioinf.recipespaces.recipespaces.model;
 
 import lombok.Data;
-import lombok.NoArgsConstructor;
-
 import javax.persistence.*;
-import java.util.List;
 
-@Data
 @Entity
+@Table(name = "ner")
 public class Ingredient {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
 
+    @Column(name = "id")
     private Integer id;
-    private String tag_value;
 
-    public Ingredient(String tag_value) {
-        this.tag_value = tag_value;
+    @Column(name = "tag_value")
+    private String tagValue;
+
+    public Ingredient(String tagValue) {
+        this.tagValue = tagValue;
     }
 
     public Integer getId() {
@@ -27,12 +27,12 @@ public class Ingredient {
         this.id = id;
     }
 
-    public String getTag_value() {
-        return tag_value;
+    public String getTagValue() {
+        return tagValue;
     }
 
-    public void setTag_value(String tag_value) {
-        this.tag_value = tag_value;
+    public void setTagValue(String tagValue) {
+        this.tagValue = tagValue;
     }
 
     public Ingredient() {

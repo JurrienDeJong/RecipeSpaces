@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<title th:text="#{tab.title.molecule(${molecule.common_name})}">_offline_</title>
+<title th:text="#{tab.title.molecule(${molecule.commonName})}">_offline_</title>
 <head>
     <!-- jQuery -->
     <script type="text/javascript"
@@ -31,9 +31,9 @@
     </thead>
     <tbody>
         <tr>
-            <td th:text="${molecule.pubchem_id}"></td>
-            <td th:text="${molecule.common_name}"></td>
-            <td th:text="${molecule.flavor_profile}"></td>
+            <td th:text="${molecule.pubChemId}"></td>
+            <td th:text="${molecule.commonName}"></td>
+            <td th:text="${molecule.flavorProfile}"></td>
         </tr>
 
     </tbody>

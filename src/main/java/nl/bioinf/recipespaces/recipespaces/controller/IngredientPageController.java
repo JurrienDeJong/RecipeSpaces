@@ -26,7 +26,7 @@ public class IngredientPageController {
 
     @PostMapping("/ingredients/ingredient")
     public String ingredientSubmit(@ModelAttribute Ingredient ingredient, Model model) {
-        int missingId = ingredientService.missingId(ingredient.getTag_value());
+        int missingId = ingredientService.missingId(ingredient.getTagValue());
         ingredient.setId(missingId);
 
         return "redirect:/ingredient/" + ingredient.getId();
@@ -38,7 +38,7 @@ public class IngredientPageController {
         List<String> allIngredientNames = new ArrayList<>();
         List<Ingredient> ingredients = ingredientService.findByKeyword(term);
         for (Ingredient i: ingredients){
-            allIngredientNames.add(i.getTag_value());
+            allIngredientNames.add(i.getTagValue());
         }
         return allIngredientNames;
     }

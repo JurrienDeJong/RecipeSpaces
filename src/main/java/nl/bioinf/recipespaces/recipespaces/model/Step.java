@@ -1,20 +1,21 @@
 package nl.bioinf.recipespaces.recipespaces.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
+@Table(name = "step")
 public class Step {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
 
+    @Column(name = "id")
     private Integer id;
-    private String tag_value;
 
-    public Step(String tag_value) {
-        this.tag_value = tag_value;
+    @Column(name = "tag_value")
+    private String tagValue;
+
+    public Step(String tagValue) {
+        this.tagValue = tagValue;
     }
 
     public Integer getId() {
@@ -25,12 +26,12 @@ public class Step {
         this.id = id;
     }
 
-    public String getTag_value() {
-        return tag_value;
+    public String getTagValue() {
+        return tagValue;
     }
 
-    public void setTag_value(String tagValue) {
-        this.tag_value = tagValue;
+    public void setTagValue(String tagValue) {
+        this.tagValue = tagValue;
     }
 
     public Step() {

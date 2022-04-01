@@ -2,13 +2,10 @@ package nl.bioinf.recipespaces.recipespaces.service;
 
 import nl.bioinf.recipespaces.recipespaces.model.Molecule;
 import nl.bioinf.recipespaces.recipespaces.model.MoleculeRepository;
-import nl.bioinf.recipespaces.recipespaces.model.Step;
-import nl.bioinf.recipespaces.recipespaces.model.StepRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.Set;
 
 @Service

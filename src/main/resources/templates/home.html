@@ -186,7 +186,7 @@
     <a href="#" class="navbar-logo">Recipe Spaces</a>
     <div class="navbar-right">
       <a th:href="@{/home}">Home</a>
-      <a href="#">Discover</a>
+<!--      <a href="#">Discover</a>-->
       <a th:href="@{/ingredients}">Ingredients</a>
       <a href="#">About Us</a>
       <a th:href="@{/contact}">Contact</a>
@@ -201,9 +201,9 @@
 
       <form action="#" th:action="@{/home/search}" th:object="${ingredient}" method="post" id="searchbar">
         <div class="wrap">
-          <h1>Find a </h1> <h1 class="currentValue"></h1>
+          <h1>Find here your </h1> <h1 class="currentValue"></h1>
           <div class="search">
-              <input id="RecipeName" type="text" class="searchTerm" placeholder="Find here your recipe" th:field="*{tag_value}"/>
+              <input id="RecipeName" type="text" class="searchTerm currentValue" placeholder="Search here" th:field="*{tagValue}"/>
             <button type="submit" class="searchButton">
               <i class="glyphicon glyphicon-search"></i>
             </button>
@@ -242,6 +242,6 @@
     });
 
   </script>
-  </body>
 </header>
+</body>
 </html>

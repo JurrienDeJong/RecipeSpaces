@@ -2,22 +2,23 @@ package nl.bioinf.recipespaces.recipespaces.model;
 
 import lombok.Data;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
-@Data
 @Entity
+@Table(name = "recipe")
 public class Recipe {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer id;
-    private String tag_value;
 
-    public Recipe(String tag_value) {
-        this.tag_value = tag_value;
+    @Column(name = "id")
+    private Integer id;
+
+    @Column(name = "tag_value")
+    private String tagValue;
+
+    public Recipe(String tagValue) {
+        this.tagValue = tagValue;
     }
 
     public Integer getId() {
@@ -28,12 +29,12 @@ public class Recipe {
         this.id = id;
     }
 
-    public String getTag_value() {
-        return tag_value;
+    public String getTagValue() {
+        return tagValue;
     }
 
-    public void setTag_value(String tag_value) {
-        this.tag_value = tag_value;
+    public void setTagValue(String tagValue) {
+        this.tagValue = tagValue;
     }
 
     public Recipe() {

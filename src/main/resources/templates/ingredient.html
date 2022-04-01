@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<title th:text="#{tab.title.ingredient(${ingredient.tag_value})}">_offline_</title>
+<title th:text="#{tab.title.ingredient(${ingredient.tagValue})}">_offline_</title>
 <head>
     <!-- jQuery -->
     <script type="text/javascript"
@@ -18,21 +18,21 @@
     </script>
 </head>
 <body>
-<h1>Ingredient Data</h1>
-<table id="ingredient" class="display nowrap">
-    <thead>
-    <tr>
-        <th>ID</th>
-        <th>Description</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr>
-        <td th:text="${ingredient.getId()}"></td>
-        <td th:text="${ingredient.getTag_value()}"></td>
-    </tr>
-    </tbody>
-</table>
+<h1 th:text="'Ingredient data of ' + ${ingredient.tagValue}"></h1>
+<!--<table id="ingredient" class="display nowrap">-->
+<!--    <thead>-->
+<!--    <tr>-->
+<!--        <th>ID</th>-->
+<!--        <th>Description</th>-->
+<!--    </tr>-->
+<!--    </thead>-->
+<!--    <tbody>-->
+<!--    <tr>-->
+<!--        <td th:text="${ingredient.getId()}"></td>-->
+<!--        <td th:text="${ingredient.getTagValue()}"></td>-->
+<!--    </tr>-->
+<!--    </tbody>-->
+<!--</table>-->
 
 <br>
 <h1>Molecules in ingredient:</h1>
@@ -47,16 +47,16 @@
     <tbody>
 
         <tr th:each="molecule : ${molecules}">
-            <td><a th:href="@{'/molecule/' + ${molecule.getPubchem_id()}}" th:text="${molecule.getPubchem_id()}"></a></td>
-            <td th:text="${molecule.common_name}"></td>
-            <td th:text="${molecule.flavor_profile}"></td>
+            <td><a th:href="@{'/molecule/' + ${molecule.getPubChemId()}}" th:text="${molecule.getPubChemId()}"></a></td>
+            <td th:text="${molecule.commonName}"></td>
+            <td th:text="${molecule.flavorProfile}"></td>
         </tr>
 
     </tbody>
 </table>
 
 <br>
-<h1>Recipes containing <span th:text="${ingredient.getTag_value()}">:</span></h1>
+<h1>Recipes containing <span th:text="${ingredient.getTagValue()}">:</span></h1>
 <table id="recipes" class="display nowrap">
     <thead>
     <tr>
@@ -68,7 +68,7 @@
 
     <tr th:each="recipe : ${recipes}">
         <td><a th:href="@{'/recipe/' + ${recipe.getId()}}" th:text="${recipe.getId()}"></a></td>
-        <td th:text="${recipe.getTag_value()}"></td>
+        <td th:text="${recipe.getTagValue()}"></td>
     </tr>
 
     </tbody>

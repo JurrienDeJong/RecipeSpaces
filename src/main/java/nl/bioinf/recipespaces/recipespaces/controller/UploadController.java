@@ -21,13 +21,13 @@ public class UploadController {
         ReadCSV csv = new ReadCSV();
         UploadData data = csv.ParseCSV();
 
-        uploadService.insertRecipe(data.recipe().getTag_value());
+        uploadService.insertRecipe(data.recipe().getTagValue());
         for (Ingredient i : data.ingredients()){
-            uploadService.insertIngredient(i.getTag_value());
+            uploadService.insertIngredient(i.getTagValue());
 
             // Get Id's
-            Integer recipeId = uploadService.getIdForRecipe(data.recipe().getTag_value());
-            Integer ingredientId = uploadService.getIdForIngredient(i.getTag_value());
+            Integer recipeId = uploadService.getIdForRecipe(data.recipe().getTagValue());
+            Integer ingredientId = uploadService.getIdForIngredient(i.getTagValue());
 
             // Insert links
             uploadService.insertRecNerLink(recipeId, ingredientId);
