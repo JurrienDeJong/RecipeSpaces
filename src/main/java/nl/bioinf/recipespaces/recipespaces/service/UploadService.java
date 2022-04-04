@@ -1,8 +1,10 @@
 package nl.bioinf.recipespaces.recipespaces.service;
 
-import nl.bioinf.recipespaces.recipespaces.model.UploadRepository;
+import nl.bioinf.recipespaces.recipespaces.Upload.ReadCSV;
+import nl.bioinf.recipespaces.recipespaces.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 @Service
 public class UploadService {
@@ -19,6 +21,10 @@ public class UploadService {
 
     public void insertIngredient(String tagValue){ uploadRepository.insertIngredient(tagValue);}
 
+    public void insertStep(String tagValue){ uploadRepository.insertStep(tagValue);}
+
+    public void insertMolecule(Integer Id, String tagValue, String flavors){ uploadRepository.insertMolecule(Id, tagValue, flavors);}
+
     public void insertRecipe(String tagValue){ uploadRepository.insertRecipe(tagValue);}
 
     public void insertRecNerLink(Integer recId, Integer nerId){ uploadRepository.insertRecipeNer(recId, nerId);}
@@ -34,4 +40,9 @@ public class UploadService {
     public Integer getIdForMolecule(String name){ return uploadRepository.findMoleculeId(name);}
 
     public Integer getIdForStep(String name){ return uploadRepository.findStepId(name);}
+
+    public UploadData parseUploadedFile(final MultipartFile inFile){
+        ReadCSV csv = new ReadCSV();
+        return csv.ParseCSV(inFile);
+    }
 }

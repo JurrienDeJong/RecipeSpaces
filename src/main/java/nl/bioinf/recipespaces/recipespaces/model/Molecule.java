@@ -22,6 +22,12 @@ public class Molecule {
         this.flavorProfile = flavorProfile;
     }
 
+    public Molecule(Integer pubChemId, String commonName, String flavorProfile) {
+        this.pubChemId = pubChemId;
+        this.commonName = commonName;
+        this.flavorProfile = flavorProfile;
+    }
+
     public Integer getPubChemId() {
         return pubChemId;
     }
@@ -44,6 +50,15 @@ public class Molecule {
 
     public void setFlavorProfile(String flavorProfile) {
         this.flavorProfile = flavorProfile;
+    }
+
+    @Override
+    public String toString() {
+        return "Molecule{" +
+                "pubChemId=" + pubChemId +
+                ", commonName='" + commonName + '\'' +
+                ", flavorProfile='" + flavorProfile + '\'' +
+                '}';
     }
 
     public Molecule() {

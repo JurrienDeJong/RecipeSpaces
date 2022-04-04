@@ -35,6 +35,14 @@ public class Ingredient {
         this.tagValue = tagValue;
     }
 
+    @Override
+    public String toString() {
+        return "Ingredient{" +
+                "id=" + id +
+                ", tagValue='" + tagValue + '\'' +
+                '}';
+    }
+
     public Ingredient() {
 
     }

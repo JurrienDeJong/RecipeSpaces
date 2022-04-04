@@ -20,6 +20,16 @@ public interface UploadRepository extends JpaRepository<Recipe, String> {
     void insertIngredient(@Param("tagValue") String tagValue);
 
 
+    @Transactional
+    @Modifying
+    @Query(value = "insert into step (tag, tag_value) values ('step', :tagValue)", nativeQuery = true)
+    void insertStep(@Param("tagValue") String tagValue);
+
+    @Transactional
+    @Modifying
+    @Query(value = "insert into mol (pubchem_id, common_name, flavor_profile) values (:Id, :tagValue, :flavors)", nativeQuery = true)
+    void insertMolecule(@Param("Id") Integer Id, @Param("tagValue") String tagValue, @Param("flavors") String flavors);
+
     // Link Tables;
 
     @Transactional
@@ -40,15 +50,15 @@ public interface UploadRepository extends JpaRepository<Recipe, String> {
 
     // Get ID's;
 
-    @Query(value = "select i.ID from ner i where i.tag_value = :name", nativeQuery = true)
+    @Query(value = "select max(i.ID) from ner i where i.tag_value = :name", nativeQuery = true)
     Integer findIngredientId(@Param("name") String name);
 
-    @Query(value = "select i.ID from step i where i.tag_value = :name", nativeQuery = true)
+    @Query(value = "select max(i.ID) from step i where i.tag_value = :name", nativeQuery = true)
     Integer findStepId(@Param("name") String name);
 
-    @Query(value = "select i.ID from recipe i where i.tag_value = :name", nativeQuery = true)
+    @Query(value = "select max(i.ID) from recipe i where i.tag_value = :name", nativeQuery = true)
     Integer findRecipeId(@Param("name") String name);
 
-    @Query(value = "select i.pubchem_id from mol i where i.common_name = :name", nativeQuery = true)
+    @Query(value = "select max(i.pubchem_id) from mol i where i.common_name = :name", nativeQuery = true)
     Integer findMoleculeId(@Param("name") String name);
 }
