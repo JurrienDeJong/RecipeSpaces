@@ -18,7 +18,7 @@ class CSVReaderTest {
         try{
             CSVReader reader = new CSVReader();
 
-            MultipartFile multipartFile = new MockMultipartFile("test.csv", new FileInputStream("C:\\Users\\jurri\\Bureaublad\\School Files\\RecipeSpaces\\src\\main\\resources\\static\\exampleData.csv"));
+            MultipartFile multipartFile = new MockMultipartFile("test.csv", new FileInputStream("src/main/resources/static/exampleData.csv"));
             IngredientData data = reader.ParseCSV(multipartFile);
             System.out.println(data.getMolecules().toString());
         } catch(Exception ex){
