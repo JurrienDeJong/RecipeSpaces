@@ -26,12 +26,12 @@ public class UploadController {
 
     @RequestMapping(value = "/upload", method = RequestMethod.GET)
     public String displayForm(ModelMap modelMap) {
-        modelMap.put("uploadData", new IngredientData());
+        modelMap.put("ingredientData", new IngredientData());
         return "upload";
     }
 
     @RequestMapping(value = "/upload", method = RequestMethod.POST)
-    public String submit(@ModelAttribute("uploadData") IngredientData ingredientData, @RequestParam("file") final MultipartFile file, final Model modelMap) {
+    public String submit(@ModelAttribute("ingredientData") IngredientData ingredientData, @RequestParam("file") final MultipartFile file, final Model modelMap) {
         modelMap.addAttribute("file", file);
         IngredientData data = uploadService.parseUploadedFile(file);
         data.setRecipeTag(ingredientData.getRecipeTag());

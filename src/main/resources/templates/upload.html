@@ -105,7 +105,7 @@
         textarea, input {
             color: #4e5e72;
             background-color: transparent;
-            background-image: url("uploadData:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='24'><rect fill='rgb(229, 225, 187)' x='0' y='23' width='10' height='1'/></svg>");
+            background-image: url("ingredientData:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='24'><rect fill='rgb(229, 225, 187)' x='0' y='23' width='10' height='1'/></svg>");
         }
         textarea {
             width: 100%;
@@ -148,19 +148,19 @@
 <body class = "portfolio-section">
 <p style="background-color: DarkSeaGreen; width: 100%"></p>
 <div class="container my-5 mx-5 px-5">
-    <form method="post" modelAttribute="uploadData" th:action="@{/upload}" th:object="${uploadData}" enctype="multipart/form-data">
+    <form method="post" modelAttribute="ingredientData" th:action="@{/upload}" th:object="${ingredientData}" enctype="multipart/form-data">
 
         <div class="field">
             <label for="recipe">
                 Recipe Title:
             </label><br/>
-            <input type="text" th:field="${uploadData.recipeTag}" name="recipe" id="recipe" placeholder="Recipe Name Here" autofocus required>
+            <input type="text" th:field="${ingredientData.recipeTag}" name="recipe" id="recipe" placeholder="Recipe Name Here" autofocus required>
         </div>
 
         <br>
 
         <label for="steps">Steps:</label>
-        <input autofocus required type="text" th:field="${uploadData.step}" id="steps" name="steps" placeholder="Please separate steps with a period." style="width:250px; height: 100px"><br><br>
+        <input autofocus required type="text" th:field="${ingredientData.step}" id="steps" name="steps" placeholder="Please separate steps with a period." style="width:250px; height: 100px"><br><br>
 
         <br>
 
