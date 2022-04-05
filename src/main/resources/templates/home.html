@@ -1,127 +1,16 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <title th:text="#{tab.title.home}">_offline_</title>
-
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-
   <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
   <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
   <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-
-
+  <link th:href="@{/css/stylesheet.css}" rel="stylesheet" />
 
   <style>
-
-    .ui-autocomplete { height: 200px; overflow-y: scroll; overflow-x: hidden;}
-
-    body{
-      background: #f2f2f2;
-      font-family: 'Open Sans', sans-serif;
-      overflow-x: hidden;
-    }
-
-
-    .navigation{
-      padding-top: 30px;
-      padding-bottom: 30px;
-      position: absolute;
-      top: 0;
-      width: 100%;
-      z-index: 1;
-    }
-
-    .navbar-right{
-      float: right;
-      padding-right: 10%;
-    }
-
-    .navbar-right a{
-      text-decoration: none;
-      padding: 10px;
-      color: #FFFFFF;
-      font-family: Calibri;
-      font-weight: 900;
-      font-size: 25px;
-    }
-
-    .navbar-right a:hover{
-      text-decoration: underline;
-    }
-
-    .navbar-logo{
-      padding-left: 10%;
-      font-family: Calibri;
-      font-size: 30px;
-      font-weight: bold;
-      text-decoration: none;
-      color: #FFFFFF;
-
-    }
-
-    .portfolio-section{
-      margin-top: 50%;
-      margin-left: 10px;
-      padding-right: 10px;
-    }
-
-    .background-wrap {
-      position: absolute;
-      z-index: -1000;
-      width: 100%;
-      height: 100%;
-      overflow: hidden;
-      top: 0;
-      left: 0;
-    }
-
-
-    #video-bg-elem {
-      position: absolute;
-      top: 0;
-      left: 0;
-      min-height: 100%;
-      min-width: 100%;
-    }
-
-
-    .content {
-      position: absolute;
-      width: 100%;
-      min-height: 100%;
-      z-index: 1000;
-      background-color: rgba(0,0,0,0.4);
-    }
-    @media screen and (max-width: 600px) {
-      .content h1 {
-        text-align: center;
-        font-size: 100px;
-        text-transform: uppercase;
-        font-weight: 300;
-        color: #fff;
-        padding-top: 0;
-        margin-bottom: 10px;
-      }
-    }
-    @media screen and (min-width: 601px) {
-      .content h1 {
-        text-align: center;
-        font-size: 100px;
-        text-transform: uppercase;
-        font-weight: 300;
-        color: #fff;
-        padding-top: 0;
-        margin-bottom: 10px;
-      }
-    }
-    .content p {
-      text-align: center;
-      font-size: 50px;
-      letter-spacing: 3px;
-      color: #aaa;
-    }
 
     .search {
       width: 40%;
@@ -152,49 +41,23 @@
       cursor: pointer;
       font-size: 20px;
     }
-
-    /*Resize the wrap to see the search bar change!*/
-    .wrap{
-      width: 100%;
-      position: absolute;
-      top: 30%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-    }
-    .wrap2{
-      width: 100%;
-      position: absolute;
-      top: 55%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-    }
-    .radio{
-      position: absolute;
-      color: darkseagreen;
-      top: 120%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      font-size: 18px;
-      max-lines: 1;
-    }
-
   </style>
 </head>
+
 <body onload="autocomplete()">
 <header class="header">
-  <nav class="navigation">
-    <a href="#" class="navbar-logo">Recipe Spaces</a>
-    <div class="navbar-right">
-      <a th:href="@{/home}">Home</a>
-<!--      <a href="#">Discover</a>-->
-      <a th:href="@{/ingredients}">Ingredients</a>
-      <a href="#">About Us</a>
-      <a th:href="@{/contact}">Contact</a>
-    </div>
-  </nav>
+<!--  <nav class="navigation">-->
+<!--    <a href="#" class="navbar-logo">Recipe Spaces</a>-->
+<!--    <div class="navbar-right">-->
+<!--      <a th:href="@{/home}">Home</a>-->
+<!--      <a href="#">About Us</a>-->
+<!--      <a th:href="@{/contact}">Contact</a>-->
+<!--    </div>-->
+<!--  </nav>-->
+  <div th:insert="template :: navigation-bar"></div>
 
-  <div class="background-wrap">
-    <img id="video-bg-elem" alt="French Food" th:src="@{french-food.jpg}"/>
+  <div class="background-wrap-home">
+    <img id="video-bg-elem" alt="French Food" th:src="@{/images/french-food.jpg}"/>
       <div class="content">
 
 <!--      <p>Welcome the Recipe Spaces Website</p>-->
@@ -218,6 +81,7 @@
       </form>
     </div>
   </div>
+
   <script>
     const currentValue = document.querySelector('.currentValue');
     const form = document.forms['searchbar'];
