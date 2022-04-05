@@ -4,6 +4,7 @@ import nl.bioinf.recipespaces.model.Ingredient;
 import nl.bioinf.recipespaces.model.Recipe;
 import nl.bioinf.recipespaces.service.IngredientService;
 import nl.bioinf.recipespaces.service.RecipeService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -18,12 +19,13 @@ public class HomeController {
     private final RecipeService recipeService;
     private final IngredientService ingredientService;
 
+    @Autowired
     public HomeController(RecipeService recipeService, IngredientService ingredientService) {
         this.recipeService = recipeService;
         this.ingredientService = ingredientService;
     }
 
-    @GetMapping("/home")
+    @GetMapping({"/home", "/", "/index"})
     public String getHome(Model model) {
         model.addAttribute("recipe", new Recipe());
         model.addAttribute("ingredient", new Ingredient());
@@ -46,8 +48,6 @@ public class HomeController {
         }
     }
 
-
-
     @RequestMapping(value = "home/recipeSearchFromKeyword", method = RequestMethod.GET)
     @ResponseBody
     public List<String> getRecipesAutocompleted(@RequestParam(value = "term", defaultValue = "") String term){
@@ -58,6 +58,7 @@ public class HomeController {
         }
         return allRecipeNames;
     }
+
     @RequestMapping(value = "home/ingredientSearchFromKeyword", method = RequestMethod.GET)
     @ResponseBody
     public List<String> getIngredientAutocompleted(@RequestParam(value = "term", defaultValue = "") String term){

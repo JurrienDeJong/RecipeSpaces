@@ -24,6 +24,7 @@ public class RecipeController {
     private final StepService stepService;
     private final IngredientAmountService ingredientAmountService;
 
+    @Autowired
     public RecipeController(RecipeService recipeService, StepService stepService, IngredientAmountService ingredientAmountService) {
         this.recipeService = recipeService;
         this.stepService = stepService;

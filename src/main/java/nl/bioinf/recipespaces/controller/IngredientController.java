@@ -50,11 +50,4 @@ public class IngredientController {
         }
         return "ingredient";
     }
-//
-//    @GetMapping("{id}")
-//    @ResponseBody
-//    public Ingredient getIngredientByID(Model model, @PathVariable("id") String id) throws ResponseStatusException {
-//        Optional<Ingredient> rv = this.ingredientService.getId(id);
-//        return rv.orElseThrow ( () -> new ResponseStatusException(HttpStatus.NOT_FOUND));
-//    }
 }
