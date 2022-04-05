@@ -1,9 +1,9 @@
 package nl.bioinf.recipespaces.service;
 
 import nl.bioinf.recipespaces.model.Ingredient;
-import nl.bioinf.recipespaces.model.IngredientRepository;
+import nl.bioinf.recipespaces.dao.IngredientRepository;
 import nl.bioinf.recipespaces.model.Recipe;
-import nl.bioinf.recipespaces.model.RecipeRepository;
+import nl.bioinf.recipespaces.dao.RecipeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

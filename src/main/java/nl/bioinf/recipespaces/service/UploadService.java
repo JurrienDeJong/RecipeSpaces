@@ -2,8 +2,7 @@ package nl.bioinf.recipespaces.service;
 
 import nl.bioinf.recipespaces.upload.CSVReader;
 import nl.bioinf.recipespaces.model.IngredientData;
-import nl.bioinf.recipespaces.model.UploadRepository;
-import nl.bioinf.recipespaces.model.*;
+import nl.bioinf.recipespaces.dao.UploadRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;

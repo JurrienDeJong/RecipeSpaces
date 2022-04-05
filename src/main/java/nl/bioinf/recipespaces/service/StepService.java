@@ -1,7 +1,7 @@
 package nl.bioinf.recipespaces.service;
 
 import nl.bioinf.recipespaces.model.Step;
-import nl.bioinf.recipespaces.model.StepRepository;
+import nl.bioinf.recipespaces.dao.StepRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
