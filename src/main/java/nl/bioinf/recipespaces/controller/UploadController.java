@@ -1,9 +1,10 @@
 package nl.bioinf.recipespaces.controller;
 
 import nl.bioinf.recipespaces.model.Ingredient;
-import nl.bioinf.recipespaces.model.UploadData;
-import nl.bioinf.recipespaces.recipespaces.model.*;
+import nl.bioinf.recipespaces.model.IngredientData;
+import nl.bioinf.recipespaces.model.*;
 import nl.bioinf.recipespaces.service.UploadService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -16,6 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 @Controller
 public class UploadController {
 
+    @Autowired
     private UploadService uploadService;
 
     public UploadController(UploadService uploadService) {
@@ -24,22 +26,22 @@ public class UploadController {
 
     @RequestMapping(value = "/upload", method = RequestMethod.GET)
     public String displayForm(ModelMap modelMap) {
-        modelMap.put("uploadData", new UploadData());
+        modelMap.put("uploadData", new IngredientData());
         return "upload";
     }
 
     @RequestMapping(value = "/upload", method = RequestMethod.POST)
-    public String submit(@ModelAttribute("uploadData") UploadData uploadData, @RequestParam("file") final MultipartFile file, final Model modelMap) {
+    public String submit(@ModelAttribute("uploadData") IngredientData ingredientData, @RequestParam("file") final MultipartFile file, final Model modelMap) {
         modelMap.addAttribute("file", file);
-        UploadData data = uploadService.parseUploadedFile(file);
-        data.setRecipeTag(uploadData.getRecipeTag());
-        data.setStep(uploadData.getStep());
+        IngredientData data = uploadService.parseUploadedFile(file);
+        data.setRecipeTag(ingredientData.getRecipeTag());
+        data.setStep(ingredientData.getStep());
 
-        uploadService.insertRecipe(uploadData.getRecipeTag());
-        uploadService.insertStep(uploadData.getStep());
+        uploadService.insertRecipe(ingredientData.getRecipeTag());
+        uploadService.insertStep(ingredientData.getStep());
 
-        Integer stepId = uploadService.getIdForStep(uploadData.getStep());
-        Integer recipeId = uploadService.getIdForRecipe(uploadData.getRecipeTag());
+        Integer stepId = uploadService.getIdForStep(ingredientData.getStep());
+        Integer recipeId = uploadService.getIdForRecipe(ingredientData.getRecipeTag());
 
         // Insert link
         uploadService.insertRecStepLink(recipeId, stepId);

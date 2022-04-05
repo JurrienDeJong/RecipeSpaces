@@ -11,17 +11,11 @@ public class ErrorController implements org.springframework.boot.web.servlet.err
     @RequestMapping("/error")
     public String handleError(HttpServletRequest request) {
         Object status = request.getAttribute(RequestDispatcher.ERROR_STATUS_CODE);
-
-        if (status != null) {
-            int statusCode = Integer.parseInt(status.toString());
-
-            if(statusCode == HttpStatus.NOT_FOUND.value()) {
-                return "error-404";
-            }
-            else if(statusCode == HttpStatus.INTERNAL_SERVER_ERROR.value()) {
-                return "error-500";
-            }
-        }
-        return "error";
+        int statusCode = Integer.parseInt(status.toString());
+        return switch (statusCode) {
+            case 404 -> "error-404";
+            case 500 -> "error-500";
+            default -> "error";
+        };
     }
 }

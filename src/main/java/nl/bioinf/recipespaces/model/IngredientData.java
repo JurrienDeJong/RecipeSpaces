@@ -2,18 +2,18 @@ package nl.bioinf.recipespaces.model;
 
 import java.util.List;
 
-public class UploadData {
+public class IngredientData {
     private String recipeTag;
     private String step;
 
     private List<Ingredient> ingredients;
     private List<Molecule> molecules;
 
-    public UploadData() {
+    public IngredientData() {
 
     }
 
-    public UploadData(List<Ingredient> ingredients, List<Molecule> molecules) {
+    public IngredientData(List<Ingredient> ingredients, List<Molecule> molecules) {
         this.ingredients = ingredients;
         this.molecules = molecules;
     }

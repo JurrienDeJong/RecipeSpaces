@@ -17,6 +17,8 @@ import java.util.Set;
 @Controller()
 @RequestMapping(path="/ingredient")
 public class IngredientController {
+
+    @Autowired
     private final IngredientService ingredientService;
     private final MoleculeService moleculeService;
     private final RecipeService recipeService;

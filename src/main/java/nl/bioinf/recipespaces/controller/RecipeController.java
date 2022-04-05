@@ -7,6 +7,7 @@ import nl.bioinf.recipespaces.model.Step;
 import nl.bioinf.recipespaces.service.IngredientAmountService;
 import nl.bioinf.recipespaces.service.RecipeService;
 import nl.bioinf.recipespaces.service.StepService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,6 +18,8 @@ import java.util.Set;
 
 @Controller()
 public class RecipeController {
+
+    @Autowired
     private final RecipeService recipeService;
     private final StepService stepService;
     private final IngredientAmountService ingredientAmountService;

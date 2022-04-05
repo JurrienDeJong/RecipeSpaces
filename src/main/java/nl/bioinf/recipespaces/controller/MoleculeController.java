@@ -12,6 +12,8 @@ import java.util.List;
 @Controller()
 @RequestMapping(path="molecule")
 public class MoleculeController {
+
+
     private final MoleculeService moleculeService;
 
     @Autowired

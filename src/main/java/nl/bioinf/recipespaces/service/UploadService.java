@@ -1,9 +1,9 @@
 package nl.bioinf.recipespaces.service;
 
-import nl.bioinf.recipespaces.Upload.ReadCSV;
-import nl.bioinf.recipespaces.model.UploadData;
+import nl.bioinf.recipespaces.upload.CSVReader;
+import nl.bioinf.recipespaces.model.IngredientData;
 import nl.bioinf.recipespaces.model.UploadRepository;
-import nl.bioinf.recipespaces.recipespaces.model.*;
+import nl.bioinf.recipespaces.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -43,8 +43,8 @@ public class UploadService {
 
     public Integer getIdForStep(String name){ return uploadRepository.findStepId(name);}
 
-    public UploadData parseUploadedFile(final MultipartFile inFile){
-        ReadCSV csv = new ReadCSV();
+    public IngredientData parseUploadedFile(final MultipartFile inFile){
+        CSVReader csv = new CSVReader();
         return csv.ParseCSV(inFile);
     }
 }
