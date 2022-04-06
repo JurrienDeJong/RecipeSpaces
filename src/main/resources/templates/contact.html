@@ -4,22 +4,17 @@
     <meta charset="UTF-8">
     <title th:text="#{tab.title.contact}">_offline_</title>
     <link th:href="@{/css/stylesheet.css}" rel="stylesheet" />
+    <link th:href="@{/css/stylesheet-contact.css}" rel="stylesheet" />
 </head>
 
 <header class="header">
-<!--    <nav class="navigation">-->
-<!--        <a class="navbar-logo">Recipe Spaces</a>-->
-<!--        <div class="navbar-right">-->
-<!--            <a th:href="@{/home}">Home</a>-->
-<!--            <a href="#">About Us</a>-->
-<!--            <a th:href="@{/contact}">Contact</a>-->
-<!--        </div>-->
-<!--    </nav>-->
     <div th:insert="template :: navigation-bar"></div>
+
     <div class="background-wrap-contact">
         <img id="video-bg-elem" alt="Ingredients" th:src="@{/images/ingredients.jpg}"/>
         <div class="content">
             <h1>Contact Us</h1>
+            <p>Do you have a question or comment? <br> Feel free to contact us.</p>
         </div>
     </div>
 </header>

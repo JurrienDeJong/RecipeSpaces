@@ -23,7 +23,7 @@ public class ContactController {
     private MailService mailService;
 
     @RequestMapping(method = RequestMethod.GET)
-    public String index(ModelMap modelMap) {
+    public String contact(ModelMap modelMap) {
         modelMap.put("contact", new Mail());
         return "contact";
     }
