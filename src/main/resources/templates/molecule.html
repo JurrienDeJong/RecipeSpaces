@@ -1,4 +1,8 @@
 <!DOCTYPE html>
+<!--
+    Displays the recipe and their properties
+    author: Jurriën de Jong (function), Rose Hazenberg (styling)
+-->
 <html xmlns:th="http://www.thymeleaf.org">
 <title th:text="#{tab.title.molecule(${molecule.commonName})}">_offline_</title>
 <head>
@@ -14,37 +18,39 @@
     <!-- DataTables JS -->
     <script src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js">
     </script>
+
+    <link th:href="@{/css/stylesheet.css}" rel="stylesheet" />
 </head>
 
-<body>
-<br>
-<h1>Molecular Profile:</h1>
-<table id="molecule" class="display nowrap">
-    <thead>
-    <tr>
-        <th>ID</th>
-        <th>Common Name</th>
-        <th>Flavors</th>
-    </tr>
-    </thead>
-    <tbody>
+<div th:insert="template :: background('Molecular profile of ' + ${molecule.commonName})"></div>
+
+<body class="portfolio-section">
+    <table id="molecule" class="display nowrap">
+        <thead>
         <tr>
-            <td th:text="${molecule.pubChemId}"></td>
-            <td th:text="${molecule.commonName}"></td>
-            <td th:text="${molecule.flavorProfile}"></td>
+            <th>ID</th>
+            <th>Common Name</th>
+            <th>Flavors</th>
         </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td th:text="${molecule.pubChemId}"></td>
+                <td th:text="${molecule.commonName}"></td>
+                <td th:text="${molecule.flavorProfile}"></td>
+            </tr>
 
-    </tbody>
-</table>
+        </tbody>
+    </table>
 
-<script>
-    $(document).ready(function() {
-        $('#molecule').DataTable({
-            bFilter : false,
-            "bLengthChange": false
-        })
+    <script>
+        $(document).ready(function() {
+            $('#molecule').DataTable({
+                bFilter : false,
+                "bLengthChange": false
+            })
 
-    });
-</script>
+        });
+    </script>
 </body>
 </html>
