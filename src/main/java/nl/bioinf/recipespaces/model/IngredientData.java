@@ -2,6 +2,11 @@ package nl.bioinf.recipespaces.model;
 
 import java.util.List;
 
+/**
+ * POJO for ingredientData uploaded by users
+ * @author Jurriën de Jong
+ */
+
 public class IngredientData {
     private String recipeTag;
     private String step;

@@ -8,7 +8,10 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Set;
-
+/**
+ * Statements used by IngredientService
+ * @author Jurriën de Jong
+ */
 @Repository
 public interface IngredientRepository extends JpaRepository<Ingredient, String> {
     @Query(value = "SELECT DISTINCT i.id, i.tag_value from ner i join recipe_ner rn on i.ID = rn.ner_id where rn.recipe_id = :id", nativeQuery = true)

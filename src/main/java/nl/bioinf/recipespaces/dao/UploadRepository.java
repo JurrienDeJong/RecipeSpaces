@@ -6,7 +6,10 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
-
+/**
+ * Statements used by the UploadService
+ * @author Jurriën de Jong
+ */
 public interface UploadRepository extends JpaRepository<Recipe, String> {
     @Transactional
     @Modifying

@@ -1,7 +1,10 @@
 package nl.bioinf.recipespaces.model;
 
 import javax.persistence.*;
-
+/**
+ * POJO for molecule data with some JPA functionality
+ * @author Jurriën de Jong
+ */
 @Entity
 @Table(name = "mol")
 public class Molecule {

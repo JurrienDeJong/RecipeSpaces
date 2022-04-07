@@ -6,7 +6,10 @@ import nl.bioinf.recipespaces.dao.UploadRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
-
+/**
+ * Connects controller actions to the correct queries in UploadRepository
+ * @author Jurriën de Jong
+ */
 @Service
 public class UploadService {
 

@@ -13,7 +13,10 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 
-
+/**
+ * Formats an email with user given parameters
+ * @author Rose Hazenberg
+ */
 @Service("mailService")
 public class MailServiceImpl implements MailService {
 

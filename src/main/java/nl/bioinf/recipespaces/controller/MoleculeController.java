@@ -8,7 +8,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-
+/**
+ * Handles molecule view
+ * @author Jurriën de Jong
+ */
 @Controller()
 @RequestMapping(path="molecule")
 public class MoleculeController {

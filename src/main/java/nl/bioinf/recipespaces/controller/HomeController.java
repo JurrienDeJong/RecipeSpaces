@@ -13,6 +13,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+/**
+ * Responsible for serving the user the home page
+ * @author Jorick Baron
+ */
 @Controller
 public class HomeController {
 

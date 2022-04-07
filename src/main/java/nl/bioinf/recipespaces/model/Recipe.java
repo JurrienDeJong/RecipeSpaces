@@ -3,7 +3,10 @@ package nl.bioinf.recipespaces.model;
 import lombok.Data;
 
 import javax.persistence.*;
-
+/**
+ * POJO for recipe data with some JPA functionality
+ * @author Jurriën de Jong
+ */
 @Entity
 @Table(name = "recipe")
 public class Recipe {

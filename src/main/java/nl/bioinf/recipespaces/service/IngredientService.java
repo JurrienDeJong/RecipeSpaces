@@ -7,7 +7,10 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Set;
-
+/**
+ * Connects controller actions to the correct queries in IngredientRepository
+ * @author Jurriën de Jong
+ */
 @Service
 public class IngredientService {
 

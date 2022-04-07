@@ -16,6 +16,10 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.util.Set;
 
+/**
+ * Handles recipe view
+ * @author Jurriën de Jong
+ */
 @Controller()
 public class RecipeController {
 

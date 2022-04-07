@@ -8,6 +8,9 @@ import org.hibernate.dialect.function.SQLFunctionTemplate;
 import org.hibernate.dialect.function.VarArgsSQLFunction;
 import org.hibernate.Hibernate;
 import org.hibernate.type.StringType;
+/**
+ * Allows use of the SQLite dialect of SQL
+ */
 
 public class SQLiteDialect extends Dialect {
     public SQLiteDialect() {

@@ -1,6 +1,9 @@
 package nl.bioinf.recipespaces.model;
 
-
+/**
+ * POJO for email messages sent by users in the contact page
+ * @author Rose Hazenberg
+ */
 public class Mail {
     private String name;
 

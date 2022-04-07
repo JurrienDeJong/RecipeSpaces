@@ -2,7 +2,10 @@ package nl.bioinf.recipespaces.model;
 
 import lombok.Data;
 import javax.persistence.*;
-
+/**
+ * POJO for ingredient data with some JPA functionality
+ * @author Jurriën de Jong
+ */
 @Entity
 @Table(name = "ner")
 public class Ingredient {

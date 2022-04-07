@@ -8,7 +8,10 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Set;
-
+/**
+ * Statements used by RecipeService
+ * @author Jurriën de Jong
+ */
 @Repository
 public interface RecipeRepository extends JpaRepository<Recipe, String> {
     @Query(value = "SELECT DISTINCT r.ID, r.tag_value from recipe r join recipe_ner rn on r.ID = rn.recipe_id where rn.ner_id like %:id% limit 1000", nativeQuery = true)

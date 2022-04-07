@@ -14,6 +14,10 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Set;
 
+/**
+ * Handles ingredient view
+ * @author Jurriën de Jong
+ */
 @Controller()
 @RequestMapping(path="/ingredient")
 public class IngredientController {

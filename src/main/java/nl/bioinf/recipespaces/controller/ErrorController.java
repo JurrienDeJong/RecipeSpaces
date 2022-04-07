@@ -6,6 +6,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServletRequest;
+
+/**
+ * Serves the user an error page when one occurs
+ * @author Jurriën de Jong
+ */
 @Controller
 public class ErrorController implements org.springframework.boot.web.servlet.error.ErrorController {
     @RequestMapping("/error")

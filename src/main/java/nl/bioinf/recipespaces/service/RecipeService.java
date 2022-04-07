@@ -9,7 +9,10 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Set;
-
+/**
+ * Connects controller actions to the correct queries in RecipeRepository
+ * @author Jurriën de Jong
+ */
 @Service
 public class RecipeService {
 

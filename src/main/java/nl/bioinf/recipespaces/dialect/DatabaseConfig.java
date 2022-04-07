@@ -11,7 +11,10 @@ import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
 import javax.sql.DataSource;
 import java.util.Objects;
-
+/**
+ * Allows for Database functionality
+ * @author Jurriën de Jong
+ */
 @Configuration
 
 public class DatabaseConfig {
