@@ -1,4 +1,8 @@
 <!DOCTYPE html>
+<!--
+    Displays the recipe and their properties
+    author: Jurriën de Jong (function), Rose Hazenberg (styling)
+-->
 <html xmlns:th="http://www.thymeleaf.org">
 <title th:text="#{tab.title.recipe(${recipes.tagValue})}">_offline_</title>
 <head>
@@ -14,18 +18,18 @@
     <!-- DataTables JS -->
     <script src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js">
     </script>
+
+    <link th:href="@{/css/stylesheet.css}" rel="stylesheet" />
 </head>
 
-<body>
-    <h1 th:text="${recipes.tagValue}"></h1>
+<div th:insert="template :: background(${recipes.tagValue})"></div>
 
-    <br>
-
+<body class="portfolio-section">
     <h1>Ingredients needed:</h1>
     <table id="ingredients" class="display nowrap">
         <tbody>
         <tr th:each="ingredient : ${ingredients}">
-            <td><a th:href="@{'/ingredient/' + ${ingredient.getId()}}" th:text="${ingredient.getTagValue()}"></a></td>
+            <td class="table-style"><a th:href="@{'/ingredient/' + ${ingredient.getId()}}" th:text="${ingredient.getTagValue()}"></a></td>
         </tr>
         </tbody>
     </table>
