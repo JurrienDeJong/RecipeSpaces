@@ -1,10 +1,18 @@
-<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<!DOCTYPE html>
+<!--
+    Displays the page that shows you that the data is uploaded
+    author: Jurriën de Jong
+-->
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <link th:href="@{/css/stylesheet.css}" rel="stylesheet" />
+    <title>Successfully uploaded</title>
 </head>
-<body>
-  Uploaded Data successfully!
+
+<div th:insert="template :: background('Upload successfully')"></div>
+
+<body class="portfolio-section">
+  <p>Uploaded Data successfully!</p>
 </body>
 </html>
