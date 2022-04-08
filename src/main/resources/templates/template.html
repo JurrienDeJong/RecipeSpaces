@@ -1,4 +1,8 @@
 <!DOCTYPE html>
+<!--
+    Template containing fragments for the other pages
+    author: Rose Hazenberg
+-->
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
@@ -15,3 +19,26 @@
         </div>
     </nav>
 </div>
+
+<header class="header" th:fragment="background(page)">
+    <div th:insert="template :: navigation-bar"></div>
+
+    <div class="background-wrap">
+        <img class="video-bg-elem" alt="Ingredients" th:src="@{/images/ingredients.jpg}"/>
+        <div class="content">
+            <h1 th:text="${page}"></h1>
+        </div>
+    </div>
+</header>
+
+<header class="header" th:fragment="background-contact">
+    <div th:insert="template :: navigation-bar"></div>
+
+    <div class="background-wrap">
+        <img class="video-bg-elem" alt="Ingredients" th:src="@{/images/ingredients.jpg}"/>
+        <div class="content">
+            <h1>Contact Us</h1>
+            <p>Do you have a question or comment? <br> Feel free to contact us.</p>
+        </div>
+    </div>
+</header>

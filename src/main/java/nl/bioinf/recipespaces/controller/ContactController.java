@@ -28,7 +28,7 @@ public class ContactController {
         return "contact";
     }
 
-    @RequestMapping(value = "send", method = RequestMethod.POST)
+    @RequestMapping(method = RequestMethod.POST)
     public String send(@ModelAttribute("contact") Mail mailInfo, ModelMap modelMap) {
         try {
             Mail mail = new Mail();

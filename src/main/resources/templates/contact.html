@@ -1,29 +1,24 @@
 <!DOCTYPE html>
+<!--
+    Displays the contact page to email the developer
+    author: Rose Hazenberg
+-->
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title th:text="#{tab.title.contact}">_offline_</title>
     <link th:href="@{/css/stylesheet.css}" rel="stylesheet" />
     <link th:href="@{/css/stylesheet-contact.css}" rel="stylesheet" />
 </head>
 
-<header class="header">
-    <div th:insert="template :: navigation-bar"></div>
-
-    <div class="background-wrap-contact">
-        <img id="video-bg-elem" alt="Ingredients" th:src="@{/images/ingredients.jpg}"/>
-        <div class="content">
-            <h1>Contact Us</h1>
-            <p>Do you have a question or comment? <br> Feel free to contact us.</p>
-        </div>
-    </div>
-</header>
+<div th:insert="template :: background-contact"></div>
 
 <body class="portfolio-section">
 <p class="error-msg" th:text="${msg}"></p>
 <div class="container my-5 mx-5 px-5">
     <form method="post" th:object="${contact}"
-          th:action="@{/contact/send}">
+          th:action="@{/contact}">
         <div class="field">
             <label for="name">
                 Name:
