@@ -20,11 +20,11 @@
   <div th:insert="template :: navigation-bar"></div>
 
   <div class="background-wrap-home">
-    <img id="video-bg-elem" alt="French Food" th:src="@{/images/french-food.jpg}"/>
+    <img class="video-bg-elem" alt="French Food" th:src="@{/images/french-food.jpg}"/>
       <div class="content">
       <form action="#" th:action="@{/home/search}" th:object="${ingredient}" method="post" id="searchbar">
         <div class="wrap">
-          <h1>Find here your </h1> <h1 class="currentValue"></h1>
+          <h1>Find your</h1> <h1 class="currentValue"></h1>
           <div class="search">
               <input id="RecipeName" type="text" class="searchTerm currentValue" placeholder="Search here" th:field="*{tagValue}"/>
             <button type="submit" class="searchButton">
