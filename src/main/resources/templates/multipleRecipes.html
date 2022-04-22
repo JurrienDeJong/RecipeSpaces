@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<!--
+    Displays the recipe and their properties
+    author: Jurriën de Jong (function), Rose Hazenberg (styling)
+-->
+<html xmlns:th="http://www.thymeleaf.org">
+<title th:text="#{tab.title.recipe(${recipeName})}">_offline_</title>
+<head>
+    <!-- jQuery -->
+    <script type="text/javascript"
+            src="https://code.jquery.com/jquery-3.5.1.js">
+    </script>
+
+    <!-- DataTables CSS -->
+    <link rel="stylesheet"
+          href="https://cdn.datatables.net/1.10.23/css/jquery.dataTables.min.css">
+
+    <!-- DataTables JS -->
+    <script src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js">
+    </script>
+
+    <link th:href="@{/css/stylesheet.css}" rel="stylesheet" />
+</head>
+
+<div th:insert="template :: background(${recipeName})"></div>
+
+<body class="portfolio-section">
+    <h1 th:text="${recipeCount} + ' type(s) of ' + ${recipeName} + ' found.'"></h1>
+    <table id="recipeData" class="display nowrap">
+        <tbody>
+            <div th:each="entry : ${recipeData}">
+                <tr>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td><a th:href="@{'/recipe/' + ${entry.key}}" th:text="${recipeName} + ' - ' + ${entry.key}"></a></td>
+                </tr>
+                <tr th:each="amount : ${entry.value}">
+                    <td th:text="${amount.tagValue}"></td>
+                </tr>
+            </div>
+        </tbody>
+    </table>
+
+    <br>
+
+    <script>
+        $(document).ready(function() {
+            $('#recipeData').DataTable({
+                bFilter : false,
+                "bLengthChange": false
+            })
+
+        });
+
+    </script>
+</body>
+</html>
