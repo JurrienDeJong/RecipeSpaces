@@ -1,9 +1,6 @@
 package nl.bioinf.recipespaces.controller;
 
-import nl.bioinf.recipespaces.model.Ingredient;
-import nl.bioinf.recipespaces.model.Recipe;
-import nl.bioinf.recipespaces.model.IngredientAmount;
-import nl.bioinf.recipespaces.model.Step;
+import nl.bioinf.recipespaces.model.*;
 import nl.bioinf.recipespaces.service.IngredientAmountService;
 import nl.bioinf.recipespaces.service.RecipeService;
 import nl.bioinf.recipespaces.service.StepService;
@@ -14,7 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.util.Set;
+import java.util.*;
 
 /**
  * Handles recipe view
@@ -55,8 +52,9 @@ public class RecipeController {
         Recipe recipe = recipeService.getId(id);
         Set<Ingredient> ingredients = recipeService.getIngredientsFromRecipe(id);
         Set<Step> steps = stepService.getStepsFromRecipe(id);
-        Set<IngredientAmount> ingredientAmounts = ingredientAmountService.getIngredientAmountFromRecipe(id);
+        List<IngredientAmount> ingredientAmounts = ingredientAmountService.getIngredientAmountsFromRecipe(id);
         try{
+            model.addAttribute("recipeName", recipe.getTagValue());
             model.addAttribute("recipes", recipe);
             model.addAttribute("ingredients", ingredients);
             model.addAttribute("steps", steps);
@@ -65,6 +63,25 @@ public class RecipeController {
             System.out.println(e.getMessage());
         }
         return "recipe";
+    }
+
+    // Get Recipe from ID
+    @GetMapping("/recipe/multiple/{tagValue}")
+    public String displayRecipesWithSameTagValue(Model model, @PathVariable("tagValue") String tagValue){
+        Map<Integer, List<IngredientAmount>> recipeData = new HashMap<>();
+        List<Recipe> recipes = recipeService.findByExactKeyword(tagValue);
+        for (Recipe recipe : recipes){
+            recipeData.put(recipe.getId(),recipeService.getIngredientAmountsFromRecipe(recipe.getId()));
+        }
+
+        try{
+            model.addAttribute("recipeCount", recipeData.values().size());
+            model.addAttribute("recipeName", recipes.get(0).getTagValue());
+            model.addAttribute("recipeData", recipeData);
+        } catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+        return "multipleRecipes";
     }
 
     @GetMapping("search/{recipeID}")

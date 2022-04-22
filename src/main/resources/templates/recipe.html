@@ -4,7 +4,7 @@
     author: Jurriën de Jong (function), Rose Hazenberg (styling)
 -->
 <html xmlns:th="http://www.thymeleaf.org">
-<title th:text="#{tab.title.recipe(${recipes.tagValue})}">_offline_</title>
+<title th:text="#{tab.title.recipe(${recipeName})}">_offline_</title>
 <head>
     <!-- jQuery -->
     <script type="text/javascript"
@@ -22,7 +22,7 @@
     <link th:href="@{/css/stylesheet.css}" rel="stylesheet" />
 </head>
 
-<div th:insert="template :: background(${recipes.tagValue})"></div>
+<div th:insert="template :: background(${recipeName})"></div>
 
 <body class="portfolio-section">
     <h1>Ingredients needed:</h1>

@@ -20,6 +20,7 @@ import java.util.Objects;
 @Controller
 public class HomeController {
 
+    @Autowired
     private final RecipeService recipeService;
     private final IngredientService ingredientService;
 
@@ -39,8 +40,13 @@ public class HomeController {
     @RequestMapping(value="/home/search", method = RequestMethod.POST)
     public String submit(@RequestParam("options") String option, Recipe recipe, Ingredient ingredient) {
         if (Objects.equals(option, "recipe")){
-            Integer missingId = recipeService.missingId(recipe.getTagValue());
-            recipe.setId(missingId);
+            List<Integer> missingIds = recipeService.missingId(recipe.getTagValue());
+            if(missingIds.size() > 1){
+                return "redirect:/recipe/multiple/" + recipe.getTagValue();
+            } else {
+                recipe.setId(missingIds.get(0));
+            }
+
             return "redirect:/recipe/" + recipe.getId();
         }else if (Objects.equals(option, "ingredient")){
             Integer missingId = ingredientService.missingId(ingredient.getTagValue());

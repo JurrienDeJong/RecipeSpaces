@@ -30,7 +30,11 @@ public class IngredientAmountService {
         return this.repository.findById(id);
     }
 
-    public Set<IngredientAmount> getIngredientAmountFromRecipe(Integer recipeID) {
+    public IngredientAmount getIngredientAmountFromRecipe(Integer recipeID) {
         return this.repository.ingredientAmountFromRecipe(recipeID);
+    }
+
+    public List<IngredientAmount> getIngredientAmountsFromRecipe(Integer id) {
+        return this.repository.ingredientAmountsFromRecipe(id);
     }
 }
