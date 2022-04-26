@@ -68,10 +68,10 @@ public class RecipeController {
     // Get Recipe from ID
     @GetMapping("/recipe/multiple/{tagValue}")
     public String displayRecipesWithSameTagValue(Model model, @PathVariable("tagValue") String tagValue){
-        Map<Integer, List<IngredientAmount>> recipeData = new HashMap<>();
+        Map<Integer, Set<Ingredient>> recipeData = new HashMap<>();
         List<Recipe> recipes = recipeService.findByExactKeyword(tagValue);
         for (Recipe recipe : recipes){
-            recipeData.put(recipe.getId(),recipeService.getIngredientAmountsFromRecipe(recipe.getId()));
+            recipeData.put(recipe.getId(), recipeService.getIngredientsFromRecipe(recipe.getId()));
         }
 
         try{
