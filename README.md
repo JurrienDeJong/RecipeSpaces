@@ -11,7 +11,7 @@ It also provides information on replacing animal-based ingredients with other in
 ### Background
 The web application is supported by a database containing recipes. These recipes contain ingredients and steps. An ingredient contains molecules and each molecule has different flavor profiles.
 The main references for this web application are the [RecipeNLG paper](https://aclanthology.org/2020.inlg-1.4.pdf) and its [dataset](https://recipenlg.cs.put.poznan.pl/#read).  
-To fill the database based on the dataset is the following [github](https://github.com/fenna/ingredient_landscape) used which belongs to Fenna Feenstra.
+A provided script by Fenna Feenstra to fill recipe database from the dataset above is based on the following [script](https://github.com/BehzadBarati/Ingredient-Maps/blob/main/Food_Recipes_RecipeNLG.ipynb).
 
 ## Installation
 * Clone this project 
