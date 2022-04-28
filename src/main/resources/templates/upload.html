@@ -15,13 +15,13 @@
 
 <body class = "portfolio-section">
 <div class="container my-5 mx-5 px-5">
-    <form method="post" th:action="@{/upload}" th:object="${ingredientData}" enctype="multipart/form-data">
+    <form method="post" th:action="@{/upload}" th:object="${recipeData}" enctype="multipart/form-data">
 
         <div class="field">
             <label for="recipe">
                 Recipe Title:
             </label><br/>
-            <input type="text" th:field="${ingredientData.recipeTag}" name="recipe" id="recipe" placeholder="Recipe Name Here" autofocus required>
+            <input type="text" th:field="${recipeData.recipeName}" name="recipe" id="recipe" placeholder="Recipe Name Here" autofocus required>
         </div>
 
         <br>
@@ -29,7 +29,7 @@
         <label for="steps">
             Steps:
         </label><br/>
-            <input autofocus required type="text" th:field="${ingredientData.step}" id="steps" name="steps" placeholder="Please separate steps with a period." style="width:250px; height: 100px"><br><br>
+            <input autofocus required type="text" th:field="${recipeData.steps}" id="steps" name="steps" placeholder="Please separate steps with a period." style="width:250px; height: 100px"><br><br>
 
         <br>
 

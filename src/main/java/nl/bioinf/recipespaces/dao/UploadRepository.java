@@ -63,4 +63,7 @@ public interface UploadRepository extends JpaRepository<Recipe, String> {
 
     @Query(value = "select max(i.pubchem_id) from mol i where i.common_name = :name", nativeQuery = true)
     Integer findMoleculeId(@Param("name") String name);
+
+    @Query(value = "select last_insert_rowid()", nativeQuery = true)
+    Integer getLatestId();
 }

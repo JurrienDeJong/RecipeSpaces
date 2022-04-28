@@ -29,7 +29,9 @@ public class UploadService {
 
     public void insertMolecule(Integer Id, String tagValue, String flavors){ uploadRepository.insertMolecule(Id, tagValue, flavors);}
 
-    public void insertRecipe(String tagValue){ uploadRepository.insertRecipe(tagValue);}
+    public void insertRecipe(String tagValue){
+        uploadRepository.insertRecipe(tagValue);
+    }
 
     public void insertRecNerLink(Integer recId, Integer nerId){ uploadRepository.insertRecipeNer(recId, nerId);}
     public void insertRecStepLink(Integer recId, Integer steId){ uploadRepository.insertRecipeStep(recId, steId);}
@@ -48,5 +50,9 @@ public class UploadService {
     public IngredientData parseUploadedFile(final MultipartFile inFile){
         CSVReader csv = new CSVReader();
         return csv.ParseCSV(inFile);
+    }
+
+    public Integer getLatestId() {
+        return uploadRepository.getLatestId();
     }
 }

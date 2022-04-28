@@ -14,6 +14,8 @@ public class RecipeSpaceController {
 
     @RequestMapping(method = RequestMethod.GET)
     public String spaces() {
+
+
         return "recipeSpaceView";
     }
 }
