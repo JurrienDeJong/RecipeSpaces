@@ -1,0 +1,33 @@
+{
+  "nodes": [
+    {
+      "id": "node1",
+      "group": 1
+    },
+    {
+      "id": "node2",
+      "group": 2
+    },
+    {
+      "id": "node3",
+      "group": 3
+    }
+  ],
+  "links": [
+    {
+      "source": "node1",
+      "target": "node2",
+      "distance": 50.0
+    },
+    {
+      "source": "node1",
+      "target": "node3",
+      "distance": 200.0
+    },
+    {
+      "source": "node2",
+      "target": "node3",
+      "distance": 500.0
+    }
+  ]
+}
