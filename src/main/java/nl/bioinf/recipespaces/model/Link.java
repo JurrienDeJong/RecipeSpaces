@@ -1,40 +1,4 @@
 package nl.bioinf.recipespaces.model;
 
-import java.math.BigDecimal;
-
-public class Link {
-
-    private Node source;
-    private Node target;
-    private Integer distance;
-
-    public Node getSource() {
-        return source;
-    }
-
-    public void setSource(Node source) {
-        this.source = source;
-    }
-
-    public Node getTarget() {
-        return target;
-    }
-
-    public void setTarget(Node target) {
-        this.target = target;
-    }
-
-    public Integer getDistance() {
-        return distance;
-    }
-
-    public void setDistance(Integer distance) {
-        this.distance = distance;
-    }
-
-    public Link(Node source, Node target, Integer distance) {
-        this.source = source;
-        this.target = target;
-        this.distance = distance;
-    }
+public record Link(String source, String target, double distance) {
 }
