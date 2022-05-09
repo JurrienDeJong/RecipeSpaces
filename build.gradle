@@ -48,6 +48,9 @@ dependencies {
     implementation 'org.bytedeco:openblas-platform:0.3.9-1.5.3'
 
 
+    // https://mvnrepository.com/artifact/jfree/jfreechart
+    implementation 'jfree:jfreechart:1.0.13'
+
 
 }
 
