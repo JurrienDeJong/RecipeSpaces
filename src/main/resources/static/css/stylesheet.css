@@ -35,7 +35,8 @@ body {
     text-decoration: underline;
 }
 
-.navbar-logo {
+.navbar-logo  {
+    height: 60px;
     padding-left: 10%;
     font-family: Calibri, serif;
     font-size: 30px;
