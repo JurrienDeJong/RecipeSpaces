@@ -1,9 +1,11 @@
 package nl.bioinf.recipespaces.service;
 
+import nl.bioinf.recipespaces.model.Ingredient;
 import nl.bioinf.recipespaces.model.Molecule;
 import nl.bioinf.recipespaces.dao.MoleculeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import scala.Int;
 
 import java.util.List;
 import java.util.Set;
@@ -31,5 +33,7 @@ public class MoleculeService {
 
     public Set<Molecule> getMoleculesFromIngredient(Integer ingID) { return this.moleculeRepository.moleculesFromIngredient(ingID);}
 
-
+    public Set<Ingredient> getIngredientsFromMolecules(Integer pubID) {
+        return this.moleculeRepository.ingredientsFromMolecules(pubID);
+    }
 }

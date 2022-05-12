@@ -43,9 +43,35 @@
         </tbody>
     </table>
 
+    <br>
+    <h1>Ingredients containing <span th:text="${molecule.getCommonName()}'">:</span></h1>
+    <table id="ingredients" class="display nowrap">
+        <thead>
+        <tr>
+<!--            <th>ID</th>-->
+            <th>Ingredient Name</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr
+            th:each="ingredient: ${ingredients}">
+<!--            <td class="table-style"><a th:href="@{'/ingredient/' + ${ingredient.getId()}}" th:text="${ingredient.getId()}"></a></td>-->
+            <td th:text="${ingredient.getTagValue()}"></td>
+        </tr>
+        </tbody>
+    </table>
+
     <script>
         $(document).ready(function() {
             $('#molecule').DataTable({
+                bFilter : false,
+                "bLengthChange": false
+            })
+
+        });
+
+        $(document).ready(function() {
+            $('#ingredients').DataTable({
                 bFilter : false,
                 "bLengthChange": false
             })

@@ -1,5 +1,6 @@
 package nl.bioinf.recipespaces.controller;
 
+import nl.bioinf.recipespaces.model.Ingredient;
 import nl.bioinf.recipespaces.model.Molecule;
 import nl.bioinf.recipespaces.service.MoleculeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Set;
+
 /**
  * Handles molecule view
  * @author Jurriën de Jong
@@ -33,8 +36,10 @@ public class MoleculeController {
     @GetMapping("/{id}")
     public String displayMoleculeByID(Model model, @PathVariable("id") Integer id){
         Molecule molecule = moleculeService.getMolById(id);
+        Set<Ingredient> ingredient = moleculeService.getIngredientsFromMolecules(id);
         try{
             model.addAttribute("molecule", molecule);
+            model.addAttribute("ingredients", ingredient);
         } catch (Exception e){
             System.out.println(e.getMessage());
         }

@@ -1,5 +1,6 @@
 package nl.bioinf.recipespaces.dao;
 
+import nl.bioinf.recipespaces.model.Ingredient;
 import nl.bioinf.recipespaces.model.Molecule;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -18,4 +19,7 @@ public interface MoleculeRepository extends JpaRepository<Molecule, Integer> {
 
     @Query(value = "SELECT DISTINCT m.pubchem_id, m.common_name, m.flavor_profile from mol m where m.pubchem_id = :pubID", nativeQuery = true)
     Molecule getMoleculeById(@Param("pubID") Integer pubID);
+
+    @Query(value = "SELECT DISTINCT n.tag_value from mol s join ner_mol rs on s.pubchem_id = rs.pubchem_id join ner n on rs.ner_id = n.ID where s.pubchem_id = :pubID", nativeQuery = true)
+    Set<Ingredient> ingredientsFromMolecules(@Param("pubID") Integer pubID);
 }
