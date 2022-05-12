@@ -7,6 +7,15 @@ body {
     overflow-x: hidden;
 }
 
+@media only screen and (max-width: 600px) {
+body {
+    background: #f2f2f2;
+    font-family: 'Open Sans', sans-serif;
+    overflow-x: hidden;
+    min-width: 700px;
+}
+}
+
 .navigation {
     padding-top: 30px;
     padding-bottom: 30px;
@@ -45,10 +54,20 @@ body {
     color: #FFFFFF;
 }
 
-.portfolio-section {
-    margin-top: 30%;
-    margin-left: 10px;
-    padding-right: 10px;
+@media only screen and (min-width: 601px) {
+    .portfolio-section {
+        margin-top: 60%;
+        margin-left: 10px;
+        padding-right: 10px;
+    }
+}
+
+@media only screen and (min-width: 1200px) {
+    .portfolio-section {
+        margin-top: 30%;
+        margin-left: 10px;
+        padding-right: 10px;
+    }
 }
 
 .background-wrap {
