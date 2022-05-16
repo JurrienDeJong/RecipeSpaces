@@ -19,6 +19,10 @@
     <script src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js">
     </script>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js">
+
+    </script>
+
     <link th:href="@{/css/stylesheet.css}" rel="stylesheet" />
 </head>
 
@@ -42,11 +46,34 @@
             th:text="${amount.tagValue}"></li>
     </ul>
 
+<!--    <h1>Ingredient frequency:</h1>-->
+<!--    <table>-->
+<!--        <tbody>-->
+<!--            <tr th:each="ing : ${ing_frequency}">-->
+<!--                <td th:text="${ing.values()[0]}"></td>-->
+<!--                <td th:text="${ing.values()[1]}"></td>-->
+<!--                <td th:text="${ing.values()[2]}"></td>-->
+<!--            </tr>-->
+<!--        </tbody>-->
+<!--    </table>-->
+
+<!--        <h1>Ingredient in recipe:</h1>-->
+<!--        <table>-->
+<!--            <tbody>-->
+<!--                <tr th:each="rec : ${recipe_ingredient}">-->
+<!--                    <td th:text="${rec.values()[0]}"></td>-->
+<!--                    <td th:text="${rec.values()[1]}"></td>-->
+<!--                </tr>-->
+<!--            </tbody>-->
+<!--        </table>-->
+
     <h1>Steps:</h1>
     <ul>
         <li th:each="step:${steps}"
             th:text="${step.tagValue}"></li>
     </ul>
+
+
 
     <script>
         $(document).ready(function() {
@@ -77,6 +104,99 @@
             })
 
         });
+    </script>
+
+
+
+    <div id="plot-example" data-plot-xMin="-1"></div>
+
+    <canvas id="recipe-name" width="600" height="400"></canvas>
+
+
+    <script th:inline="javascript">
+        var htmldata = [[${ing_frequency}]];
+
+        // var recipeIngredientData = [[${recipe_ingredient}]];
+        //
+        // console.log(recipeIngredientData);
+
+        var frequency = {};
+        var recipes = {};
+
+        for (var i=0; i < htmldata.length; i++) {
+            frequency[htmldata[i].name] = htmldata[i].count
+            recipes[htmldata[i].name] = htmldata[i].recipe
+        }
+
+        var pointBackgroundColors = [];
+
+        var recipeData = {
+            labels : Object.keys(frequency),
+            datasets : [
+                {
+                    barThickness: 6,
+                    data : Object.values(frequency),
+                    backgroundColor: pointBackgroundColors
+                }
+            ],
+        }
+
+        var recipe = document.getElementById('recipe-name').getContext('2d');
+        var myChart = new Chart(recipe, {
+            type: 'bar',
+            data: recipeData,
+            valueField: 'count',
+            argumentField: 'name',
+            options: {
+                legend: {
+                    display: false
+                },
+                scaleShowValues: true,
+                scales: {
+                    xAxes: [{
+                        scaleLabel: {
+                            display: true,
+                            labelString: 'Ingredient'
+                        },
+                        ticks: {
+                            autoSkip: false
+                        }
+                    }],
+                    yAxes: [{
+                        scaleLabel: {
+                            display: true,
+                            labelString: 'Frequency'
+                        },
+                        ticks: {
+                            min: 0
+                        }
+                    }]
+                },
+                tooltips: {
+                    enabled: true,
+                    mode: 'single',
+                    callbacks: {
+                        label: function (tooltipItems, data) {
+                            var multistringText = [tooltipItems.yLabel];
+                            multistringText.push("Another item");
+                            multistringText.push(Object.values(food));
+                            multistringText.push('One more Item');
+                            return multistringText;
+                        }
+                    }
+                }
+            }
+        });
+
+        for (i = 0; i < myChart.data.datasets[0].data.length; i++) {
+            if (myChart.data.datasets[0].data[i] > 20) {
+                pointBackgroundColors.push("#2471A3");
+            } else {
+                pointBackgroundColors.push("#239B56");
+            }
+        }
+
+        myChart.update();
     </script>
 </body>
 </html>

@@ -6,8 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
-import java.util.Set;
+
 /**
  * Connects controller actions to the correct queries in IngredientAmountRepository
  * @author Rose Hazenberg
@@ -37,4 +38,12 @@ public class IngredientAmountService {
     public List<IngredientAmount> getIngredientAmountsFromRecipe(Integer id) {
         return this.repository.ingredientAmountsFromRecipe(id);
     }
+
+    public List<Map<String, Integer>> getCountIngredientForRecipe(String idName) {
+        return this.repository.countIngredientForRecipe(idName);
+    }
+
+//    public List<Map<String, String>> recipeFromIngredient(Integer recipeID) {
+//        return this.repository.recipeFromIngredient(recipeID);
+//    }
 }

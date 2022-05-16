@@ -53,12 +53,16 @@ public class RecipeController {
         Set<Ingredient> ingredients = recipeService.getIngredientsFromRecipe(id);
         Set<Step> steps = stepService.getStepsFromRecipe(id);
         List<IngredientAmount> ingredientAmounts = ingredientAmountService.getIngredientAmountsFromRecipe(id);
+        List<Map<String, Integer>> ingredientFrequency = ingredientAmountService.getCountIngredientForRecipe(recipe.getTagValue());
+//        List<Map<String, String>> recipeIngredient = ingredientAmountService.recipeFromIngredient(id);
         try{
             model.addAttribute("recipeName", recipe.getTagValue());
             model.addAttribute("recipes", recipe);
             model.addAttribute("ingredients", ingredients);
             model.addAttribute("steps", steps);
             model.addAttribute("ingredient_amount", ingredientAmounts);
+            model.addAttribute("ing_frequency", ingredientFrequency);
+//            model.addAttribute("recipe_ingredient", recipeIngredient);
         } catch (Exception e){
             System.out.println(e.getMessage());
         }
