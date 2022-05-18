@@ -42,8 +42,4 @@ public class IngredientAmountService {
     public List<Map<String, Integer>> getCountIngredientForRecipe(String idName) {
         return this.repository.countIngredientForRecipe(idName);
     }
-
-//    public List<Map<String, String>> recipeFromIngredient(Integer recipeID) {
-//        return this.repository.recipeFromIngredient(recipeID);
-//    }
 }

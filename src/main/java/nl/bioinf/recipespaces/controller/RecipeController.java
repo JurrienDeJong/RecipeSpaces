@@ -5,11 +5,9 @@ import nl.bioinf.recipespaces.service.IngredientAmountService;
 import nl.bioinf.recipespaces.service.RecipeService;
 import nl.bioinf.recipespaces.service.StepService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.server.ResponseStatusException;
 
 import java.util.*;
 
@@ -18,9 +16,9 @@ import java.util.*;
  * @author Jurriën de Jong
  */
 @Controller()
+@RequestMapping(path="/recipe")
 public class RecipeController {
 
-    @Autowired
     private final RecipeService recipeService;
     private final StepService stepService;
     private final IngredientAmountService ingredientAmountService;
@@ -32,29 +30,19 @@ public class RecipeController {
         this.ingredientAmountService = ingredientAmountService;
     }
 
-    // Get all recipes
-    @GetMapping("/recipe")
-    public String displayRecipes(Model model){
-        Set<Recipe> recipes = recipeService.getAllRecipes();
-        model.addAttribute("recipes", recipes);
-        return "allrecipes";
-    }
-
-/*    @GetMapping
-    public List<Recipe> getXAmountOfRecipes(int amount) {
-        return this.recipeService.getXAmountOfRecipes(amount);
-    }*/
-
-
-    // Get Recipe from ID
-    @GetMapping("/recipe/{id}")
+    /**
+     * Get recipe from ID
+     * @param model, to add attributes to use in html
+     * @param id, integer with the id of a recipe
+     * @return html page with a recipe
+     */
+    @GetMapping("/{id}")
     public String displayRecipeByID(Model model, @PathVariable("id") Integer id){
         Recipe recipe = recipeService.getId(id);
         Set<Ingredient> ingredients = recipeService.getIngredientsFromRecipe(id);
         Set<Step> steps = stepService.getStepsFromRecipe(id);
         List<IngredientAmount> ingredientAmounts = ingredientAmountService.getIngredientAmountsFromRecipe(id);
         List<Map<String, Integer>> ingredientFrequency = ingredientAmountService.getCountIngredientForRecipe(recipe.getTagValue());
-//        List<Map<String, String>> recipeIngredient = ingredientAmountService.recipeFromIngredient(id);
         try{
             model.addAttribute("recipeName", recipe.getTagValue());
             model.addAttribute("recipes", recipe);
@@ -62,15 +50,19 @@ public class RecipeController {
             model.addAttribute("steps", steps);
             model.addAttribute("ingredient_amount", ingredientAmounts);
             model.addAttribute("ing_frequency", ingredientFrequency);
-//            model.addAttribute("recipe_ingredient", recipeIngredient);
         } catch (Exception e){
             System.out.println(e.getMessage());
         }
         return "recipe";
     }
 
-    // Get Recipe from ID
-    @GetMapping("/recipe/multiple/{tagValue}")
+    /**
+     * Get all recipes with the same name
+     * @param model, to add attributes to use in html
+     * @param tagValue, the name of a recipe
+     * @return html page with multiple recipe with the same name
+     */
+    @GetMapping("/multiple/{tagValue}")
     public String displayRecipesWithSameTagValue(Model model, @PathVariable("tagValue") String tagValue){
         Map<Integer, Set<Ingredient>> recipeData = new HashMap<>();
         List<Recipe> recipes = recipeService.findByExactKeyword(tagValue);
@@ -88,16 +80,17 @@ public class RecipeController {
         return "multipleRecipes";
     }
 
-    @GetMapping("search/{recipeID}")
-    @ResponseBody
-    public Set<Ingredient> getIngredients(@PathVariable("recipeID") Integer id) throws ResponseStatusException {
-        try{
-            return this.recipeService.getIngredientsFromRecipe(id);
-        } catch(Exception ex){
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
-        }
-
-    }
+    // another class
+//    @GetMapping("search/{recipeID}")
+//    @ResponseBody
+//    public Set<Ingredient> getIngredients(@PathVariable("recipeID") Integer id) throws ResponseStatusException {
+//        try{
+//            return this.recipeService.getIngredientsFromRecipe(id);
+//        } catch(Exception ex){
+//            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+//        }
+//
+//    }
 
 
 }

@@ -23,7 +23,4 @@ public interface IngredientAmountRepository extends JpaRepository<IngredientAmou
 
     @Query(value = "select group_concat(r.ID) as recipe, n.tag_value as name, count(n.tag_value) as count from recipe r inner join recipe_ner rn on r.ID = rn.recipe_id inner join ner n on rn.ner_id = n.ID where r.tag_value like :idName group by n.tag_value", nativeQuery = true)
     List<Map<String, Integer>> countIngredientForRecipe(@Param("idName") String idName);
-
-//    @Query(value = "select r.ID as recipeID, n.tag_value as ingredientName from recipe r join recipe_ner rn on r.ID = rn.recipe_id join ner n on rn.ner_id = n.ID where r.ID = :id", nativeQuery = true)
-//    List<Map<String, String>> recipeFromIngredient(@Param("id") Integer recipeID);
 }
