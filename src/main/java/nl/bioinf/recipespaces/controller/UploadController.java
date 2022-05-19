@@ -21,7 +21,6 @@ import org.springframework.web.multipart.MultipartFile;
 @Controller
 public class UploadController {
 
-    @Autowired
     private UploadService uploadService;
 
     public UploadController(UploadService uploadService) {

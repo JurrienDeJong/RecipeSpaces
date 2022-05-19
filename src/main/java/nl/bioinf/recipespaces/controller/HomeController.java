@@ -17,10 +17,10 @@ import java.util.Objects;
  * Responsible for serving the user the home page
  * @author Jorick Baron
  */
+// /home
 @Controller
 public class HomeController {
 
-    @Autowired
     private final RecipeService recipeService;
     private final IngredientService ingredientService;
 

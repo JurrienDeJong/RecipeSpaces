@@ -22,7 +22,6 @@ import java.util.Set;
 @RequestMapping(path="/ingredient")
 public class IngredientController {
 
-    @Autowired
     private final IngredientService ingredientService;
     private final MoleculeService moleculeService;
     private final RecipeService recipeService;
@@ -39,7 +38,12 @@ public class IngredientController {
         return this.ingredientService.getAllIds();
     }
 
-    // Get Recipe from ID
+    /**
+     * Get ingredient by id
+     * @param model, to add attributes to use in html
+     * @param id, integer with the id of an ingredient
+     * @return a html with the ingredient
+     */
     @GetMapping("/{id}")
     public String displayRecipeByID(Model model, @PathVariable("id") Integer id){
         Ingredient ingredient = ingredientService.getId(id);

@@ -13,7 +13,10 @@ The web application is supported by a database containing recipes. These recipes
 The main references for this web application are the [RecipeNLG paper](https://aclanthology.org/2020.inlg-1.4.pdf) and its [dataset](https://recipenlg.cs.put.poznan.pl/#read).  
 A provided script by Fenna Feenstra to fill recipe database from the dataset above is based on the following [script](https://github.com/BehzadBarati/Ingredient-Maps/blob/main/Food_Recipes_RecipeNLG.ipynb).
 
-## Installation
+## Requirements
+* JDK16
+
+## Getting Started
 * Clone this project 
 ```{}
 git clone https://github.com/JurrienDeJong/RecipeSpaces.git
@@ -24,9 +27,6 @@ git clone https://github.com/JurrienDeJong/RecipeSpaces.git
 * Next run the application
 * Open `http://localhost:8080/home` in any browser
 
-### Requirements
-* IntelliJ IDEA
-* Tomcat 9.0.55 or a related version
 
 ## Usage
 On the home page, you can search for a recipe or ingredient by clicking an option (recipe or ingredient). Then search for any recipe or ingredient.
@@ -58,7 +58,7 @@ For support, please email one of the authors:
 For more information about spring boot, in which the web application is made, please visit [JetBrains](https://www.jetbrains.com/help/idea/spring-boot.html#spring-boot-endpoints)
 
 ## License
-Copyright 2022. All right reserved.  
+Copyright 2022. All right reserved. [License](LICENSE.md)
 
 ## Project status
 This project is currently still in development, so it doesn't provide all functionality as described in the description.

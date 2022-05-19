@@ -19,7 +19,6 @@ import java.util.Set;
 @RequestMapping(path="molecule")
 public class MoleculeController {
 
-
     private final MoleculeService moleculeService;
 
     @Autowired
@@ -32,7 +31,12 @@ public class MoleculeController {
         return this.moleculeService.getAllIds();
     }
 
-    // Get Molecule from ID
+    /**
+     * Get molecule by id
+     * @param model, to add attributes to use in html
+     * @param id, integer with the id of a molecule
+     * @return html with a molecule
+     */
     @GetMapping("/{id}")
     public String displayMoleculeByID(Model model, @PathVariable("id") Integer id){
         Molecule molecule = moleculeService.getMolById(id);
