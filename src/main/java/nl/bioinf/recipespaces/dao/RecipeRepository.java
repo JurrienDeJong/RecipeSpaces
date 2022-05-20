@@ -40,5 +40,6 @@ public interface RecipeRepository extends JpaRepository<Recipe, String> {
     List<IngredientAmount> ingredientAmountFromRecipe(@Param("id") Integer id);
 
 
+
 }
 

@@ -36,4 +36,6 @@ public class MoleculeService {
     public Set<Ingredient> getIngredientsFromMolecules(Integer pubID) {
         return this.moleculeRepository.ingredientsFromMolecules(pubID);
     }
+
+    public Set<String> getCommonNames(Integer Id){ return this.moleculeRepository.getCommonNames(Id);}
 }
