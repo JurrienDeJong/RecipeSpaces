@@ -5,7 +5,7 @@
 -->
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <link th:href="@{/css/stylesheet-error.css}" rel="stylesheet" />
+    <link th:href="@{/static/css/stylesheet-error.css}" rel="stylesheet" />
     <meta charset="UTF-8">
     <title>500</title>
 </head>
@@ -345,12 +345,12 @@
     </svg>
 
     <h1 class="error-title">
-        Woops! <br>This recipe does not contain data :(
+        Woops! <br>There is an internal server error :(
     </h1>
     <h2 class="error-subtitle">
-        Try another one;
+        Please return to the home page;
         <br>
-        <button onclick="location.href = '/home';" type="button">Submit another keyword!</button>
+        <button onclick="location.href = '/home';" type="button">Home</button>
     </h2>
 </div>
 </body>
