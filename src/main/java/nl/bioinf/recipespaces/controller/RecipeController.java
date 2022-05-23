@@ -43,6 +43,7 @@ public class RecipeController {
         Set<Step> steps = stepService.getStepsFromRecipe(id);
         List<IngredientAmount> ingredientAmounts = ingredientAmountService.getIngredientAmountsFromRecipe(id);
         List<Map<String, Integer>> ingredientFrequency = ingredientAmountService.getCountIngredientForRecipe(recipe.getTagValue());
+        List<Recipe> recipes = recipeService.findByExactKeyword(recipe.getTagValue());
         try{
             model.addAttribute("recipeName", recipe.getTagValue());
             model.addAttribute("recipes", recipe);
@@ -50,6 +51,7 @@ public class RecipeController {
             model.addAttribute("steps", steps);
             model.addAttribute("ingredient_amount", ingredientAmounts);
             model.addAttribute("ing_frequency", ingredientFrequency);
+            model.addAttribute("recipesExact", recipes);
         } catch (Exception e){
             System.out.println(e.getMessage());
         }

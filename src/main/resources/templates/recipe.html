@@ -24,6 +24,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
     <script type="text/javascript" th:src="@{/static/js/createDataTable.js}"></script>
+    <script type="text/javascript" th:src="@{/static/js/frequencyPlot.js}"></script>
 
     <link th:href="@{/static/css/stylesheet.css}" rel="stylesheet" />
 </head>
@@ -100,138 +101,14 @@
         });
     </script>
 
-
-
-    <div id="plot-example" data-plot-xMin="-1"></div>
-
-    <canvas id="recipe-name" width="600" height="400"></canvas>
-
+    <div id="chart">
+        <canvas id="myChart"></canvas>
+    </div>
 
     <script th:inline="javascript">
-        var htmlData = [[${ing_frequency}]];
-
-        var frequency = {};
-        var recipes = {};
-
-        for (var i=0; i < htmlData.length; i++) {
-            frequency[htmlData[i].name] = htmlData[i].count
-            recipes[htmlData[i].name] = htmlData[i].recipe
-        }
-
-        let uniqueRecipesID =  Object.values(recipes).filter((item, i, ar) => ar.indexOf(item) === i);
-
-        function sortDictornary(dict) {
-            var items = Object.keys(dict).map(function (key) {
-                return [key, dict[key]];
-            });
-
-            items.sort(function(first, second) {
-                return second[1] - first[1];
-            });
-
-            var sortedDict = {}, useKey, useValue
-            $.each(items, function(k, v) {
-                useKey = v[0]
-                useValue = v[1]
-                sortedDict[useKey] = useValue
-            })
-            return(sortedDict)
-        }
-
-        const sortedFrequency = sortDictornary(frequency);
-
-        var pointBackgroundColors = [];
-
-        const recipeData = {
-            labels : Object.keys(sortedFrequency),
-            datasets : [
-                {
-                    borderWidth: 1,
-                    barThickness: 6,
-                    data : Object.values(sortedFrequency),
-                    backgroundColor: pointBackgroundColors
-                }
-            ],
-        }
-
-        const recipe = document.getElementById('recipe-name');
-        const myChart = new Chart(recipe, {
-            type: 'bar',
-            data: recipeData,
-            valueField: 'count',
-            argumentField: 'name',
-            options: {
-                events: ['click'],
-                legend: {
-                    display: false
-                },
-                scaleShowValues: true,
-                scales: {
-                    xAxes: [{
-                        scaleLabel: {
-                            display: true,
-                            labelString: 'Ingredient'
-                        },
-                        ticks: {
-                            display: false,
-                            autoSkip: true
-                        }
-                    }],
-                    yAxes: [{
-                        scaleLabel: {
-                            display: true,
-                            labelString: 'Frequency'
-                        },
-                        ticks: {
-                            min: 0
-                        }
-                    }]
-                },
-                plugins: {
-                    tooltip: {
-                        events: ['click']
-                    }
-                }
-                // tooltips: {
-                //     enabled: true,
-                //     mode: 'single',
-                //     callbacks: {
-                //         label: function (tooltipItems, data) {
-                //             var multistringText = [tooltipItems.yLabel];
-                //             multistringText.push("Another item");
-                //             // multistringText.push(Object.values(data));
-                //             multistringText.push('One more Item');
-                //             return multistringText;
-                //         }
-                //     }
-                // }
-            }
-        });
-
-        for (i = 0; i < myChart.data.datasets[0].data.length; i++) {
-            if (myChart.data.datasets[0].data[i] > Math.round(uniqueRecipesID.length * 0.7)) {
-                pointBackgroundColors.push("#2471A3");
-            } else {
-                pointBackgroundColors.push("#239B56");
-            }
-        }
-
-        myChart.update();
-
-        recipe.onclick = function clickHandler(click) {
-            const points = myChart.getElementsAtEventForMode(click, 'nearest',
-                { intersect: true}, true);
-            if (points[0]) {
-                const firstPoint = points[0];
-                console.log(points);
-                console.log(firstPoint);
-
-                const value = myChart.data.datasets[firstPoint['_index']];
-                console.log(value);
-                console.log(Object.values(recipe));
-            }
-        }
-
+        let htmlData = [[${ing_frequency}]];
+        let recipesExact = [[${recipesExact}]];
+        frequencyPlotViewer();
     </script>
 </body>
 </html>

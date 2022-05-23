@@ -62,14 +62,6 @@ body {
     }
 }
 
-/*@media only screen and (min-width: 352px) {*/
-/*    .portfolio-section {*/
-/*        margin-top: 110%;*/
-/*        margin-left: 10px;*/
-/*        padding-right: 10px;*/
-/*    }*/
-/*}*/
-
 @media only screen and (min-width: 1200px) {
     .portfolio-section {
         margin-top: 30%;
@@ -230,3 +222,26 @@ body {
 .table-style {
     background-color: #f2f2f2;
 }
+
+.custom-tooltip {
+    margin: 20px;
+    color: black;
+    border:2px solid orange;
+    font-size: 12px;
+    padding: 6px 6px;
+    font-style: normal;
+}
+
+.button-style {
+    background-color: black;
+    color: white;
+    border-color: black;
+    outline: none;
+    border-radius: 50px;
+    cursor: pointer;
+    display: table;
+    margin: 2px;
+    float: left;
+    opacity: 0.5;
+}
+
