@@ -72,7 +72,7 @@ public class ReplacementController {
     @RequestMapping(value = "recipe/{id}/ingredients", method = RequestMethod.GET)
     @ResponseBody
     public List<ReplacementData> getIngredients(@PathVariable("id") Integer id){
-        Set<Ingredient> ingredients = recipeService.getIngredientsFromRecipe(id);
+        List<Ingredient> ingredients = recipeService.getIngredientsFromRecipe(id);
         List<ReplacementData> replacementData = new ArrayList<>();
         for (Ingredient ingredient:
              ingredients) {

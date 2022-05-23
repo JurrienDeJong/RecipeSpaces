@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<!--
+    this page is used to let users calculate how to keep the same ratio of ingredients when they are short one
+    Author: Jorick Baron
+-->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="'adjust ' + ${recipeName}"></title>
+</head>
+<body onload="makeForm()">
+    <div th:text="${recipeName}"></div>
+    <p id="recipe">
+        <form id='recipeForm' method="post">
+        <p id="ingredientZone"></p>
+        <input type="submit" name="submit" id="submit" value="Change Amounts" >
+        </form>
+    <p id="message" style="color: red"></p>
+<input type="hidden" id="data" th:value="${ingredientAmounts}">
+</body>
+</html>
+
+<script>
+
+    let form = document.querySelector("#recipeForm");
+    let ingredientZone = document.querySelector("#ingredientZone");
+    let submitButton = document.querySelector("#submit");
+    let messageZone = document.querySelector("#message");
+    let rawData = document.querySelector("#data").getAttribute("value");
+    const data = JSON.parse(rawData);
+    let newData = {};
+
+    /**
+     * Parses a string to find and return the unit of measurement.
+     * @param amountString The string to be parsed e.g. '500 ml'.
+     * @returns {string} A string containing the unit e.g. 'ml'.
+     */
+    function selectAmount(amountString) {
+        let unit = amountString.substring(amountString.search(/[A-Z]/i)); // where do letters start to be used
+        if (unit.length === amountString.length) {
+            return ""; // no unit present
+        } else {
+            return unit;
+        }
+    }
+
+    /**
+     * Object for storing ingredients
+     * @type {{ingredients: (function(*): string)}}
+     */
+    let recipe = {
+        /**
+         * Makes a form using ingredient data.
+         * @param locData Ingredient data.
+         * @returns {string} HTML for the form to display.
+         */
+        ingredients: function (locData) {
+            let printMe = ""
+            let containsFraction = new RegExp(/\d+\/\d+/i);
+            Object.keys(locData).forEach( key => {
+                if (containsFraction.test(locData[key])){
+                    let fraction = locData[key].match(containsFraction);
+                    let fractions = fraction.toString().split("/");
+                    locData[key] =  (fractions[0]/fractions[1]).toPrecision(3) + " " +
+                        locData[key].slice(locData[key].search(containsFraction)); // turns 1/4 pound in 0.250 pound
+                }
+                printMe += `<label for="amount">amount of ${key} :</label>
+                            <input type="number" name="${key}" id="${key}" value="${parseFloat(locData[key])}">
+                            ${selectAmount(data[key].toString())}<br>` // makes the form that will be displayed
+            });
+            return printMe;
+        },
+        /**
+         * makes view for updated ingredient data.
+         * @param locData Ingredient data.
+         * @returns {string} HTML for the new ingredient display.
+         */
+        ratioIngredients: function (locData) {
+            let printMe = ""
+            Object.keys(locData).forEach( key => {
+                printMe += `<span>required amount of ${key} changed to: ${locData[key]}
+                            ${selectAmount(data[key].toString())} </span> <br>`
+            });
+            return printMe;
+        }
+    }
+
+    /**
+     * Creates form on page load using original data.
+     */
+    function makeForm() {
+        ingredientZone.innerHTML = `${recipe.ingredients(data)}`;
+    }
+
+    /**
+     * Calculates new needed amounts for the ingredients.
+     * @param newData The changed recipe.
+     * @param formData The original recipe.
+     * @returns {{}} Updated recipe to contain the same ratio.
+     */
+    function ratio(newData, formData) {
+        let returnData = {};
+        for (let pair of formData.entries()) {
+            if (parseFloat(pair[1]).toPrecision(3) !== parseFloat(data[pair[0]]).toPrecision(3)) {
+                for (let dataKey in data) {
+                    returnData[dataKey] = (parseFloat(data[dataKey]) * (pair[1]/parseFloat(data[pair[0]]))).toPrecision(3);
+                }
+            }
+        }
+        return returnData;
+    }
+    submitButton.addEventListener("click", updateData);
+
+    /**
+     * Gives calculated ingredient amounts to the user.
+     * @param e submission event.
+     */
+    function updateData(e) {
+        e.preventDefault(); // do not reload the page
+        let formData = new FormData(form);
+        for (let pair of formData.entries()) {
+            newData[pair[0]] = pair[1] + " " + selectAmount(data[pair[0]].toString()); // gives new data the updated ingredient amount + unit
+        }
+        let newIngredients = ratio(newData, formData);
+
+        if (Object.values(newIngredients)[0] === "0.00"){ // if changed ingredient goes to 0 amount
+            messageZone.innerHTML = `requires more than 0`
+        } else if (Object.keys(newIngredients).length === 0) { // if nothing has changed
+            messageZone.innerHTML = `Change 1 ingredient before proceeding`
+        } else {
+            ingredientZone.innerHTML = recipe.ratioIngredients(newIngredients);
+            submitButton.remove();
+            messageZone.innerHTML = ""
+        }
+    }
+</script>

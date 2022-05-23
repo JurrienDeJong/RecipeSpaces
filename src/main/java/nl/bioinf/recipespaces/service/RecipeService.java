@@ -47,7 +47,7 @@ public class RecipeService {
 
     public List<Recipe> findByExactKeyword(String keyword) { return this.recipeRepository.recipesFromExactKeyword(keyword);}
 
-    public Set<Ingredient> getIngredientsFromRecipe(Integer id) {
+    public List<Ingredient> getIngredientsFromRecipe(Integer id) {
         return this.ingredientRepository.ingredientsFromRecipe(id);
     }
 

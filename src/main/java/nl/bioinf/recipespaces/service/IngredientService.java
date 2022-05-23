@@ -34,7 +34,7 @@ public class IngredientService {
         return repository.findIngredientById(id);
     }
 
-    public Set<Ingredient> getIngredientsFromRecipe(Integer recipeID) {
+    public List<Ingredient> getIngredientsFromRecipe(Integer recipeID) {
         return repository.ingredientsFromRecipe(recipeID);
     }
 

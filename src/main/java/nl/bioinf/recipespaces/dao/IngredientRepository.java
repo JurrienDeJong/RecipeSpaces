@@ -17,7 +17,7 @@ import java.util.Set;
 @Repository
 public interface IngredientRepository extends JpaRepository<Ingredient, String> {
     @Query(value = "SELECT DISTINCT i.id, i.tag_value from ner i join recipe_ner rn on i.ID = rn.ner_id where rn.recipe_id = :id", nativeQuery = true)
-    Set<Ingredient> ingredientsFromRecipe(@Param("id") Integer id);
+    List<Ingredient> ingredientsFromRecipe(@Param("id") Integer id);
 
     @Query(value = "SELECT DISTINCT * from ner n where n.id = :id", nativeQuery = true)
     Ingredient findIngredientById(@Param("id") Integer id);
