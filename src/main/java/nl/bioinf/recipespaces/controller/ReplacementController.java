@@ -1,6 +1,8 @@
 package nl.bioinf.recipespaces.controller;
 
 import nl.bioinf.recipespaces.model.Ingredient;
+import nl.bioinf.recipespaces.model.ReplacementData;
+import nl.bioinf.recipespaces.service.IngredientAmountService;
 import nl.bioinf.recipespaces.service.IngredientService;
 import nl.bioinf.recipespaces.service.MoleculeService;
 import nl.bioinf.recipespaces.service.RecipeService;
@@ -17,15 +19,20 @@ public class ReplacementController {
     private final RecipeService recipeService;
     private final IngredientService ingredientService;
     private final MoleculeService moleculeService;
+    private final IngredientAmountService ingredientAmountService;
 
     @Autowired
-    public ReplacementController(RecipeService recipeService, IngredientService ingredientService, MoleculeService moleculeService) {
+    public ReplacementController(RecipeService recipeService,
+                                 IngredientService ingredientService,
+                                 MoleculeService moleculeService,
+                                 IngredientAmountService ingredientAmountService) {
         this.recipeService = recipeService;
         this.ingredientService = ingredientService;
         this.moleculeService = moleculeService;
+        this.ingredientAmountService = ingredientAmountService;
     }
 
-    @RequestMapping(value = "replacement/search", method = RequestMethod.GET)
+    @RequestMapping(value = "recipe/replacement/search", method = RequestMethod.GET)
     @ResponseBody
     public Map<String, Double> getReplacement(@RequestParam(value = "term", defaultValue = "") String term) {
         Ingredient ingredient = ingredientService.findByExactKeyword(term);
@@ -61,8 +68,17 @@ public class ReplacementController {
                 .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (e1, e2) -> e1, LinkedHashMap::new));
     }
 
-    @GetMapping("/replacement")
-    public String replacement(){
-        return "replacement";
+
+    @RequestMapping(value = "recipe/{id}/ingredients", method = RequestMethod.GET)
+    @ResponseBody
+    public List<ReplacementData> getIngredients(@PathVariable("id") Integer id){
+        Set<Ingredient> ingredients = recipeService.getIngredientsFromRecipe(id);
+        List<ReplacementData> replacementData = new ArrayList<>();
+        for (Ingredient ingredient:
+             ingredients) {
+            boolean valid = moleculeService.getMoleculesFromIngredient(ingredient.getId()).size() > 0;
+            replacementData.add(new ReplacementData(ingredient.getId(), ingredient.getTagValue(), valid));
+        }
+        return replacementData;
     }
 }
