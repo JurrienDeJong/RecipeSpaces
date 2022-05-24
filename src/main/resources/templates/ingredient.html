@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <!--
     Displays the ingredients and their properties
-    author: Jurriën de Jong (function), Rose Hazenberg (styling)
+    author: Jurriën de Jong (function), Rose Hazenberg (styling), Jorick Baron (fetching information from wikipedia)
 -->
 <html xmlns:th="http://www.thymeleaf.org">
 <title th:text="#{tab.title.ingredient(${ingredient.tagValue})}">_offline_</title>
@@ -45,7 +45,7 @@
     </table>
 
     <br>
-    <h1>Recipes containing <span th:text="${ingredient.getTagValue()}">:</span></h1>
+    <h1>Recipes containing <span id="ingredientName" th:text="${ingredient.getTagValue()}">:</span></h1>
     <table id="recipes" class="display nowrap">
         <thead>
         <tr>
@@ -62,6 +62,7 @@
 
         </tbody>
     </table>
+    <div id="wiki"></div>
 
     <script>
         $(document).ready(function() {
@@ -85,6 +86,32 @@
             })
 
         });
+
+
+
+        let url = "https://en.wikipedia.org/w/api.php";
+        let wikiArea = document.querySelector("#wiki");
+
+        const params = {
+            action: "query",
+            titles: document.querySelector("#ingredientName").innerText,
+            prop: "extracts",
+            exintro: "True",
+            format: "json"
+        };
+
+
+        url = url + "?origin=*";
+        Object.keys(params).forEach(function(key){url += "&" + key + "=" + params[key];});
+
+        fetch(url)
+            .then(function(response){return response.json();})
+            .then(function(response) {
+                let pages = (response.query.pages);
+                let pageId = Object.keys(pages)[0];
+                wikiArea.innerHTML = pages[pageId].extract;
+            })
+            .catch(function(error){console.log(error);})
     </script>
 </body>
 </html>
