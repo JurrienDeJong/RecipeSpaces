@@ -55,8 +55,8 @@
 
     <script>
         let currentURL = window.location.href;
-        let id = currentURL[currentURL.length - 1];
-        let recipeURL = id + "/ingredients";
+        let id = currentURL.split("/")[4];
+        let recipeURL = id + "/ingredients/False";
         console.log(recipeURL);
         fetch(recipeURL)
         .then(response => response.json())

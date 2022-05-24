@@ -1,12 +1,14 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script type="text/javascript" th:src="@{/static/js/createDataTable.js}"></script>
     <meta charset="UTF-8">
     <title>Replacement</title>
 </head>
+
 <body>
 
 <div class="col-sm-12">
@@ -16,60 +18,11 @@
     </div>
 </div>
 
+
 <script>
-
-    let data = {"garlic" : 10, "gruyere cheese" : 1};
-
-    let currentIndex = 0;
-    let mainTable = document.querySelector("#mainTables");
-    let tableHead = "<thead><tr><th>ID</th><th>Name</th><th></th></tr></thead>"
-    mainTable.innerHTML += tableHead;
-    for (let key in data) {
-        currentIndex += 1;
-        let tableBody = `<tbody>
-                        <tr data-toggle="collapse" id="table${currentIndex}" data-target=".table${currentIndex}">
-                            <td>${data[key]}</td>
-                            <td>${key}</td>
-                            <td><button onclick = "getReplacementData('${key}', ${currentIndex})" class="btn btn-default btn-sm">View Replacements</button></td>
-                        </tr>
-                        <tr class="collapse table${currentIndex}">
-                            <td colspan="999">
-                                <div id="replacementDisplay${currentIndex}"></div>
-                            </td>
-                        </tr>
-                     </tbody>`
-        mainTable.innerHTML += tableBody;
-    }
-
-    function getReplacementData(term, tableIndex){
-        let replacementURL = 'replacement/search?term=';
-        fetch(replacementURL + term)
-            .then(response => response.json())
-            .then(data => createTable(data, tableIndex))
-            .catch(error => {
-                console.log("Error! " + error);
-            });
-    }
-
-    function createTable(data, index){
-
-        let display = document.querySelector("#replacementDisplay" + index);
-
-        let table = "<table class=\"table table-striped\">";
-        let header =   "<thead> " +
-                            "<tr> " +
-                                "<th>Ingredient</th>" + " <th>Percentage of Similarity</th> " +
-                            "</tr> " +
-                        "</thead>";
-        table += header;
-        for (let key in data) {
-            let roundedPercentage = Math.round(data[key] * 100) / 100 + " %";
-            table += `<tr><td>${key}</td><td>${roundedPercentage}</td></tr>`;
-        }
-        table += "</table>";
-        display.innerHTML = table;
-    }
-
+    let data = createOuterTable();
+    let tableDisplay = document.querySelector("#mainTables");
+    tableDisplay.innerHTML += data.mainTable;
 </script>
 </body>
 </html>

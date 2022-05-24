@@ -15,9 +15,9 @@ function createOuterTable(data){
                             <tr>
                                 <td>${Id}</td>
                                 <td><a href="/ingredient/${Id}">${Name}</a></td>
-                                <td><a for="collapse${currentIndex}" data-toggle="collapse" href="#collapse${currentIndex}" aria-expanded="true" aria-controls="collapse${currentIndex}" class="btn btn-info" onClick="fetchReplacementData('${Name}', ${currentIndex}, ${Id})">View Replacements</td>
+                                <td><a id="button${currentIndex}" for="collapse${currentIndex}" data-toggle="collapse" href="#collapse${currentIndex}" aria-expanded="true" aria-controls="collapse${currentIndex}" class="btn btn-info" onClick="fetchReplacementData('${Name}', ${currentIndex}, ${Id})">View Replacements</a></td>
                             </tr>
-                            <tr>       
+                            <tr id="rowResult${currentIndex}" style="display: none;">       
                                 <td colspan="3">   
                                     <div id="collapse${currentIndex}" class="collapse">            
                                         <div id="replacementDisplay${currentIndex}"></div>
@@ -54,6 +54,20 @@ function validateIngredient(Id) {
 }
 
 function fetchReplacementData(term, index, id){
+    let row = document.querySelector("#rowResult" + index);
+    row.style.display = 'table-row';
+
+    let button = document.querySelector("#button" + index);
+    if (button.innerHTML === "View Replacements") {
+        $(button).toggleClass('btn btn-info')
+        $(button).addClass('btn btn-primary');
+        button.innerHTML = "Hide Replacements";
+    } else {
+        button.innerHTML = "View Replacements";
+        $(button).toggleClass('btn btn-primary');
+        $(button).addClass('btn btn-info')
+    }
+
     let replacementURL = 'replacement/search?term=' + term;
     fetch(replacementURL)
         .then(response => response.json())
@@ -63,20 +77,22 @@ function fetchReplacementData(term, index, id){
         });
 }
 
+
+
 function createInnerReplacementTable(data, index, id){
 
     let display = document.querySelector("#replacementDisplay" + index);
-    console.log(display);
     let table = "<table class=\"table table-striped\">";
     let header =   "<thead> " +
         "<tr> " +
-        "<th>Ingredient</th>" + " <th>Percentage of Similarity</th> " +
+        "<th>Ingredient</th>" + " <th title='This percentage shows how similar the molecular patterns are between the 2 ingredients. " +
+        "The top 10 matching ingredients are shown.'>Percentage of Similarity</th> " +
         "</tr> " +
         "</thead>";
     table += header;
     for (let key in data) {
         let roundedPercentage = Math.round(data[key] * 100) / 100 + " %";
-        table += `<tr><td><a href="/ingredient/${id}">${key}</a></td><td>${roundedPercentage}</td></tr>`;
+        table += `<tr><td><a href="/ingredient/${id}">${key}</a></td><td>${roundedPercentage}</td><td></td></tr>`;
     }
     table += "</table>";
     display.innerHTML = table;

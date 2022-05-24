@@ -69,10 +69,15 @@ public class ReplacementController {
     }
 
 
-    @RequestMapping(value = "recipe/{id}/ingredients", method = RequestMethod.GET)
+    @RequestMapping(value = "recipe/{id}/ingredients/{all}", method = RequestMethod.GET)
     @ResponseBody
-    public List<ReplacementData> getIngredients(@PathVariable("id") Integer id){
-        List<Ingredient> ingredients = recipeService.getIngredientsFromRecipe(id);
+    public List<ReplacementData> getIngredients(@PathVariable("id") Integer id, @PathVariable("all") Boolean allIng){
+        List<Ingredient> ingredients;
+        if(!allIng){
+            ingredients = recipeService.getIngredientsFromRecipe(id);
+        } else {
+            ingredients = ingredientService.getAllIds();
+        }
         List<ReplacementData> replacementData = new ArrayList<>();
         for (Ingredient ingredient:
              ingredients) {
