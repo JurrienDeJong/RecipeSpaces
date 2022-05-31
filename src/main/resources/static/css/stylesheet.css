@@ -300,7 +300,6 @@ body {
 
 .info {
     font-size: 20px;
-    padding-left: 5px;
     width: 20px;
     border-radius: 15px;
 }
@@ -308,6 +307,7 @@ body {
 .info:hover {
     background-color: white;
     padding: 0 0 0 5px;
-    width: 315px;
+    width: 900px;
     text-align: left !important;
+    font-weight: normal;
 }

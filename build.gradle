@@ -20,6 +20,7 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.springframework.boot:spring-boot-starter-web-services'
     implementation 'org.springframework.boot:spring-boot-starter-mail:2.6.7'
+    implementation 'junit:junit:4.13.1'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     //sql
     implementation 'org.xerial:sqlite-jdbc:3.36.0.3'
@@ -41,11 +42,11 @@ dependencies {
     // https://mvnrepository.com/artifact/com.github.haifengl/smile-math
     implementation 'com.github.haifengl:smile-math:2.6.0'
     // https://mvnrepository.com/artifact/org.bytedeco/arpack-ng-platform
-    implementation 'org.bytedeco:arpack-ng-platform:3.7.0-1.5.3'
+    implementation 'org.bytedeco:arpack-ng-platform:3.8.0-1.5.7'
     // https://mvnrepository.com/artifact/org.bytedeco/javacpp-platform
-    implementation 'org.bytedeco:javacpp-platform:1.5.3'
+    implementation 'org.bytedeco:javacpp-platform:1.5.7'
     // https://mvnrepository.com/artifact/org.bytedeco/openblas-platform
-    implementation 'org.bytedeco:openblas-platform:0.3.9-1.5.3'
+    implementation 'org.bytedeco:openblas-platform:0.3.19-1.5.7'
 
 
     // https://mvnrepository.com/artifact/jfree/jfreechart
@@ -53,6 +54,21 @@ dependencies {
     //logging
     implementation 'org.springframework.boot:spring-boot-starter-logging'
     implementation 'org.springframework.boot:spring-boot-starter-log4j2'
+
+
+    implementation 'org.junit.jupiter:junit-jupiter-api:5.8.2'
+    implementation 'org.junit.jupiter:junit-jupiter-engine:5.8.2'
+    implementation 'org.junit.jupiter:junit-jupiter-params:5.8.2'
+
+    configurations.implementation {
+        exclude group: 'org.apache.logging.log4j', module: 'log4j-to-slf4j'
+    }
+    configurations.implementation {
+        exclude group: 'org.springframework.boot', module: 'spring-boot-starter-logging'
+    }
+    configurations.implementation {
+        exclude group: "com.vaadin.external.google", module:"android-json"
+    }
 }
 
 tasks.named('test') {

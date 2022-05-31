@@ -11,7 +11,7 @@
 
 <div th:fragment="navigation-bar">
     <nav class="navigation">
-        <img class="navbar-logo" alt="recipe-spaces-logo" th:src="@{/static/images/RecipeSpaces.png}"/>
+        <a th:href="@{/home}"><img class="navbar-logo" alt="recipe-spaces-logo" th:src="@{/static/images/RecipeSpaces.png}"/></a>
         <div class="navbar-right">
             <a th:href="@{/home}">Home</a>
             <a th:href="@{/about}">About Us</a>

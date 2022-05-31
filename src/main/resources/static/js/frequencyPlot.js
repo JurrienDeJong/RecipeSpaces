@@ -68,7 +68,7 @@ function frequencyPlotViewer() {
                 },
                 title: {
                     display: true,
-                    text: 'Total number of ingredients'
+                    text: `Total number per ingredient of all recipes of ${recipeName}`
                 },
                 scaleShowValues: true,
                 scales: {
@@ -145,7 +145,17 @@ function frequencyPlotViewer() {
                             let innerHTML = '<thead>'
 
                             titleLines.forEach(function (title) {
-                                innerHTML += '<tr><th> Recipe IDs containing ' + title + '</th></tr>'
+                                innerHTML += `<tr><th>
+                                               ${recipeName} recipes containing ${title}
+                                               <div class="col-md-12" style="padding-left: 0">
+                                                    <div class="info">
+                                                        <i class="icon-info-sign" style="color: orange"></i>
+                                                            <span class="extra-info">
+                                                                Below there are the recipes which contains ${title}. These are clickable, which brings you to the recipe of ${recipeName} containing ${title}.
+                                                            </span>
+                                                    </div>
+                                               </div>
+                                             </th></tr>`
                             })
 
                             innerHTML += '</thead><tbody>'
@@ -158,7 +168,7 @@ function frequencyPlotViewer() {
                                     border-width : 2px;
                                     `
                                 let span = '<span style="' + style + '"></span>'
-                                innerHTML += '<tr><td>Total number' + span + body + '</td></tr>'
+                                innerHTML += `<tr><td>Total number${span} ${body} / ${recipesExact.length} of ${recipeName}</td></tr>`
                             })
 
                             innerHTML += '</tbody>'
