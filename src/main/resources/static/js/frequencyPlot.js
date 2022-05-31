@@ -11,14 +11,9 @@ let label;
 function frequencyPlotViewer() {
     if (recipesExact.length !== 1) {
         for (let i = 0; i < htmlData.length; i++) {
-            // if (htmlData[i].name.match(/av[oa]/g)) {
-            //     console.log(htmlData[i].name + ": " + htmlData[i].count + " : " + htmlData[i].recipe);
-            // }
             frequency[htmlData[i].name] = htmlData[i].count
             recipes[htmlData[i].name] = htmlData[i].recipe
         }
-
-        let uniqueRecipesID = Object.values(recipes).filter((item, i, ar) => ar.indexOf(item) === i);
 
         function sortDictornary(dict) {
             const items = Object.keys(dict).map(function (key) {
@@ -198,7 +193,7 @@ function frequencyPlotViewer() {
         });
 
         for (let i = 0; i < myChart.data.datasets[0].data.length; i++) {
-            if (myChart.data.datasets[0].data[i] > Math.round(uniqueRecipesID.length * 0.7)) {
+            if (myChart.data.datasets[0].data[i] > Math.round(recipesExact.length * 0.7)) {
                 pointBackgroundColors.push("#2471A3");
             } else {
                 pointBackgroundColors.push("#239B56");

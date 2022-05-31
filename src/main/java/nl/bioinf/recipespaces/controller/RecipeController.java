@@ -67,9 +67,9 @@ public class RecipeController {
             System.out.println(e.getMessage());
         }
 
-//        FileHandler fileHandler = new FileHandler("logfile.html", false);
-//        fileHandler.setFormatter(new HtmlLogFormatter());
-//        logger.addHandler(fileHandler);
+        FileHandler fileHandler = new FileHandler("logfile.html", false);
+        fileHandler.setFormatter(new HtmlLogFormatter());
+        logger.addHandler(fileHandler);
 
         return "recipe";
     }
