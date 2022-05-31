@@ -11,10 +11,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
+import java.util.logging.Level;
 import java.util.stream.Collectors;
 
 @Controller
 public class ReplacementController {
+
+    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(ReplacementController.class.getName());
 
     private final RecipeService recipeService;
     private final IngredientService ingredientService;
@@ -35,10 +38,13 @@ public class ReplacementController {
     @RequestMapping(value = "recipe/replacement/search", method = RequestMethod.GET)
     @ResponseBody
     public Map<String, Double> getReplacement(@RequestParam(value = "term", defaultValue = "") String term) {
+        logger.log(Level.INFO, "Fetching " + term + " to get its replacements based on similar ingredients");
+
         Ingredient ingredient = ingredientService.findByExactKeyword(term);
         Map<String, Double> scores = new HashMap<>();
         List<Integer> IdsOfIngredients = ingredientService.getAllIdsContainingMolecules();
         for(Integer ingredientId : IdsOfIngredients){
+            logger.log(Level.INFO, "Finding matches to replace " + term);
             Set<String> current = moleculeService.getCommonNames(ingredient.getId());
             Set<String> target = moleculeService.getCommonNames(ingredientId);
             double matches;
@@ -53,6 +59,7 @@ public class ReplacementController {
                 total = Double.parseDouble(String.valueOf(current.size()));
             }
 
+            logger.log(Level.INFO, "Calculating percentage of a match");
             double percentage = ((matches / total) * 100);
             if(percentage > 0){
                 scores.put(ingredientService.getId(ingredientId).getTagValue(), percentage);
@@ -62,7 +69,7 @@ public class ReplacementController {
         return scores.entrySet()
                 .stream()
                 .sorted((Map.Entry.<String, Double>comparingByValue().reversed()))
-                // Skip the first element being the ingredient itself with 100 % similarity ofcourse.
+                // Skip the first element being the ingredient itself with 100 % similarity of course.
                 .skip(1)
                 .limit(10)
                 .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (e1, e2) -> e1, LinkedHashMap::new));
@@ -72,6 +79,8 @@ public class ReplacementController {
     @RequestMapping(value = "recipe/{id}/ingredients/{all}", method = RequestMethod.GET)
     @ResponseBody
     public List<ReplacementData> getIngredients(@PathVariable("id") Integer id, @PathVariable("all") Boolean allIng){
+        logger.log(Level.INFO, "Getting replacement ingredients");
+        logger.log(Level.WARNING, "Retrieving data due to the large processing of all the replacements for a ingredient");
         List<Ingredient> ingredients;
         if(!allIng){
             ingredients = recipeService.getIngredientsFromRecipe(id);

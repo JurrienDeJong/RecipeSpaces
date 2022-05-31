@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Set;
+import java.util.logging.Level;
 
 /**
  * Handles ingredient view
@@ -21,6 +22,8 @@ import java.util.Set;
 @Controller()
 @RequestMapping(path="/ingredient")
 public class IngredientController {
+
+    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(IngredientController.class.getName());
 
     private final IngredientService ingredientService;
     private final MoleculeService moleculeService;
@@ -46,6 +49,9 @@ public class IngredientController {
      */
     @GetMapping("/{id}")
     public String displayRecipeByID(Model model, @PathVariable("id") Integer id){
+        logger.log(Level.INFO, "Retrieving ingredient with id: " + id + " without warnings");
+        logger.log(Level.WARNING, "Retrieving can be slow due to the large database");
+
         Ingredient ingredient = ingredientService.getId(id);
         Set<Molecule> molecules = moleculeService.getMoleculesFromIngredient(id);
         Set<Recipe> recipes = recipeService.getRecipesFromIngredient(id);
@@ -53,7 +59,9 @@ public class IngredientController {
             model.addAttribute("ingredient", ingredient);
             model.addAttribute("molecules", molecules);
             model.addAttribute("recipes", recipes);
+            logger.log(Level.INFO, "Adding ingredient data to the model");
         } catch (Exception e){
+            logger.log(Level.SEVERE, "Something went wrong; cause= " + e.getCause() + ", message= " + e.getMessage());
             System.out.println(e.getMessage());
         }
         return "ingredient";

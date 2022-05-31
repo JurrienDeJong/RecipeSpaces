@@ -5,33 +5,37 @@ import com.google.gson.GsonBuilder;
 import nl.bioinf.recipespaces.model.Link;
 import nl.bioinf.recipespaces.model.Node;
 import nl.bioinf.recipespaces.model.RecipeSpace;
-import org.json.JSONObject;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
 
 /**
  * Displays the about page
- * @author Rose Hazenberg
+ * @author Jurriën de Jong
  */
 @Controller
 @RequestMapping("recipespace")
 public class RecipeSpaceController {
+
+    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(RecipeSpaceController.class.getName());
+
     private static FileWriter file;
 
     @RequestMapping(method = RequestMethod.GET)
     public String spaces() throws IOException {
+        logger.log(Level.INFO, "Serving the page with the visualization of recipe spaces");
         createVisualisation();
         return "recipeSpaceView";
     }
 
     private void createVisualisation() throws IOException {
+        logger.log(Level.INFO, "Creating visualization");
 
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
@@ -63,7 +67,9 @@ public class RecipeSpaceController {
             FileWriter myWriter = new FileWriter("src/main/resources/static/json/recipespace.json");
             myWriter.write(gson.toJson(recipeSpace));
             myWriter.close();
+            logger.log(Level.INFO, "Creating json when without error's");
         } catch (IOException e) {
+            logger.log(Level.SEVERE, "Something went wrong; cause= " + e.getCause() + ", message= " + e.getMessage());
             e.printStackTrace();
         }
     }

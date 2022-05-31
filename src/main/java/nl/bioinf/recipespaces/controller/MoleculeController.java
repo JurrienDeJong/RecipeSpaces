@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Set;
+import java.util.logging.Level;
 
 /**
  * Handles molecule view
@@ -18,6 +19,8 @@ import java.util.Set;
 @Controller()
 @RequestMapping(path="molecule")
 public class MoleculeController {
+
+    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(MoleculeController.class.getName());
 
     private final MoleculeService moleculeService;
 
@@ -39,12 +42,17 @@ public class MoleculeController {
      */
     @GetMapping("/{id}")
     public String displayMoleculeByID(Model model, @PathVariable("id") Integer id){
+        logger.log(Level.INFO, "Retrieving molecule with id: " + id + " without warnings");
+        logger.log(Level.WARNING, "Retrieving can be slow due to the large database");
+
         Molecule molecule = moleculeService.getMolById(id);
         Set<Ingredient> ingredient = moleculeService.getIngredientsFromMolecules(id);
         try{
             model.addAttribute("molecule", molecule);
             model.addAttribute("ingredients", ingredient);
+            logger.log(Level.INFO, "Adding molecule data to the model");
         } catch (Exception e){
+            logger.log(Level.SEVERE, "Something went wrong; cause= " + e.getCause() + ", message= " + e.getMessage());
             System.out.println(e.getMessage());
         }
         return "molecule";

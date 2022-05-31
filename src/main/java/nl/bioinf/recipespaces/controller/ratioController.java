@@ -13,17 +13,17 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.*;
+import java.util.logging.Level;
 
 /**
  * Handles view of ratio
  * Author: Jorick Baron
  */
-
-
-
 @Controller()
 @RequestMapping(path = "ratio")
 public class ratioController {
+
+    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(ratioController.class.getName());
 
     private final IngredientAmountService ingredientAmountService;
     private final RecipeService recipeService;
@@ -58,6 +58,7 @@ public class ratioController {
 
     @GetMapping("/{id}")
     public String showRatio(Model model, @PathVariable("id") Integer id) {
+        logger.log(Level.INFO, "The ratio page of the recipe with id: " + id);
         Recipe recipe = recipeService.getId(id);
         List<IngredientAmount> ingredientAmounts = ingredientAmountService.getIngredientAmountsFromRecipe(id);
         List<Ingredient> ingredients = recipeService.getIngredientsFromRecipe(id);
@@ -75,7 +76,7 @@ public class ratioController {
                                 ingredientMap.put(ing.getTagValue(), words[0] + ing.getTagValue());
                             }
                         }
-                    }else {
+                    } else {
                         ingredientMap.put(ing.getTagValue(), words[0]);
                         break;
                     }
@@ -86,6 +87,7 @@ public class ratioController {
         model.addAttribute("ingredientAmounts", gson.toJson(ingredientMap));
         model.addAttribute("recipeName", recipe.getTagValue());
 
+        logger.log(Level.INFO, "Returning ratio page with convertible ingredient amounts for recipe with id: " + id);
         return "ratios";
     }
 

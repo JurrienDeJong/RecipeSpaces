@@ -8,6 +8,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.logging.Level;
+
 /**
  * Takes care of mailing developers of the app
  * @author Rose Hazenberg
@@ -15,6 +17,8 @@ import org.springframework.web.bind.annotation.*;
 @Controller
 @RequestMapping("contact")
 public class ContactController {
+
+    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(ContactController.class.getName());
 
     @Value("${spring.mail.username}")
     private String username;
@@ -24,6 +28,7 @@ public class ContactController {
 
     @RequestMapping(method = RequestMethod.GET)
     public String contact(ModelMap modelMap) {
+        logger.log(Level.INFO, "Serving the contact page with a Mail model");
         modelMap.put("contact", new Mail());
         return "contact";
     }
@@ -38,7 +43,9 @@ public class ContactController {
             mail.setMailContent(mailInfo.getMailContent());
             mailService.sendEmail(mail);
             modelMap.put("msg", "You're email has been send!");
+            logger.log(Level.INFO, "Setting up the mail and sending");
         } catch (Exception ex) {
+            logger.log(Level.SEVERE, "Something went wrong; cause= " + ex.getCause() + ", message= " + ex.getMessage());
             modelMap.put("msg", "Something went wrong, please try again.");
         }
         return "contact";
