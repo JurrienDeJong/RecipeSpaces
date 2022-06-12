@@ -44,3 +44,24 @@
         </div>
     </div>
 </header>
+
+<footer class="footer-distributed" th:fragment="footer">
+    <div class="space"></div>
+
+    <div class="bg-light py-4">
+        <div class="footer-right">
+            <a th:href="@{https://github.com/JurrienDeJong/RecipeSpaces}"><i class="fa fa-github"></i></a>
+        </div>
+
+        <div class="footer-left">
+            <img class="footer-logo" alt="recipe-spaces-logo" th:src="@{/static/images/RecipeSpaces.png}"/>
+            <p class="footer-links">
+                <a class="link-1" th:href="@{/home}">Home</a>
+                <a th:href="@{/about}">About</a>
+                <a th:href="@{/home}">Faq</a>
+                <a th:href="@{/contact}">Contact</a>
+            </p>
+            <p>&copy; 2022 Recipe Spaces. All rights reserved.</p>
+        </div>
+    </div>
+</footer>

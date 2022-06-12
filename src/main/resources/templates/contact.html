@@ -7,9 +7,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title th:text="#{tab.title.contact}">_offline_</title>
+    <title th:text="Contact">_offline_</title>
     <link th:href="@{/static/css/stylesheet.css}" rel="stylesheet" />
     <link th:href="@{/static/css/stylesheet-contact.css}" rel="stylesheet" />
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 
 <div th:insert="template :: background-contact"></div>
@@ -43,9 +45,10 @@
             </label><br/>
             <textarea name="message" th:field="${contact.mailContent}" id="message" rows="5" required></textarea>
         </div><br/>
-        <button type="submit" id="submit">Send email</button>
+        <button type="submit" id="submit"><i class="fa fa-paper-plane">Send email</i></button>
     </form>
 </div>
+<footer th:insert="template :: footer"></footer>
 </body>
 
 <script>

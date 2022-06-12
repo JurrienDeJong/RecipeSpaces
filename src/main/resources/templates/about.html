@@ -7,26 +7,32 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title th:text="#{tab.title.about}">_offline_</title>
+    <title th:text="About">_offline_</title>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link th:href="@{/static/css/stylesheet.css}" rel="stylesheet" />
 </head>
 
 <div th:insert="template :: background('About Us')"></div>
 
 <body class="portfolio-section">
-    <h3>Do you want to replace ingredient?</h3>
+    <h3>Try new recipes with us</h3>
     <p>
         <br/>
-        Let us help you.
+        Recipe Spaces is a company that optimizes products by providing insight into the effect of changes in the amounts of ingredients.
+        One of our main goals to replace ingredients based on flavors and to visualize the effect of changes.
         <br/>
-        Recipe Spaces is a company that optimizes products by providing insight into the effect of changes in ingredients.
-        One of our main goals is to replace ingredients based on flavors.
+        On our website can recipes and ingredients be searched to the find the best replacement for ingredients based on their flavor.
         <br/>
-        On our website can recipes be searched and ingredients the find the best replacement for ingredients based on their flavor.
+        Besides finding replacements our website also visualizes an ingredient network based on the distances between ingredients.
+        It also visualizes changes in the amount of ingredients by selecting two ingredients by interest.
         <br/>
-        Besides finding replacements our website also visualizes a recipe network based on closely recipes and their differences in the amount of ingredients.
+        On the website there are recipes with multiple variants. For these recipes there is a visualization showing the frequency of ingredients of the multiple recipes.
         <br/>
         Our company provides the best insight into the effect of changes in ingredients.
     </p>
+
+    <footer th:insert="template :: footer"></footer>
+
 </body>
 </html>
