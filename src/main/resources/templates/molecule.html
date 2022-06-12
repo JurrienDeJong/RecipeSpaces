@@ -52,9 +52,7 @@
         </tr>
         </thead>
         <tbody>
-        <tr
-            th:each="ingredient: ${ingredients}">
-<!--            <td class="table-style"><a th:href="@{'/ingredient/' + ${ingredient.getId()}}" th:text="${ingredient.getId()}"></a></td>-->
+        <tr th:each="ingredient: ${ingredients}">
             <td th:text="${ingredient.getTagValue()}"></td>
         </tr>
         </tbody>
