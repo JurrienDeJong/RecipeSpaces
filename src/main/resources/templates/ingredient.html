@@ -4,7 +4,7 @@
     author: Jurriën de Jong (function), Rose Hazenberg (styling), Jorick Baron (fetching information from wikipedia)
 -->
 <html xmlns:th="http://www.thymeleaf.org">
-<title th:text="#{tab.title.ingredient(${ingredient.tagValue})}">_offline_</title>
+<title th:text="'Ingredient ' + ${ingredient.tagValue}">_offline_</title>
 <head>
     <!-- jQuery -->
     <script type="text/javascript"
