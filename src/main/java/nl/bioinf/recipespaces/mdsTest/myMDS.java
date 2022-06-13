@@ -20,14 +20,15 @@ public class myMDS {
         };
         MDS mds = MDS.of(doubles);
 
-        List<Node> nodes = new ArrayList<>();
-        List<Link> links = new ArrayList<>();
+        List<Double> xValues = new ArrayList<>();
+        List<Double> yValues = new ArrayList<>();
 
         for (double[] cord: mds.coordinates) {
-            System.out.println(Arrays.toString(cord));
+            xValues.add(cord[0]);
+            yValues.add(cord[1]);
         }
 
-        RecipeSpace recipeSpace = new RecipeSpace(nodes, links);
+        RecipeSpace recipeSpace = new RecipeSpace(xValues, yValues);
     }
 }
 
