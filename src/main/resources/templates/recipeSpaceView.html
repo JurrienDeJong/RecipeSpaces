@@ -34,7 +34,7 @@
     <input type="hidden" id="name" th:value="${recipeName}">
 
 
-    <svg style="margin-top: 95px; margin-right: 1px"></svg>
+    <svg style="margin-top: 120px; margin-right: 1px"></svg>
     <script src="https://d3js.org/d3.v4.min.js"></script>
     <script>
 
@@ -46,6 +46,7 @@
         fetch(dataURL)
         .then(response => response.json())
         .then(function (data) {
+            console.log(data)
             recipeSpace.trace1.x = data.xValues;
             recipeSpace.trace1.y = data.yValues;
         })
@@ -86,7 +87,7 @@
 
         let layout = {
             width : window.innerWidth * 0.8,
-            height : window.outerHeight * 0.8,
+            height : window.outerHeight * 0.75,
             xaxis: {
                 range: [ 0.75, 5.25 ],
             },
@@ -112,7 +113,6 @@
             Plotly.newPlot('myDiv', data, layout, {modeBarButtonsToRemove: ['autoScale2d']});
         }, 1000);
 
-        const toolbar = document.querySelector("#toolbar");
         const form = document.querySelector("#recipe")
         let rawData = document.querySelector("#data").getAttribute("value");
         const parsedData = JSON.parse(rawData);
@@ -151,7 +151,7 @@
                             <input style="width: 50px" type="number" name="${key}" id="${key}" value="${parseFloat(locData[key])}">
                             ${selectAmount(parsedData[key].toString())}<br>` // makes the form that will be displayed
                 });
-                return printMe + `<input id="altered_recipe" type="submit" value="Analyze recipe">`;
+                return printMe + `<input id="altered_recipe" type="submit" value="Analyse recipe">`;
             }
         }
 
@@ -159,8 +159,23 @@
             e.preventDefault();
             let formData = new FormData(e.target)
             let recipeData = Object.fromEntries(formData)
-            console.log(recipeData)
-            let newRecipe = JSON.stringify(recipeData)
+            for (let recipeDataKey in recipeData) {
+                recipeData[recipeDataKey] = recipeData[recipeDataKey] + " " + selectAmount(parsedData[recipeDataKey].toString())
+            }
+            fetch('/best', {
+                method: 'POST', // or 'PUT'
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(recipeData),
+            })
+                .then(response => response.json())
+                .then(data => {
+                    console.log('Success:', data);
+                })
+                .catch((error) => {
+                    console.error('Error:', error);
+                });
 
         }
 
