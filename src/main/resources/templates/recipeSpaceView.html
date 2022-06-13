@@ -8,12 +8,12 @@
 
 <style>
     body {
-        overflow-y: hidden; /* Hide vertical scrollbar */
         overflow-x: hidden; /* Hide horizontal scrollbar */
+        overflow-y: hidden;
     }
 </style>
 
-<body>
+<body onload="makeForm()">
 
     <div th:insert="template :: navigation-bar"></div>
 
@@ -24,7 +24,14 @@
         </div>
     </div>
 
-    <div id='myDiv' style="margin-top: 120px"><!-- Plotly chart will be drawn inside this DIV --></div>
+    <div id='myDiv' style="margin-top: 7.5%; left: 1%"><!-- Plotly chart will be drawn inside this DIV --></div>
+    <div id="toolbar" style="position: absolute; left: 81%; top: 16%; padding-left: 2%; overflow: auto;
+    background-color: beige; width: 15%; height: 80%">
+        <div style='text-align: center'><b>Alter and Analyze MDS</b></div>
+        <form id="recipe" method="post"></form>
+    </div>
+    <input type="hidden" id="data" th:value="${ingredientAmounts}">
+    <input type="hidden" id="name" th:value="${recipeName}">
 
 
     <svg style="margin-top: 95px; margin-right: 1px"></svg>
@@ -65,9 +72,9 @@
         }
 
 
-        var data = [ recipeSpace.trace1, recipeSpace.trace2 ];
+        let data = [ recipeSpace.trace1, recipeSpace.trace2 ];
 
-        var layout = {
+        let layout = {
             width : window.innerWidth * 0.8,
             height : window.outerHeight * 0.8,
             xaxis: {
@@ -85,7 +92,7 @@
                     color: 'grey',
                 }
             },
-            title:'Recipe Space showcasing [ Insert recipe ]'
+            title:`Recipe Space showcasing ${document.querySelector("#name").getAttribute("value")}`
         };
 
 
@@ -94,6 +101,60 @@
             recipeSpace.trace1.y = [Math.random() * 10, Math.random() * 10]
             Plotly.newPlot('myDiv', data, layout);
         }, 250);
+
+        const toolbar = document.querySelector("#toolbar");
+        const form = document.querySelector("#recipe")
+        let rawData = document.querySelector("#data").getAttribute("value");
+        const parsedData = JSON.parse(rawData);
+
+
+        function selectAmount(amountString) {
+            let unit = amountString.substring(amountString.search(/[A-Z]/i)); // where do letters start to be used
+            if (unit.length === amountString.length) {
+                return ""; // no unit present
+            } else {
+                return unit;
+            }
+        }
+        function makeForm() {
+            form.innerHTML = `${recipe.ingredients(parsedData)}`;
+        }
+
+        let recipe = {
+            /**
+             * Makes a form using ingredient data.
+             * @param locData Ingredient data.
+             * @returns {string} HTML for the form to display.
+             */
+            ingredients: function (locData) {
+                let printMe = ""
+                let containsFraction = new RegExp(/\d+\/\d+/i);
+
+                Object.keys(locData).forEach( key => {
+                    if (containsFraction.test(locData[key])){
+                        let fraction = locData[key].match(containsFraction);
+                        let fractions = fraction.toString().split("/");
+                        locData[key] =  (fractions[0]/fractions[1]).toPrecision(3) + " " +
+                            locData[key].slice(locData[key].search(containsFraction)); // turns 1/4 pound in 0.250 pound
+                    }
+                    printMe += `<label for="amount">amount of ${key} :</label>
+                            <input style="width: 50px" type="number" name="${key}" id="${key}" value="${parseFloat(locData[key])}">
+                            ${selectAmount(parsedData[key].toString())}<br>` // makes the form that will be displayed
+                });
+                return printMe + `<input id="altered_recipe" type="submit" value="Analyze recipe">`;
+            }
+        }
+
+        function newJson(e) {
+            e.preventDefault();
+            let formData = new FormData(e.target)
+            let recipeData = Object.fromEntries(formData)
+            console.log(recipeData)
+            let newRecipe = JSON.stringify(recipeData)
+
+        }
+
+        form.addEventListener("submit", newJson);
 
     </script>
 </body>
