@@ -61,9 +61,9 @@ public class RecipeSpaceController {
             links.add(new Link(node.id(), nodes.get(1).id(), 100));
         }
 
-        RecipeSpace recipeSpace = new RecipeSpace(nodes, links);
-
-        writeToFile(gson, recipeSpace);
+//        RecipeSpace recipeSpace = new RecipeSpace(nodes, links);
+//
+//        writeToFile(gson, recipeSpace);
     }
 
     private void writeToFile(Gson gson, RecipeSpace recipeSpace) {

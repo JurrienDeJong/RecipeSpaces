@@ -56,6 +56,17 @@ body {
 }
 }
 
+/*th,*/
+/*td {*/
+/*    width: 100px;*/
+/*    overflow: hidden;*/
+/*}*/
+
+table {
+    table-layout: fixed;
+    width: 200px;
+}
+
 .navigation {
     padding-top: 3%;
     padding-bottom: 3%;

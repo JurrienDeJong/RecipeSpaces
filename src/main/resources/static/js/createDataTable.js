@@ -1,3 +1,7 @@
+/**
+ * Author : Jurrien de Jong
+ */
+
 function createOuterTable(data){
     let currentIndex = 0;
     let mainTable = "";
@@ -85,13 +89,26 @@ function createInnerReplacementTable(data, index, id){
     let table = "<table class=\"table table-striped\">";
     let header =   "<thead> " +
         "<tr> " +
-        "<th>Ingredient</th>" + " <th title='This percentage shows how similar the molecular patterns are between the 2 ingredients. " +
-        "The top 10 matching ingredients are shown.'>Percentage of Similarity</th> " +
+        "<th>Ingredient</th>" + " <th>Percentage of Similarity</th> " + `<th style="width: 1000px;">
+                                                                            <div class="col-md-12">
+                                                                                <div class="info">
+                                                                                  <i class="icon-info-sign"></i>
+                                                                            
+                                                                                  <span class="extra-info"">
+                                                                                    The percentage as seen 
+                                                                                    below represents the similariy 
+                                                                                    in molecular profile between the 
+                                                                                    2 ingredients. Only the top 10 
+                                                                                    most similar ingredients are shown.
+                                                                                  </span>
+                                                                                </div>
+                                                                            </div>
+                                                                        </th>` +
         "</tr> " +
         "</thead>";
     table += header;
     for (let key in data) {
-        let roundedPercentage = Math.round(data[key] * 100) / 100 + " %";
+        let roundedPercentage = Math.round(data[key]) + " %";
         table += `<tr><td><a href="/ingredient/${id}">${key}</a></td><td>${roundedPercentage}</td><td></td></tr>`;
     }
     table += "</table>";

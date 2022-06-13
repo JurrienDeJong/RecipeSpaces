@@ -42,4 +42,5 @@ public class IngredientAmountService {
     public List<Map<String, Integer>> getCountIngredientForRecipe(String idName) {
         return this.repository.countIngredientForRecipe(idName);
     }
+
 }
