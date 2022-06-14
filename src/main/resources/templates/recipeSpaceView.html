@@ -162,7 +162,7 @@
             for (let recipeDataKey in recipeData) {
                 recipeData[recipeDataKey] = recipeData[recipeDataKey] + " " + selectAmount(parsedData[recipeDataKey].toString())
             }
-            fetch('/best', {
+            fetch('/test', {
                 method: 'POST', // or 'PUT'
                 headers: {
                     'Content-Type': 'application/json',
