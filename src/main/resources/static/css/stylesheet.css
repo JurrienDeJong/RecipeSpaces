@@ -443,3 +443,13 @@ label {
     color: DarkSeaGreen;
     text-decoration: none;
 }
+
+#loading {
+    background: url('../images/pizza.gif') no-repeat center center;
+    background-size: 100px 100px;
+    position: absolute;
+    height: 100%;
+    text-align: center;
+    width: 100%;
+    display: none
+}
