@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <!--
     Displays the recipe and their properties
-    author: Jurriën de Jong (function), Rose Hazenberg (styling)
+    author: Jurriën de Jong (function), Rose Hazenberg (styling, frequency plot (javascript))
 -->
 <html xmlns:th="http://www.thymeleaf.org">
-<title th:text="#{tab.title.recipe(${recipeName})}">_offline_</title>
+<title th:text="'Recipe ' + ${recipeName}">_offline_</title>
 <head>
 
     <link href="https://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
@@ -49,16 +49,25 @@
     <br>
 
     <h1>Ingredients:</h1>
-    <ul>
-        <li th:each="amount:${ingredient_amount}"
-            th:text="${amount.tagValue}"></li>
-    </ul>
+    <div th:each="amount:${ingredient_amount}">
+        <input type="checkbox"/>
+        <label th:text="${amount.tagValue}"></label>
+    </div>
 
-    <h1>   Steps:</h1>
-    <ul>
-        <li th:each="step:${steps}"
-            th:text="${step.tagValue}"></li>
-    </ul>
+
+    <h1>Steps:</h1>
+    <div th:each="step:${steps}">
+        <input type="checkbox"/>
+        <label th:text="${step.tagValue}"></label>
+    </div>
+
+    <div class="space"></div>
+
+    <div id="chart">
+        <canvas id="myChart"></canvas>
+    </div>
+
+    <p id='showData'></p>
 
     <script>
         let currentURL = window.location.href;
@@ -107,10 +116,6 @@
 
         });
     </script>
-
-    <div id="chart">
-        <canvas id="myChart"></canvas>
-    </div>
 
     <script th:inline="javascript">
         let htmlData = [[${ing_frequency}]];
