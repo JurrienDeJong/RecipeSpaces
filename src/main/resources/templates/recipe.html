@@ -49,6 +49,15 @@
     <br>
 
     <h1>Ingredients:</h1>
+    <div class="col-md-12" style="padding-left: 0">
+        <div class="info">
+            <i class="icon-info-sign" style="color: orange"></i>
+            <span class="extra-info">
+                Below there are the ingredients that are needed for the recipe. Here you can check the box if you have the ingredient.
+            </span>
+        </div>
+    </div>
+
     <div th:each="amount:${ingredient_amount}">
         <input type="checkbox"/>
         <label th:text="${amount.tagValue}"></label>
@@ -56,6 +65,15 @@
 
 
     <h1>Steps:</h1>
+    <div class="col-md-12" style="padding-left: 0">
+        <div class="info">
+            <i class="icon-info-sign" style="color: orange"></i>
+            <span class="extra-info">
+                Below there are the steps which you can follow to complete the recipe. Here you can check the box if you completed the step.
+            </span>
+        </div>
+    </div>
+
     <div th:each="step:${steps}">
         <input type="checkbox"/>
         <label th:text="${step.tagValue}"></label>
@@ -66,8 +84,6 @@
     <div id="chart">
         <canvas id="myChart"></canvas>
     </div>
-
-    <p id='showData'></p>
 
     <script>
         let currentURL = window.location.href;

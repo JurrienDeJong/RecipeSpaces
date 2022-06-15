@@ -146,7 +146,8 @@ function frequencyPlotViewer() {
                                                     <div class="info">
                                                         <i class="icon-info-sign" style="color: orange"></i>
                                                             <span class="extra-info">
-                                                                Below there are the recipes which contains ${title}. These are clickable, which brings you to the recipe of ${recipeName} containing ${title}.
+                                                                Below there are the recipes which contain ${title}. These are clickable, which brings you to the recipe of ${recipeName} containing ${title}.
+                                                                <br> In the list below is the ingredient that is clicked colored in orange and the other ingredient below to the recipe which is defined in the button.
                                                             </span>
                                                     </div>
                                                </div>
@@ -171,7 +172,17 @@ function frequencyPlotViewer() {
                             for (let i = 0; i < Object.keys(recipes).length; i++) {
                                 if (Object.keys(recipes)[i] === label) {
                                     for (recipeID of Object.values(recipes)[i].split(",")) {
-                                        innerHTML += `<button class="button-style" onclick="window.open(\'/recipe/${recipeID}\')">` + recipeID + `</button>`
+
+                                        fetchIngredients(recipeID);
+
+                                        innerHTML += `<table>
+                                                        <tr>
+                                                        <td> 
+                                                        <button class="button-style" id="${recipeID}" onclick="window.open(\'/recipe/${recipeID}\')">` + recipeName  + ": " + recipeID + `</button>
+                                                        </td>
+                                                        <ul id="${recipeID}" class="myList"></ul>
+                                                        </tr>
+                                                    </table>`
                                     }
                                 }
                             }
@@ -205,5 +216,33 @@ function frequencyPlotViewer() {
         console.log("There is no plot to show.")
         var elem = document.getElementById("chart");
         elem.parentNode.removeChild(elem);
+    }
+
+    async function fetchIngredients(id) {
+        return await fetch(`/recipe/${id}/ingredients/False`)
+            .then(response => response.json())
+            .then(data => showIngredientsList(data, id))
+            .catch(error => console.log((error)));
+    }
+
+    function showIngredientsList(data, id) {
+        const list  = document.getElementsByClassName('myList');
+        const recipeID = document.getElementById(id).id;
+
+        for (let i = 0; i < list.length; i++) {
+            data.forEach(item => {
+                let li = document.createElement('li');
+                if (list[i].id === recipeID) {
+                    if (item.commonName === label) {
+                        li.innerHTML = `<mark style="background-color: orange; color: black;">${item.commonName}</mark>`;
+                        list[i].appendChild(li);
+                    }
+                    else {
+                        li.innerText = item.commonName;
+                        list[i].appendChild(li);
+                    }
+                }
+            });
+        }
     }
 }

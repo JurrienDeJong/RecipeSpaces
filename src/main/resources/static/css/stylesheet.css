@@ -56,15 +56,8 @@ body {
 }
 }
 
-/*th,*/
-/*td {*/
-/*    width: 100px;*/
-/*    overflow: hidden;*/
-/*}*/
-
 table {
     table-layout: fixed;
-    width: 200px;
 }
 
 .navigation {
@@ -319,7 +312,7 @@ table {
 .info:hover {
     background-color: white;
     padding: 0 0 0 5px;
-    width: 900px;
+    width: 1000px;
     text-align: left !important;
     font-weight: normal;
 }
@@ -343,13 +336,6 @@ label {
 .space {
     margin-top: 50px;
 }
-
-/*input[type='checkbox'] {*/
-/*    accent-color: #3dd5f3;*/
-/*    !*color: #000;*!*/
-/*    !*background-color: #3dd5f3;*!*/
-/*    !*border-color: #25cff2;*!*/
-/*}*/
 
 .footer-distributed {
     background-color: #f2f2f2;
