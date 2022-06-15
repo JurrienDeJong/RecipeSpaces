@@ -45,7 +45,6 @@ public class RecipeController {
     @GetMapping("/{id}")
     public String displayRecipeByID(Model model, @PathVariable("id") Integer id) throws IOException {
         logger.log(Level.INFO, "Retrieving recipe with id: " + id + " without warnings");
-        logger.log(Level.WARNING, "Retrieving can be slow due to the large database");
 
         Recipe recipe = recipeService.getId(id);
         List<Ingredient> ingredients = recipeService.getIngredientsFromRecipe(id);
@@ -83,7 +82,6 @@ public class RecipeController {
     @GetMapping("/multiple/{tagValue}")
     public String displayRecipesWithSameTagValue(Model model, @PathVariable("tagValue") String tagValue) {
         logger.log(Level.INFO, "Retrieving " + tagValue + " which contains multiple recipes without warnings");
-        logger.log(Level.WARNING, "Retrieving can be slow due to the large database");
 
         Map<Integer, List<Ingredient>> recipeData = new HashMap<>();
         List<Recipe> recipes = recipeService.findByExactKeyword(tagValue);
