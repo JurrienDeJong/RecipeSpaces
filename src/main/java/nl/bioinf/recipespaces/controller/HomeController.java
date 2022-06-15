@@ -33,6 +33,11 @@ public class HomeController {
         this.ingredientService = ingredientService;
     }
 
+    @GetMapping("/distance")
+    public String getDistance(){
+        return "distance";
+    }
+
     @GetMapping({"/home", "/", "/index"})
     public String getHome(Model model) {
         logger.log(Level.INFO, "Serving the home page with a Recipe and Ingredient model");
@@ -67,6 +72,8 @@ public class HomeController {
             return "redirect:/error-500";
         }
     }
+
+
 
     @RequestMapping(value = "home/recipeSearchFromKeyword", method = RequestMethod.GET)
     @ResponseBody

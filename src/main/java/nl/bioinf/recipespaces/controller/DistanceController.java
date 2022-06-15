@@ -1,19 +1,20 @@
 package nl.bioinf.recipespaces.controller;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import nl.bioinf.recipespaces.MDS.Create2DMatrix;
-import nl.bioinf.recipespaces.model.Ingredient;
-import nl.bioinf.recipespaces.model.IngredientDistance;
-import nl.bioinf.recipespaces.model.RecipeSpace;
+import nl.bioinf.recipespaces.model.*;
 import nl.bioinf.recipespaces.service.DistanceService;
 import nl.bioinf.recipespaces.service.IngredientService;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.*;
 import org.thymeleaf.util.ArrayUtils;
 import smile.mds.MDS;
 
+import java.lang.reflect.Type;
 import java.util.*;
 
-@Controller
+@RestController
 public class DistanceController {
 
     private final DistanceService distanceService;
@@ -24,16 +25,17 @@ public class DistanceController {
         this.ingredientService = ingredientService;
     }
 
-    @GetMapping("/distance")
-    public String distance(){
-        List<Ingredient> ingredients = ingredientService.getIngredientsFromRecipe(123767);
+    @PostMapping("/distance")
+    public RecipeSpace distance(@RequestBody String id){
+        Gson gson = new Gson();
+        Type type = new TypeToken<HashMap<String, String>>(){}.getType();
+        HashMap<String, String> res = gson.fromJson(id, type);
+        Integer recipeId = Integer.valueOf(res.get("id"));
+        List<Ingredient> ingredients = ingredientService.getIngredientsFromRecipe(recipeId);
         Create2DMatrix matrixObject = new Create2DMatrix(distanceService);
-        double[][] matrix = matrixObject.generateMatrix(ingredients);
+        MdsData data = matrixObject.generateMatrix(ingredients);
 
-        System.out.println(Arrays.deepToString(matrix));
-        System.out.println(matrix.length);
-
-        MDS mds = MDS.of(matrix);
+        MDS mds = MDS.of(data.getMatrix());
 
         List<Double> xValues = new ArrayList<>();
         List<Double> yValues = new ArrayList<>();
@@ -43,10 +45,8 @@ public class DistanceController {
             yValues.add(cord[1]);
         }
 
-        RecipeSpace recipeSpace = new RecipeSpace(xValues, yValues);
-
-        System.out.println(recipeSpace);
-
-        return "distance";
+        return new RecipeSpace(xValues, yValues, data.getIngredientNames());
     }
+
+
 }

@@ -3,6 +3,8 @@
 <meta charset="utf-8">
 <head>
     <script src='https://cdn.plot.ly/plotly-2.11.1.min.js'></script>
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <link th:href="@{/static/css/stylesheet.css}" rel="stylesheet" />
 </head>
 
@@ -24,13 +26,8 @@
         </div>
     </div>
 
+    <div id="loading"></div>
     <div id='myDiv' style="margin-top: 7.5%; left: 1%"><!-- Plotly chart will be drawn inside this DIV --></div>
-    <div id="toolbar" style="position: absolute; left: 81%; top: 16%; padding-left: 2%; overflow: auto;
-    background-color: beige; width: 15%; height: 80%">
-        <div style='text-align: center'><b>Alter and Analyze MDS</b></div>
-        <form id="recipe" method="post"></form>
-    </div>
-    <input type="hidden" id="data" th:value="${ingredientAmounts}">
     <input type="hidden" id="name" th:value="${recipeName}">
 
 
@@ -38,148 +35,71 @@
     <script src="https://d3js.org/d3.v4.min.js"></script>
     <script>
 
-        let width = window.innerWidth * 0.8;
-        let height = window.innerHeight * 0.8;
+        $('#loading').show();
 
-        let dataURL = "recipespace/visualise";
-        console.log(dataURL);
-        fetch(dataURL)
-        .then(response => response.json())
-        .then(function (data) {
-            console.log(data)
-            recipeSpace.trace1.x = data.xValues;
-            recipeSpace.trace1.y = data.yValues;
+        let urlPath = window.location.pathname;
+        fetch('/distance', {
+            method: 'POST', // or 'PUT'
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({'id' : urlPath.split("/")[2]}),
         })
-        .catch(error => console.log(error))
+            .then(response => response.json())
+            .then(
+                function createAndUpdatePlot(data) {
 
+                    let Xmax = Math.max.apply(null, data.xValues);
+                    let Ymax = Math.max.apply(null, data.yValues);
+                    let Xmin = Math.min.apply(null, data.xValues);
+                    let Ymin = Math.min.apply(null, data.yValues);
 
-        let recipeSpace = {
-            trace1 : {
-                x: [0, 0],
-                y: [0, 0],
-                mode: 'markers+text',
-                type: 'scatter',
-                name: 'Team A',
-                text: ['Sydney', 'Adelaide', 'Brisbane', 'Perth'],
-                textposition: 'top center',
-                textfont: {
-                    family:  'Raleway, sans-serif'
-                },
-                marker: { size: 12 }
-            },
-            trace2 : {
-                x: [1.5, 2.5, 3.5, 4.5, 5.5],
-                y: [4, 1, 7, 1, 4],
-                mode: 'markers+text',
-                type: 'scatter',
-                name: 'Team B',
-                text: ['B-a', 'B-b', 'B-c', 'B-d', 'B-e'],
-                textfont : {
-                    family:'Times New Roman'
-                },
-                textposition: 'bottom center',
-                marker: { size: 12 }
-            }
-        }
+                    let layout = {
+                        width : window.innerWidth * 0.95,
+                        height : window.outerHeight * 0.75,
+                        xaxis: {
+                            range: [ Xmin + Xmin * 0.5, Xmax + Xmax * 0.5],
+                        },
+                        yaxis: {
+                            range: [ Ymin + Ymin * 0.5, Ymax + Ymax * 0.5 ],
+                        },
+                        legend: {
+                            y: 0.5,
+                            yref: 'paper',
+                            font: {
+                                family: 'Arial, sans-serif',
+                                size: 20,
+                                color: 'grey',
+                            }
+                        },
+                        title:`Recipe Space showcasing ${document.querySelector("#name").getAttribute("value")}`
+                    };
 
-
-        let data = [ recipeSpace.trace1, recipeSpace.trace2 ];
-
-        let layout = {
-            width : window.innerWidth * 0.8,
-            height : window.outerHeight * 0.75,
-            xaxis: {
-                range: [ 0.75, 5.25 ],
-            },
-            yaxis: {
-                range: [0, 8],
-            },
-            legend: {
-                y: 0.5,
-                yref: 'paper',
-                font: {
-                    family: 'Arial, sans-serif',
-                    size: 20,
-                    color: 'grey',
-                }
-            },
-            title:`Recipe Space showcasing ${document.querySelector("#name").getAttribute("value")}`
-        };
-
-        console.log(recipeSpace.trace1)
-
-        Plotly.newPlot('myDiv', data, layout);
-        setInterval(function() {
-            Plotly.newPlot('myDiv', data, layout, {modeBarButtonsToRemove: ['autoScale2d']});
-        }, 1000);
-
-        const form = document.querySelector("#recipe")
-        let rawData = document.querySelector("#data").getAttribute("value");
-        const parsedData = JSON.parse(rawData);
-
-
-        function selectAmount(amountString) {
-            let unit = amountString.substring(amountString.search(/[A-Z]/i)); // where do letters start to be used
-            if (unit.length === amountString.length) {
-                return ""; // no unit present
-            } else {
-                return unit;
-            }
-        }
-        function makeForm() {
-            form.innerHTML = `${recipe.ingredients(parsedData)}`;
-        }
-
-        let recipe = {
-            /**
-             * Makes a form using ingredient data.
-             * @param locData Ingredient data.
-             * @returns {string} HTML for the form to display.
-             */
-            ingredients: function (locData) {
-                let printMe = ""
-                let containsFraction = new RegExp(/\d+\/\d+/i);
-
-                Object.keys(locData).forEach( key => {
-                    if (containsFraction.test(locData[key])){
-                        let fraction = locData[key].match(containsFraction);
-                        let fractions = fraction.toString().split("/");
-                        locData[key] =  (fractions[0]/fractions[1]).toPrecision(3) + " " +
-                            locData[key].slice(locData[key].search(containsFraction)); // turns 1/4 pound in 0.250 pound
+                    let recipeSpace = {
+                        trace1 : {
+                            x: data.xValues,
+                            y: data.yValues,
+                            mode: 'markers+text',
+                            type: 'scatter',
+                            name: 'Team A',
+                            text: data.ingredientNames,
+                            textposition: 'top center',
+                            textfont: {
+                                family:  'Raleway, sans-serif'
+                            },
+                            marker: { size: 12 }
+                        }
                     }
-                    printMe += `<label for="amount">amount of ${key} :</label>
-                            <input style="width: 50px" type="number" name="${key}" id="${key}" value="${parseFloat(locData[key])}">
-                            ${selectAmount(parsedData[key].toString())}<br>` // makes the form that will be displayed
-                });
-                return printMe + `<input id="altered_recipe" type="submit" value="Analyse recipe">`;
-            }
-        }
 
-        function newJson(e) {
-            e.preventDefault();
-            let formData = new FormData(e.target)
-            let recipeData = Object.fromEntries(formData)
-            for (let recipeDataKey in recipeData) {
-                recipeData[recipeDataKey] = recipeData[recipeDataKey] + " " + selectAmount(parsedData[recipeDataKey].toString())
-            }
-            fetch('/test', {
-                method: 'POST', // or 'PUT'
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(recipeData),
-            })
-                .then(response => response.json())
-                .then(data => {
-                    console.log('Success:', data);
+
+                    let newData = [ recipeSpace.trace1 ];
+
+                    console.log(newData);
+                    Plotly.newPlot('myDiv', newData, layout, {modeBarButtonsToRemove: ['autoScale2d']});
                 })
-                .catch((error) => {
-                    console.error('Error:', error);
-                });
-
-        }
-
-        form.addEventListener("submit", newJson);
+            .catch((error) => {
+                console.error('Error:', error);
+            });
 
     </script>
 </body>
