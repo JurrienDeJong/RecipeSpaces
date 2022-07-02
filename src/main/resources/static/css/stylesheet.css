@@ -437,5 +437,6 @@ label {
     height: 100%;
     text-align: center;
     width: 100%;
-    display: none
+    display: none;
+    top: 300px;
 }
