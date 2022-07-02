@@ -43,7 +43,6 @@ public class MoleculeController {
     @GetMapping("/{id}")
     public String displayMoleculeByID(Model model, @PathVariable("id") Integer id){
         logger.log(Level.INFO, "Retrieving molecule with id: " + id + " without warnings");
-        logger.log(Level.WARNING, "Retrieving can be slow due to the large database");
 
         Molecule molecule = moleculeService.getMolById(id);
         Set<Ingredient> ingredient = moleculeService.getIngredientsFromMolecules(id);

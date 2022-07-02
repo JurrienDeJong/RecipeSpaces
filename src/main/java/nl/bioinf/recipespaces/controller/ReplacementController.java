@@ -80,7 +80,6 @@ public class ReplacementController {
     @ResponseBody
     public List<ReplacementData> getIngredients(@PathVariable("id") Integer id, @PathVariable("all") Boolean allIng){
         logger.log(Level.INFO, "Getting replacement ingredients");
-        logger.log(Level.WARNING, "Retrieving data due to the large processing of all the replacements for a ingredient can be slow");
         List<Ingredient> ingredients;
         if(!allIng){
             ingredients = recipeService.getIngredientsFromRecipe(id);

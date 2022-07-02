@@ -5,7 +5,6 @@ import nl.bioinf.recipespaces.model.Molecule;
 import nl.bioinf.recipespaces.dao.MoleculeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import scala.Int;
 
 import java.util.List;
 import java.util.Set;

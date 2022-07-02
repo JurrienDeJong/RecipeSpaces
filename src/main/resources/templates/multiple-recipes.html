@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <!--
-    Displays the recipe and their properties
+    Displays the all the recipe with the same name and their ingredients
     author: Jurriën de Jong (function), Rose Hazenberg (styling)
 -->
 <html xmlns:th="http://www.thymeleaf.org">
@@ -33,7 +33,7 @@
                     <td></td>
                 </tr>
                 <tr>
-                    <td><a th:href="@{'/recipe/' + ${entry.key}}" th:text="${recipeName} + ' - ' + ${entry.key}"></a></td>
+                    <td><a th:href="@{'/recipe/' + ${entry.key}}" th:text="${recipeName}"></a></td>
                 </tr>
                 <tr th:each="amount : ${entry.value}">
                     <td th:text="${amount.tagValue}"></td>

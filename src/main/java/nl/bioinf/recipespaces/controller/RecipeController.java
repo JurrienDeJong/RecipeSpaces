@@ -97,20 +97,6 @@ public class RecipeController {
             logger.log(Level.SEVERE, "Something went wrong; cause= " + e.getCause() + ", message= " + e.getMessage());
             System.out.println(e.getMessage());
         }
-        return "multipleRecipes";
+        return "multiple-recipes";
     }
-
-    // another class
-//    @GetMapping("search/{recipeID}")
-//    @ResponseBody
-//    public Set<Ingredient> getIngredients(@PathVariable("recipeID") Integer id) throws ResponseStatusException {
-//        try{
-//            return this.recipeService.getIngredientsFromRecipe(id);
-//        } catch(Exception ex){
-//            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
-//        }
-//
-//    }
-
-
 }
