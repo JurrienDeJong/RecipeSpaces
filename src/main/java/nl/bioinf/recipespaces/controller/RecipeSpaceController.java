@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.io.FileWriter;
-import java.io.IOException;
 import java.util.logging.Level;
 
 /**
@@ -36,6 +35,6 @@ public class RecipeSpaceController {
         logger.log(Level.INFO, "Serving the page with the visualization of recipe spaces");
         model.addAttribute("recipeName", recipeService.getId(id).getTagValue());
         model.addAttribute("recipeId", id);
-        return "recipeSpaceView";
+        return "recipe-space-view";
     }
 }

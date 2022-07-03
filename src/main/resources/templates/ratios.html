@@ -7,8 +7,13 @@
 <head>
     <meta charset="UTF-8">
     <title th:text="'adjust ' + ${recipeName}"></title>
+
+    <link th:href="@{/static/css/stylesheet.css}" rel="stylesheet" />
 </head>
-<body onload="makeForm()">
+
+<div th:insert="template :: background(${recipeName})"></div>
+
+<body class="portfolio-section" onload="makeForm()">
     <div th:text="${recipeName}"></div>
     <p id="recipe">
         <form id='recipeForm' method="post">
@@ -16,7 +21,7 @@
         <input type="submit" name="submit" id="submit" value="Change Amounts" >
         </form>
     <p id="message" style="color: red"></p>
-<input type="hidden" id="data" th:value="${ingredientAmounts}">
+<input type="hidden" id="data" th:value="${ingredientAmounts}"/>
 </body>
 </html>
 

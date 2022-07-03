@@ -65,7 +65,7 @@ table {
     position: relative;
 }
 
-.center {
+.center-mds {
     margin: 0;
     position: absolute;
     top: 50%;
@@ -326,7 +326,7 @@ table {
 .info:hover {
     background-color: white;
     padding: 0 0 0 5px;
-    width: 1000px;
+    width: 1500px;
     text-align: left !important;
     font-weight: normal;
 }

@@ -39,8 +39,8 @@
 <div th:insert="template :: background(${recipeName})"></div>
 
 <br>
-<div id="analysis" class="container">
-    <div class="center">
+<div id="analysis" class="container-mds">
+    <div class="center-mds">
         <a style="font-size: 25px;" class="btn btn-info" th:href="@{'/recipespace/' + ${recipeId}}">Analyse Recipe</a>
     </div>
 </div>
@@ -62,6 +62,7 @@
             <i class="icon-info-sign" style="color: orange"></i>
             <span class="extra-info">
                 Below there are the ingredients that are needed for the recipe. Here you can check the box if you have the ingredient.
+                If you want to convert the ingredient amounts based on the amount you like, please click on the button 'convert ingredients' below.
             </span>
         </div>
     </div>
@@ -71,6 +72,11 @@
         <label th:text="${amount.tagValue}"></label>
     </div>
 
+    <br>
+    <div id="conversion" class="container-mds">
+        <a style="font-size: 20px;" class="btn btn-info" th:href="@{'/ratio/' + ${recipeId}}">Convert ingredients</a>
+    </div>
+    <br>
 
     <h1>Steps:</h1>
     <div class="col-md-12" style="padding-left: 0">
