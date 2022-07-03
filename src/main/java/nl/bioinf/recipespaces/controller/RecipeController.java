@@ -98,6 +98,6 @@ public class RecipeController {
             logger.log(Level.SEVERE, "Something went wrong; cause= " + e.getCause() + ", message= " + e.getMessage());
             System.out.println(e.getMessage());
         }
-        return "multipleRecipes";
+        return "multiple-recipes";
     }
 }

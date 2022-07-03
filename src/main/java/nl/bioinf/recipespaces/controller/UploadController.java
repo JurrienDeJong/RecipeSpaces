@@ -69,7 +69,7 @@ public class UploadController {
 
         }
 
-        return "fileUploadView";
+        return "file-upload-view";
     }
 
 

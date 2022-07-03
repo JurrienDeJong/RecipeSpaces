@@ -42,7 +42,7 @@ public class ContactController {
             mail.setMailSubject(mailInfo.getMailSubject());
             mail.setMailContent(mailInfo.getMailContent());
             mailService.sendEmail(mail);
-            modelMap.put("msg", "You're email has been send!");
+            modelMap.put("msg", "The email has been send");
             logger.log(Level.INFO, "Setting up the mail and sending");
         } catch (Exception ex) {
             logger.log(Level.SEVERE, "Something went wrong; cause= " + ex.getCause() + ", message= " + ex.getMessage());
