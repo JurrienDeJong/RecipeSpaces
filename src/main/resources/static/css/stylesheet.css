@@ -59,7 +59,8 @@ body {
 table {
     table-layout: fixed;
 }
-.container {
+
+.container-mds {
     height: 30px;
     position: relative;
 }
@@ -72,7 +73,6 @@ table {
     -ms-transform: translate(-50%, -50%);
     transform: translate(-50%, -50%);
 }
-
 
 .navigation {
     padding-top: 2%;
