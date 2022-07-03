@@ -1,6 +1,5 @@
 package nl.bioinf.recipespaces.controller;
 
-import nl.bioinf.recipespaces.logging.HtmlLogFormatter;
 import nl.bioinf.recipespaces.model.*;
 import nl.bioinf.recipespaces.service.IngredientAmountService;
 import nl.bioinf.recipespaces.service.RecipeService;
@@ -10,9 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.io.IOException;
 import java.util.*;
-import java.util.logging.FileHandler;
 import java.util.logging.Level;
 
 /**
@@ -43,7 +40,7 @@ public class RecipeController {
      * @return html page with a recipe
      */
     @GetMapping("/{id}")
-    public String displayRecipeByID(Model model, @PathVariable("id") Integer id) throws IOException {
+    public String displayRecipeByID(Model model, @PathVariable("id") Integer id) {
         logger.log(Level.INFO, "Retrieving recipe with id: " + id + " without warnings");
 
         Recipe recipe = recipeService.getId(id);
@@ -66,10 +63,6 @@ public class RecipeController {
             logger.log(Level.SEVERE, "Something went wrong; cause= " + e.getCause() + ", message= " + e.getMessage());
             System.out.println(e.getMessage());
         }
-
-        FileHandler fileHandler = new FileHandler("logfile.html", false);
-        fileHandler.setFormatter(new HtmlLogFormatter());
-        logger.addHandler(fileHandler);
 
         return "recipe";
     }

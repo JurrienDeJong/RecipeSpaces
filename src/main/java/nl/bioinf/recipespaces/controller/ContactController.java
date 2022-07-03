@@ -26,6 +26,11 @@ public class ContactController {
     @Autowired
     private MailService mailService;
 
+    /**
+     * This serves the contact page
+     * @param modelMap adds mail object to the model for use in html
+     * @return contact page
+     */
     @RequestMapping(method = RequestMethod.GET)
     public String contact(ModelMap modelMap) {
         logger.log(Level.INFO, "Serving the contact page with a Mail model");
@@ -33,6 +38,12 @@ public class ContactController {
         return "contact";
     }
 
+    /**
+     * Adds all the mail info to send an email and displays message when send
+     * @param mailInfo mail model
+     * @param modelMap to add mail to model for use in html
+     * @return contact page with message the email is send or not
+     */
     @RequestMapping(method = RequestMethod.POST)
     public String send(@ModelAttribute("contact") Mail mailInfo, ModelMap modelMap) {
         try {

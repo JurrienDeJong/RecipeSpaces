@@ -1,8 +1,5 @@
 package nl.bioinf.recipespaces.controller;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import nl.bioinf.recipespaces.model.*;
 import nl.bioinf.recipespaces.service.IngredientAmountService;
 import nl.bioinf.recipespaces.service.RecipeService;
 import org.springframework.stereotype.Controller;
@@ -13,9 +10,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 import java.util.logging.Level;
 
 /**
@@ -38,7 +32,7 @@ public class RecipeSpaceController {
     }
 
     @GetMapping("/{id}")
-    public String spaces(Model model, @PathVariable("id") Integer id) throws IOException {
+    public String spaces(Model model, @PathVariable("id") Integer id) {
         logger.log(Level.INFO, "Serving the page with the visualization of recipe spaces");
         model.addAttribute("recipeName", recipeService.getId(id).getTagValue());
         model.addAttribute("recipeId", id);

@@ -18,7 +18,6 @@ import java.util.logging.Level;
  * Responsible for serving the user the home page
  * @author Jorick Baron
  */
-// /home
 @Controller
 public class HomeController {
 
@@ -33,11 +32,20 @@ public class HomeController {
         this.ingredientService = ingredientService;
     }
 
+    /**
+     * To get distances
+     * @return distance page
+     */
     @GetMapping("/distance")
     public String getDistance(){
         return "distance";
     }
 
+    /**
+     * Add the recipe and ingredient to the model for the home page
+     * @param model to add data for html
+     * @return home page
+     */
     @GetMapping({"/home", "/", "/index"})
     public String getHome(Model model) {
         logger.log(Level.INFO, "Serving the home page with a Recipe and Ingredient model");
@@ -46,9 +54,16 @@ public class HomeController {
         return "home";
     }
 
+    /**
+     * Searches for a recipe or an ingredient based on the option
+     * @param option recipe of ingredient
+     * @param recipe recipe model
+     * @param ingredient ingredient model
+     * @return page with multiple recipe if there are more of one recipe. Recipe page when a recipe is searched.
+     * Ingredient page when an ingredient is searched. Or 500 error page when recipe or ingredient is not found.
+     */
     @RequestMapping(value="/home/search", method = RequestMethod.POST)
     public String submit(@RequestParam("options") String option, Recipe recipe, Ingredient ingredient) {
-        logger.log(Level.WARNING, "Retrieving can be slow due to the large database");
         if (Objects.equals(option, "recipe")) {
             logger.log(Level.INFO, "Fetching " + option + " : " + recipe.getTagValue());
             List<Integer> missingIds = recipeService.missingId(recipe.getTagValue());
@@ -82,7 +97,6 @@ public class HomeController {
     @ResponseBody
     public List<String> getRecipesAutocompleted(@RequestParam(value = "term", defaultValue = "") String term){
         logger.log(Level.INFO, "Returning all of the recipes of " + term);
-        logger.log(Level.WARNING, "Retrieving can be slow due to the large database");
         List<String> allRecipeNames = new ArrayList<>();
         List<Recipe> recipes = recipeService.findByKeyword(term);
         for (Recipe r: recipes){
@@ -99,7 +113,6 @@ public class HomeController {
     @ResponseBody
     public List<String> getIngredientAutocompleted(@RequestParam(value = "term", defaultValue = "") String term){
         logger.log(Level.INFO, "Returning all of the ingredient: " + term);
-        logger.log(Level.WARNING, "Retrieving can be slow due to the large database");
         List<String> allIngredientNames = new ArrayList<>();
         List<Ingredient> ingredients = ingredientService.findByKeyword(term);
         for (Ingredient i: ingredients){

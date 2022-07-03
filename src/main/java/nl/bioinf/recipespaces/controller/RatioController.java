@@ -1,9 +1,5 @@
 package nl.bioinf.recipespaces.controller;
 
-import com.google.gson.Gson;
-import nl.bioinf.recipespaces.model.Ingredient;
-import nl.bioinf.recipespaces.model.IngredientAmount;
-import nl.bioinf.recipespaces.model.Recipe;
 import nl.bioinf.recipespaces.service.IngredientAmountService;
 import nl.bioinf.recipespaces.service.RecipeService;
 import org.springframework.stereotype.Controller;
@@ -12,12 +8,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import java.util.*;
 import java.util.logging.Level;
 
 /**
  * Handles view of ratio
- * @Author: Jorick Baron
+ * @author Jorick Baron
  */
 @Controller()
 @RequestMapping(path = "ratio")

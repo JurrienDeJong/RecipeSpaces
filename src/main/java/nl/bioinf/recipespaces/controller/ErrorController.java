@@ -16,6 +16,11 @@ public class ErrorController implements org.springframework.boot.web.servlet.err
 
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(ErrorController.class.getName());
 
+    /**
+     * Looks a 404 or 500 error and shows the error page to the user
+     * @param request to find error
+     * @return type of error with page
+     */
     @RequestMapping("/error")
     public String handleError(HttpServletRequest request) {
         Object status = request.getAttribute(RequestDispatcher.ERROR_STATUS_CODE);
