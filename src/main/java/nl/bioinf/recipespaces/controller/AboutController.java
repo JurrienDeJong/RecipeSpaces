@@ -1,11 +1,8 @@
 package nl.bioinf.recipespaces.controller;
 
-import nl.bioinf.recipespaces.logging.HtmlLogFormatter;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import java.io.IOException;
-import java.util.logging.FileHandler;
 import java.util.logging.Level;
 
 /**
