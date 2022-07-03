@@ -1,6 +1,6 @@
 package nl.bioinf.recipespaces.service;
 
-import nl.bioinf.recipespaces.upload.CSVReader;
+import nl.bioinf.recipespaces.helperClasses.CSVReader;
 import nl.bioinf.recipespaces.model.IngredientData;
 import nl.bioinf.recipespaces.dao.UploadRepository;
 import org.springframework.beans.factory.annotation.Autowired;

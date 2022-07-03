@@ -1,4 +1,4 @@
-package nl.bioinf.recipespaces.upload;
+package nl.bioinf.recipespaces.helperClasses;
 
 import nl.bioinf.recipespaces.model.Ingredient;
 import nl.bioinf.recipespaces.model.IngredientData;

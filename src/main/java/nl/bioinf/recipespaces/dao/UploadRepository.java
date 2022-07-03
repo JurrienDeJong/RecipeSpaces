@@ -1,5 +1,6 @@
 package nl.bioinf.recipespaces.dao;
 
+import jdk.jfr.Timespan;
 import nl.bioinf.recipespaces.model.Recipe;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
@@ -15,6 +16,8 @@ public interface UploadRepository extends JpaRepository<Recipe, String> {
     @Modifying
     @Query(value = "insert into recipe (tag, tag_value) values ('title', :tagValue)", nativeQuery = true)
     void insertRecipe(@Param("tagValue") String tagValue);
+
+    @Timespan
 
     @Transactional
     @Modifying

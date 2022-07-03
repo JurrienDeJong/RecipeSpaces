@@ -1,10 +1,15 @@
-package nl.bioinf.recipespaces.MDS;
+package nl.bioinf.recipespaces.helperClasses;
 
 import nl.bioinf.recipespaces.model.Unit;
 import nl.bioinf.recipespaces.model.UnitType;
 
 import java.text.DecimalFormat;
 import java.util.*;
+
+/**
+ * Converts units to the metric system. Needs to be added upon.
+ * @author Jurrien de Jong
+ */
 
 public class UnitConverter {
 
@@ -31,6 +36,9 @@ public class UnitConverter {
         units.add(new Unit(Arrays.asList("pound", "lb.", "#"), UnitType.WEIGHT,453.0));
     }
 
+    /**
+     * Converts given units to metric
+     */
     public static String convertUnit(String unitString, Double unitValue){
         int unitIndex = 0;
         double convertedValue = 0;

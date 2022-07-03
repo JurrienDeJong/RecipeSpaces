@@ -20,6 +20,9 @@ public interface DistanceRepository extends JpaRepository<IngredientDistance, St
     @Query(value = "select * from ner_distances where ner_id = :id", nativeQuery = true)
     List<IngredientDistance> ingredientDistancesFromId(@Param("id") Integer id);
 
+    @Query(value = "SELECT DISTINCT i.id, i.tag_value from ner i join recipe_ner rn on i.ID = rn.ner_id join ner_distances nd on i.ID = nd.ner_id where rn.recipe_id = :id", nativeQuery = true)
+    List<IngredientDistance> compareIngredientAgainstAll(@Param("id") Integer id);
+
     @Query(value = "select afstand from ner_distances where ner_id = :id and target = :target", nativeQuery = true)
     Optional<Double> getDistanceFromPair(@Param("id") Integer id, @Param("target") Integer target);
 }

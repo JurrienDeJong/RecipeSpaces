@@ -1,4 +1,4 @@
-package nl.bioinf.recipespaces.MDS;
+package nl.bioinf.recipespaces.helperClasses;
 
 import nl.bioinf.recipespaces.model.Ingredient;
 import nl.bioinf.recipespaces.model.MdsData;
@@ -8,6 +8,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * In order to perform MDS, it needs to be fed with a 2d matrix containing dissimilarity data.
+ * This class creates a MdsData object which then can be used for MDS, obviously.
+ * It needs a list of ingredients to start, and creates a matrix from the distances between the
+ * combination of all of them.
+ * @author Jurriën de Jong
+ */
+
 public class Create2DMatrix {
 
     private final DistanceService distanceService;
@@ -16,15 +24,20 @@ public class Create2DMatrix {
         this.distanceService = distanceService;
     }
 
+    /**
+     * Gets the data in order to put it in the matrix itself.
+     * @author Jurriën de Jong
+     */
     public MdsData generateMatrix(List<Ingredient> ingredients){
         int rowIndex = 0;
         List<String> ingredientNames = new ArrayList<>();
         List<List<Double>> matrixDistances = new ArrayList<>();
-        for (Ingredient ingredient: ingredients) {
-            Integer id = ingredient.getId();
+
+        for (Ingredient ing: ingredients) {
+            Integer id = ing.getId();
             List<Double> rowDistances = new ArrayList<>();
-            for (Ingredient ing : ingredients) {
-                Integer target = ing.getId();
+            for (Ingredient ing2 : ingredients) {
+                Integer target = ing2.getId();
 
                 Optional<Double> distance = distanceService.getDistanceFromPair(id, target);
                 if(distance.isPresent()){
@@ -33,7 +46,7 @@ public class Create2DMatrix {
                 }
             }
             if(rowDistances.size() > 1){
-                ingredientNames.add(ingredient.getTagValue());
+                ingredientNames.add(ing.getTagValue());
                 rowDistances.add(rowIndex, 0.0);
                 matrixDistances.add(rowDistances);
                 rowIndex++;
@@ -46,6 +59,10 @@ public class Create2DMatrix {
         return new MdsData(matrix, ingredientNames);
     }
 
+    /**
+     * static method which creates the 2d matrix double array
+     * @author Jurriën de Jong
+     */
     public static double[][] create2DArrayMatrix(List<List<Double>> a2DListMatrix){
         return a2DListMatrix.stream()
                 .map(l -> l.stream().mapToDouble(Double::doubleValue).toArray())

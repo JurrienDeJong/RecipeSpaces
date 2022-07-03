@@ -2,17 +2,22 @@ package nl.bioinf.recipespaces.controller;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import nl.bioinf.recipespaces.MDS.Create2DMatrix;
+import nl.bioinf.recipespaces.helperClasses.Create2DMatrix;
 import nl.bioinf.recipespaces.model.*;
 import nl.bioinf.recipespaces.service.DistanceService;
 import nl.bioinf.recipespaces.service.IngredientService;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import org.thymeleaf.util.ArrayUtils;
 import smile.mds.MDS;
 
 import java.lang.reflect.Type;
 import java.util.*;
+
+/**
+ * Gets distances between ingredients and serves them to the /distance endpoint.
+ * Also generates the MDS plot using other helper classes.
+ * Returns a recipe space object.
+ * @author Jurrien de Jong
+ */
 
 @RestController
 public class DistanceController {
@@ -31,7 +36,9 @@ public class DistanceController {
         Type type = new TypeToken<HashMap<String, String>>(){}.getType();
         HashMap<String, String> res = gson.fromJson(id, type);
         Integer recipeId = Integer.valueOf(res.get("id"));
-        List<Ingredient> ingredients = ingredientService.getIngredientsFromRecipe(recipeId);
+        List<Ingredient> ingredients;
+        ingredients = distanceService.getIngredientsContainingDistance(recipeId);
+
         Create2DMatrix matrixObject = new Create2DMatrix(distanceService);
         MdsData data = matrixObject.generateMatrix(ingredients);
 

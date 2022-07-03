@@ -19,7 +19,7 @@ import java.util.List;
 import java.util.logging.Level;
 
 /**
- * Displays the about page
+ * Displays the recipe spaces page
  * @author Jurriën de Jong
  */
 @Controller
@@ -40,41 +40,8 @@ public class RecipeSpaceController {
     @GetMapping("/{id}")
     public String spaces(Model model, @PathVariable("id") Integer id) throws IOException {
         logger.log(Level.INFO, "Serving the page with the visualization of recipe spaces");
-        HashMap<String, String> recipeMap = recipeService.parseRecipe(model, id, recipeService, ingredientAmountService);
-
-        createVisualisation(recipeMap);
+        model.addAttribute("recipeName", recipeService.getId(id).getTagValue());
+        model.addAttribute("recipeId", id);
         return "recipeSpaceView";
-    }
-
-    private void createVisualisation(HashMap<String, String> recipeMap) throws IOException {
-        logger.log(Level.INFO, "Creating visualization");
-
-        Gson gson = new GsonBuilder().setPrettyPrinting().create();
-        List<Node> nodes = new ArrayList<>();
-        List<Link> links = new ArrayList<>();
-
-        for (String ingredient : recipeMap.keySet()) {
-            nodes.add(new Node(ingredient, 1));
-        }
-
-        for (Node node : nodes) {
-            links.add(new Link(node.id(), nodes.get(1).id(), 100));
-        }
-
-//        RecipeSpace recipeSpace = new RecipeSpace(nodes, links);
-//
-//        writeToFile(gson, recipeSpace);
-    }
-
-    private void writeToFile(Gson gson, RecipeSpace recipeSpace) {
-        try {
-            FileWriter myWriter = new FileWriter("src/main/resources/static/json/recipespace_original.json");
-            myWriter.write(gson.toJson(recipeSpace));
-            myWriter.close();
-            logger.log(Level.INFO, "Creating json when without error's");
-        } catch (IOException e) {
-            logger.log(Level.SEVERE, "Something went wrong; cause= " + e.getCause() + ", message= " + e.getMessage());
-            e.printStackTrace();
-        }
     }
 }

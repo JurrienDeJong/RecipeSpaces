@@ -54,6 +54,7 @@ public class RecipeController {
         List<Recipe> recipes = recipeService.findByExactKeyword(recipe.getTagValue());
         try{
             model.addAttribute("recipeName", recipe.getTagValue());
+            model.addAttribute("recipeId", recipe.getId());
             model.addAttribute("recipes", recipe);
             model.addAttribute("ingredients", ingredients);
             model.addAttribute("steps", steps);
@@ -99,18 +100,4 @@ public class RecipeController {
         }
         return "multipleRecipes";
     }
-
-    // another class
-//    @GetMapping("search/{recipeID}")
-//    @ResponseBody
-//    public Set<Ingredient> getIngredients(@PathVariable("recipeID") Integer id) throws ResponseStatusException {
-//        try{
-//            return this.recipeService.getIngredientsFromRecipe(id);
-//        } catch(Exception ex){
-//            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
-//        }
-//
-//    }
-
-
 }

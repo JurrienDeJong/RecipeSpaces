@@ -2,6 +2,9 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
 <meta charset="utf-8">
 <head>
+    <title th:text="${recipeName}"></title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     <script src='https://cdn.plot.ly/plotly-2.11.1.min.js'></script>
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
@@ -15,7 +18,7 @@
     }
 </style>
 
-<body onload="makeForm()">
+<body>
 
     <div th:insert="template :: navigation-bar"></div>
 
@@ -26,14 +29,24 @@
         </div>
     </div>
 
-    <div id="loading"></div>
+    <div id="loading">
+        <div id="error">...</div>
+    </div>
+
     <div id='myDiv' style="margin-top: 7.5%; left: 1%"><!-- Plotly chart will be drawn inside this DIV --></div>
     <input type="hidden" id="name" th:value="${recipeName}">
 
+    <br>
+    <div id="analysis" class="container">
+        <div class="center" id="recipeButton"></div>
+    </div>
+    <br>
 
     <svg style="margin-top: 120px; margin-right: 1px"></svg>
     <script src="https://d3js.org/d3.v4.min.js"></script>
     <script>
+
+        let errorDiv = document.querySelector("#error");
 
         $('#loading').show();
 
@@ -43,11 +56,15 @@
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({'id' : urlPath.split("/")[2]}),
+            body: JSON.stringify({'id' : urlPath.split("/")[2], 'distanceType' : 'recipe'}),
         })
             .then(response => response.json())
             .then(
                 function createAndUpdatePlot(data) {
+
+                    let recipeButtonField = document.querySelector("#recipeButton")
+                    let recipeId = [[${recipeId}]];
+                    recipeButtonField.innerHTML = `<a style="font-size: 25px; color: white" class="btn btn-info" href="/recipe/${recipeId}">More information about <span>[[${recipeName}]]</span> </a>`;
 
                     let Xmax = Math.max.apply(null, data.xValues);
                     let Ymax = Math.max.apply(null, data.yValues);
@@ -56,7 +73,7 @@
 
                     let layout = {
                         width : window.innerWidth * 0.95,
-                        height : window.outerHeight * 0.75,
+                        height : window.outerHeight * 0.7,
                         xaxis: {
                             range: [ Xmin + Xmin * 0.5, Xmax + Xmax * 0.5],
                         },
@@ -68,11 +85,11 @@
                             yref: 'paper',
                             font: {
                                 family: 'Arial, sans-serif',
-                                size: 20,
+                                size: 32,
                                 color: 'grey',
                             }
                         },
-                        title:`Recipe Space showcasing ${document.querySelector("#name").getAttribute("value")}`
+                        title:`Recipe Space showcasing ${document.querySelector("#name").getAttribute("value")} `
                     };
 
                     let recipeSpace = {
@@ -81,7 +98,7 @@
                             y: data.yValues,
                             mode: 'markers+text',
                             type: 'scatter',
-                            name: 'Team A',
+                            name: 'MDS',
                             text: data.ingredientNames,
                             textposition: 'top center',
                             textfont: {
@@ -94,11 +111,15 @@
 
                     let newData = [ recipeSpace.trace1 ];
 
-                    console.log(newData);
                     Plotly.newPlot('myDiv', newData, layout, {modeBarButtonsToRemove: ['autoScale2d']});
                 })
-            .catch((error) => {
-                console.error('Error:', error);
+            .catch(error => {
+
+                if(error){
+                    console.log(error);
+                    errorDiv.innerHTML = `<h1>This recipe sadly does not contain ingredient distance data!<br>` +
+                    `Please choose another recipe</h1>` + `<a class="btn btn-info" href="/home">Choose another recipe</a>`
+                }
             });
 
     </script>

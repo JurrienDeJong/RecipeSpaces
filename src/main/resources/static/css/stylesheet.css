@@ -59,10 +59,24 @@ body {
 table {
     table-layout: fixed;
 }
+.container {
+    height: 30px;
+    position: relative;
+}
+
+.center {
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+}
+
 
 .navigation {
-    padding-top: 3%;
-    padding-bottom: 3%;
+    padding-top: 2%;
+    padding-bottom: 1%;
     position: absolute;
     top: 0;
     width: 100%;

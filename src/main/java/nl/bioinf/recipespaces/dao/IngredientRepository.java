@@ -19,6 +19,14 @@ public interface IngredientRepository extends JpaRepository<Ingredient, String> 
     @Query(value = "SELECT DISTINCT i.id, i.tag_value from ner i join recipe_ner rn on i.ID = rn.ner_id where rn.recipe_id = :id", nativeQuery = true)
     List<Ingredient> ingredientsFromRecipe(@Param("id") Integer id);
 
+    @Query(value = "SELECT DISTINCT i.id, i.tag_value from ner i join recipe_ner rn on i.ID = rn.ner_id join ner_distances nd on i.ID = nd.ner_id where rn.recipe_id = :id", nativeQuery = true)
+    List<Ingredient> getIngredientsFromRecipeWithDistanceData(@Param("id") Integer id);
+
+    @Query(value = "SELECT DISTINCT i.id, i.tag_value from ner i join recipe_ner rn on i.ID = rn.ner_id join ner_distances nd on i.ID = nd.ner_id", nativeQuery = true)
+    List<Ingredient> getAllIngredientsFromRecipeWithDistanceData();
+
+
+
     @Query(value = "SELECT DISTINCT * from ner n where n.id = :id", nativeQuery = true)
     Ingredient findIngredientById(@Param("id") Integer id);
 

@@ -5,6 +5,11 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+/**
+ * POJO for the 2d matrix used in MDS.
+ * @author Jurriën de Jong
+ */
+
 @Entity
 @Table(name = "ner_distances")
 public class IngredientDistance {

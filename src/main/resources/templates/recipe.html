@@ -38,6 +38,14 @@
 
 <div th:insert="template :: background(${recipeName})"></div>
 
+<br>
+<div id="analysis" class="container">
+    <div class="center">
+        <a style="font-size: 25px;" class="btn btn-info" th:href="@{'/recipespace/' + ${recipeId}}">Analyse Recipe</a>
+    </div>
+</div>
+<br>
+
 <body class="portfolio-section">
     <div class="col-sm-12">
         <div class="panel panel-default">

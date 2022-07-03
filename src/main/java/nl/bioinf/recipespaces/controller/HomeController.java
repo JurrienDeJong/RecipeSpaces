@@ -74,7 +74,10 @@ public class HomeController {
     }
 
 
-
+    /**
+     * Get recipes autocompleted.
+     * @return all recipenames containing keyword
+     */
     @RequestMapping(value = "home/recipeSearchFromKeyword", method = RequestMethod.GET)
     @ResponseBody
     public List<String> getRecipesAutocompleted(@RequestParam(value = "term", defaultValue = "") String term){
@@ -88,6 +91,10 @@ public class HomeController {
         return allRecipeNames;
     }
 
+    /**
+     * Get ingredients autocompleted.
+     * @return all ingredientnames containing keyword
+     */
     @RequestMapping(value = "home/ingredientSearchFromKeyword", method = RequestMethod.GET)
     @ResponseBody
     public List<String> getIngredientAutocompleted(@RequestParam(value = "term", defaultValue = "") String term){

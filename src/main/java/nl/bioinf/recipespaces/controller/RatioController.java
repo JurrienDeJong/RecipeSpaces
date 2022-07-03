@@ -17,7 +17,7 @@ import java.util.logging.Level;
 
 /**
  * Handles view of ratio
- * Author: Jorick Baron
+ * @Author: Jorick Baron
  */
 @Controller()
 @RequestMapping(path = "ratio")
@@ -37,6 +37,8 @@ public class RatioController {
     public String showRatio(Model model, @PathVariable("id") Integer id) {
         logger.log(Level.INFO, "The ratio page of the recipe with id: " + id);
         recipeService.parseRecipe(model, id, recipeService, ingredientAmountService);
+
+
 
         logger.log(Level.INFO, "Returning ratio page with convertible ingredient amounts for recipe with id: " + id);
         return "ratios";
