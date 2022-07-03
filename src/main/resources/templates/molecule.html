@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <!--
     Displays the molecule and their properties
-    author: Jurriën de Jong (function), Rose Hazenberg (styling)
+    author: Jurriën de Jong (function), Rose Hazenberg (styling, wikipedia information fetch)
 -->
 <html xmlns:th="http://www.thymeleaf.org">
 <title th:text="'Molecule ' + ${molecule.commonName}">_offline_</title>
@@ -44,7 +44,7 @@
     </table>
 
     <br>
-    <h1>Ingredient containing <span th:text="${molecule.getCommonName()}">:</span></h1>
+    <h1>Ingredient containing <span id="moleculeName" th:text="${molecule.getCommonName()}">:</span></h1>
     <table id="ingredients" class="display nowrap">
         <thead>
         <tr>
@@ -57,6 +57,7 @@
         </tr>
         </tbody>
     </table>
+    <div id="wiki"></div>
 
     <script>
         $(document).ready(function() {
@@ -74,6 +75,34 @@
             })
 
         });
+
+        let url = "https://en.wikipedia.org/w/api.php";
+        let wikiArea = document.querySelector("#wiki");
+
+        const params = {
+            action: "query",
+            titles: document.querySelector("#moleculeName").innerText,
+            prop: "extracts",
+            exintro: "True",
+            format: "json"
+        };
+
+
+        url = url + "?origin=*";
+        Object.keys(params).forEach(function(key){url += "&" + key + "=" + params[key];});
+
+        fetch(url)
+            .then(function(response){return response.json();})
+            .then(function(response) {
+                let pages = (response.query.pages);
+                let pageId = Object.keys(pages)[0];
+                if (pageId == -1) {
+                    wikiArea.innerHTML = "";
+                } else {
+                    wikiArea.innerHTML = pages[pageId].extract;
+                }
+            })
+            .catch(function(error){console.log(error);})
     </script>
 </body>
 </html>

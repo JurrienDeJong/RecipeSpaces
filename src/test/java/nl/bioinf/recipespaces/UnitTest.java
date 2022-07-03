@@ -9,6 +9,9 @@ import org.junit.jupiter.api.Test;
 import nl.bioinf.recipespaces.helperClasses.UnitConverter;
 import org.junit.jupiter.api.Test;
 
+/**
+ * author: Jurriën de Jong
+ */
 public class UnitTest {
 
     @Test

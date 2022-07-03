@@ -20,7 +20,8 @@ public class Recipe {
     @Column(name = "tag_value")
     private String tagValue;
 
-    public Recipe(String tagValue) {
+    public Recipe(Integer id, String tagValue) {
+        this.id = id;
         this.tagValue = tagValue;
     }
 
