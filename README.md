@@ -18,17 +18,6 @@ A provided script by Fenna Feenstra to fill the recipe database from the dataset
 * SQLite3
 
 ## Getting Started
-
-[//]: # (//deployed jar)
-
-[//]: # ()
-[//]: # (```{})
-
-[//]: # ()
-[//]: # (java -jar )
-
-[//]: # ()
-[//]: # (```)
 * Clone this project 
 ```{}
 git clone https://github.com/JurrienDeJong/RecipeSpaces.git

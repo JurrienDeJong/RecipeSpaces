@@ -13,7 +13,7 @@ import java.util.List;
 
 /**
  * Reads a multipart csv file given by a user.
- * @Author Jurrien de Jong
+ * author Jurrien de Jong
  */
 
 public class CSVReader {
